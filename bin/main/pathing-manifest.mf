@@ -1,0 +1,494 @@
+Manifest-Version: 1.0
+Class-Path: file:///C:/Users/jonat/AppData/Roaming/.minecraft/librar
+ ies/at/yawk/lz4/lz4-java/1.10.1/lz4-java-1.10.1.jar file:///C:/Users
+ /jonat/AppData/Roaming/.minecraft/libraries/at/yawk/lz4/lz4-java/1.8
+ .1/lz4-java-1.8.1.jar file:///C:/Users/jonat/AppData/Roaming/.minecr
+ aft/libraries/ca/weblite/java-objc-bridge/1.1/java-objc-bridge-1.1.j
+ ar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/com/a
+ zure/azure-json/1.4.0/azure-json-1.4.0.jar file:///C:/Users/jonat/Ap
+ pData/Roaming/.minecraft/libraries/com/electronwill/night-config/cor
+ e/3.7.4/core-3.7.4.jar file:///C:/Users/jonat/AppData/Roaming/.minec
+ raft/libraries/com/electronwill/night-config/toml/3.7.4/toml-3.7.4.j
+ ar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/com/f
+ asterxml/jackson/core/jackson-annotations/2.13.4/jackson-annotations
+ -2.13.4.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/librar
+ ies/com/fasterxml/jackson/core/jackson-core/2.13.4/jackson-core-2.13
+ .4.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/c
+ om/fasterxml/jackson/core/jackson-databind/2.13.4.2/jackson-databind
+ -2.13.4.2.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libr
+ aries/com/github/jponge/lzma-java/1.3/lzma-java-1.3.jar file:///C:/U
+ sers/jonat/AppData/Roaming/.minecraft/libraries/com/github/oshi/oshi
+ -core/6.6.5/oshi-core-6.6.5.jar file:///C:/Users/jonat/AppData/Roami
+ ng/.minecraft/libraries/com/github/oshi/oshi-core/6.9.0/oshi-core-6.
+ 9.0.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/
+ com/github/stephenc/jcip/jcip-annotations/1.0-1/jcip-annotations-1.0
+ -1.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/c
+ om/google/code/gson/gson/2.10.1/gson-2.10.1.jar file:///C:/Users/jon
+ at/AppData/Roaming/.minecraft/libraries/com/google/code/gson/gson/2.
+ 11.0/gson-2.11.0.jar file:///C:/Users/jonat/AppData/Roaming/.minecra
+ ft/libraries/com/google/code/gson/gson/2.13.2/gson-2.13.2.jar file:/
+ //C:/Users/jonat/AppData/Roaming/.minecraft/libraries/com/google/gua
+ va/failureaccess/1.0.1/failureaccess-1.0.1.jar file:///C:/Users/jona
+ t/AppData/Roaming/.minecraft/libraries/com/google/guava/failureacces
+ s/1.0.2/failureaccess-1.0.2.jar file:///C:/Users/jonat/AppData/Roami
+ ng/.minecraft/libraries/com/google/guava/failureaccess/1.0.3/failure
+ access-1.0.3.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/l
+ ibraries/com/google/guava/guava/32.1.2-jre/guava-32.1.2-jre.jar file
+ :///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/com/google/g
+ uava/guava/33.3.1-jre/guava-33.3.1-jre.jar file:///C:/Users/jonat/Ap
+ pData/Roaming/.minecraft/libraries/com/google/guava/guava/33.5.0-jre
+ /guava-33.5.0-jre.jar file:///C:/Users/jonat/AppData/Roaming/.minecr
+ aft/libraries/com/ibm/icu/icu4j/76.1/icu4j-76.1.jar file:///C:/Users
+ /jonat/AppData/Roaming/.minecraft/libraries/com/ibm/icu/icu4j/77.1/i
+ cu4j-77.1.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libr
+ aries/com/microsoft/azure/msal4j/1.17.2/msal4j-1.17.2.jar file:///C:
+ /Users/jonat/AppData/Roaming/.minecraft/libraries/com/microsoft/azur
+ e/msal4j/1.23.1/msal4j-1.23.1.jar file:///C:/Users/jonat/AppData/Roa
+ ming/.minecraft/libraries/com/mojang/authlib/6.0.57/authlib-6.0.57.j
+ ar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/com/m
+ ojang/authlib/6.0.58/authlib-6.0.58.jar file:///C:/Users/jonat/AppDa
+ ta/Roaming/.minecraft/libraries/com/mojang/authlib/7.0.61/authlib-7.
+ 0.61.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries
+ /com/mojang/authlib/7.0.63/authlib-7.0.63.jar file:///C:/Users/jonat
+ /AppData/Roaming/.minecraft/libraries/com/mojang/blocklist/1.0.10/bl
+ ocklist-1.0.10.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft
+ /libraries/com/mojang/brigadier/1.3.10/brigadier-1.3.10.jar file:///
+ C:/Users/jonat/AppData/Roaming/.minecraft/libraries/com/mojang/dataf
+ ixerupper/8.0.16/datafixerupper-8.0.16.jar file:///C:/Users/jonat/Ap
+ pData/Roaming/.minecraft/libraries/com/mojang/datafixerupper/9.0.19/
+ datafixerupper-9.0.19.jar file:///C:/Users/jonat/AppData/Roaming/.mi
+ necraft/libraries/com/mojang/javabridge/2.0.25/javabridge-2.0.25.jar
+  file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/com/moj
+ ang/jtracy/1.0.29/jtracy-1.0.29-natives-linux.jar file:///C:/Users/j
+ onat/AppData/Roaming/.minecraft/libraries/com/mojang/jtracy/1.0.29/j
+ tracy-1.0.29-natives-windows.jar file:///C:/Users/jonat/AppData/Roam
+ ing/.minecraft/libraries/com/mojang/jtracy/1.0.29/jtracy-1.0.29.jar 
+ file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/com/moja
+ ng/jtracy/1.0.37/jtracy-1.0.37-natives-windows.jar file:///C:/Users/
+ jonat/AppData/Roaming/.minecraft/libraries/com/mojang/jtracy/1.0.37/
+ jtracy-1.0.37.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/
+ libraries/com/mojang/logging/1.5.10/logging-1.5.10.jar file:///C:/Us
+ ers/jonat/AppData/Roaming/.minecraft/libraries/com/mojang/logging/1.
+ 6.11/logging-1.6.11.jar file:///C:/Users/jonat/AppData/Roaming/.mine
+ craft/libraries/com/mojang/patchy/2.2.10/patchy-2.2.10.jar file:///C
+ :/Users/jonat/AppData/Roaming/.minecraft/libraries/com/mojang/text2s
+ peech/1.17.9/text2speech-1.17.9.jar file:///C:/Users/jonat/AppData/R
+ oaming/.minecraft/libraries/com/mojang/text2speech/1.18.10/text2spee
+ ch-1.18.10.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/lib
+ raries/com/mojang/text2speech/1.18.11/text2speech-1.18.11.jar file:/
+ //C:/Users/jonat/AppData/Roaming/.minecraft/libraries/com/nimbusds/c
+ ontent-type/2.3/content-type-2.3.jar file:///C:/Users/jonat/AppData/
+ Roaming/.minecraft/libraries/com/nimbusds/lang-tag/1.7/lang-tag-1.7.
+ jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/com/
+ nimbusds/nimbus-jose-jwt/9.40/nimbus-jose-jwt-9.40.jar file:///C:/Us
+ ers/jonat/AppData/Roaming/.minecraft/libraries/com/nimbusds/oauth2-o
+ idc-sdk/11.10/oauth2-oidc-sdk-11.10.jar file:///C:/Users/jonat/AppDa
+ ta/Roaming/.minecraft/libraries/com/nimbusds/oauth2-oidc-sdk/11.18/o
+ auth2-oidc-sdk-11.18.jar file:///C:/Users/jonat/AppData/Roaming/.min
+ ecraft/libraries/com/nothome/javaxdelta/2.0.1/javaxdelta-2.0.1.jar f
+ ile:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/commons-c
+ odec/commons-codec/1.17.1/commons-codec-1.17.1.jar file:///C:/Users/
+ jonat/AppData/Roaming/.minecraft/libraries/commons-codec/commons-cod
+ ec/1.19.0/commons-codec-1.19.0.jar file:///C:/Users/jonat/AppData/Ro
+ aming/.minecraft/libraries/commons-io/commons-io/2.17.0/commons-io-2
+ .17.0.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/librarie
+ s/commons-io/commons-io/2.20.0/commons-io-2.20.0.jar file:///C:/User
+ s/jonat/AppData/Roaming/.minecraft/libraries/commons-logging/commons
+ -logging/1.3.4/commons-logging-1.3.4.jar file:///C:/Users/jonat/AppD
+ ata/Roaming/.minecraft/libraries/de/oceanlabs/mcp/mcp_config/1.21.4-
+ 20241203.143248/mcp_config-1.21.4-20241203.143248-srg2off.jar file:/
+ //C:/Users/jonat/AppData/Roaming/.minecraft/libraries/de/siegmar/fas
+ tcsv/2.2.2/fastcsv-2.2.2.jar file:///C:/Users/jonat/AppData/Roaming/
+ .minecraft/libraries/io/github/douira/glsl-transformer/2.0.0-pre13/g
+ lsl-transformer-2.0.0-pre13.jar file:///C:/Users/jonat/AppData/Roami
+ ng/.minecraft/libraries/io/netty/netty-buffer/4.1.115.Final/netty-bu
+ ffer-4.1.115.Final.jar file:///C:/Users/jonat/AppData/Roaming/.minec
+ raft/libraries/io/netty/netty-buffer/4.1.118.Final/netty-buffer-4.1.
+ 118.Final.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libr
+ aries/io/netty/netty-buffer/4.2.7.Final/netty-buffer-4.2.7.Final.jar
+  file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/io/nett
+ y/netty-codec/4.1.115.Final/netty-codec-4.1.115.Final.jar file:///C:
+ /Users/jonat/AppData/Roaming/.minecraft/libraries/io/netty/netty-cod
+ ec/4.1.118.Final/netty-codec-4.1.118.Final.jar file:///C:/Users/jona
+ t/AppData/Roaming/.minecraft/libraries/io/netty/netty-codec-base/4.2
+ .7.Final/netty-codec-base-4.2.7.Final.jar file:///C:/Users/jonat/App
+ Data/Roaming/.minecraft/libraries/io/netty/netty-codec-compression/4
+ .2.7.Final/netty-codec-compression-4.2.7.Final.jar file:///C:/Users/
+ jonat/AppData/Roaming/.minecraft/libraries/io/netty/netty-codec-http
+ /4.2.7.Final/netty-codec-http-4.2.7.Final.jar file:///C:/Users/jonat
+ /AppData/Roaming/.minecraft/libraries/io/netty/netty-common/4.1.115.
+ Final/netty-common-4.1.115.Final.jar file:///C:/Users/jonat/AppData/
+ Roaming/.minecraft/libraries/io/netty/netty-common/4.1.118.Final/net
+ ty-common-4.1.118.Final.jar file:///C:/Users/jonat/AppData/Roaming/.
+ minecraft/libraries/io/netty/netty-common/4.2.7.Final/netty-common-4
+ .2.7.Final.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/lib
+ raries/io/netty/netty-handler/4.1.115.Final/netty-handler-4.1.115.Fi
+ nal.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/
+ io/netty/netty-handler/4.1.118.Final/netty-handler-4.1.118.Final.jar
+  file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/io/nett
+ y/netty-handler/4.2.7.Final/netty-handler-4.2.7.Final.jar file:///C:
+ /Users/jonat/AppData/Roaming/.minecraft/libraries/io/netty/netty-res
+ olver/4.1.115.Final/netty-resolver-4.1.115.Final.jar file:///C:/User
+ s/jonat/AppData/Roaming/.minecraft/libraries/io/netty/netty-resolver
+ /4.1.118.Final/netty-resolver-4.1.118.Final.jar file:///C:/Users/jon
+ at/AppData/Roaming/.minecraft/libraries/io/netty/netty-resolver/4.2.
+ 7.Final/netty-resolver-4.2.7.Final.jar file:///C:/Users/jonat/AppDat
+ a/Roaming/.minecraft/libraries/io/netty/netty-transport/4.1.115.Fina
+ l/netty-transport-4.1.115.Final.jar file:///C:/Users/jonat/AppData/R
+ oaming/.minecraft/libraries/io/netty/netty-transport/4.1.118.Final/n
+ etty-transport-4.1.118.Final.jar file:///C:/Users/jonat/AppData/Roam
+ ing/.minecraft/libraries/io/netty/netty-transport/4.2.7.Final/netty-
+ transport-4.2.7.Final.jar file:///C:/Users/jonat/AppData/Roaming/.mi
+ necraft/libraries/io/netty/netty-transport-classes-epoll/4.1.115.Fin
+ al/netty-transport-classes-epoll-4.1.115.Final.jar file:///C:/Users/
+ jonat/AppData/Roaming/.minecraft/libraries/io/netty/netty-transport-
+ classes-epoll/4.1.118.Final/netty-transport-classes-epoll-4.1.118.Fi
+ nal.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/
+ io/netty/netty-transport-classes-epoll/4.2.7.Final/netty-transport-c
+ lasses-epoll-4.2.7.Final.jar file:///C:/Users/jonat/AppData/Roaming/
+ .minecraft/libraries/io/netty/netty-transport-classes-kqueue/4.2.7.F
+ inal/netty-transport-classes-kqueue-4.2.7.Final.jar file:///C:/Users
+ /jonat/AppData/Roaming/.minecraft/libraries/io/netty/netty-transport
+ -native-epoll/4.1.118.Final/netty-transport-native-epoll-4.1.118.Fin
+ al.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/i
+ o/netty/netty-transport-native-unix-common/4.1.115.Final/netty-trans
+ port-native-unix-common-4.1.115.Final.jar file:///C:/Users/jonat/App
+ Data/Roaming/.minecraft/libraries/io/netty/netty-transport-native-un
+ ix-common/4.1.118.Final/netty-transport-native-unix-common-4.1.118.F
+ inal.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries
+ /io/netty/netty-transport-native-unix-common/4.2.7.Final/netty-trans
+ port-native-unix-common-4.2.7.Final.jar file:///C:/Users/jonat/AppDa
+ ta/Roaming/.minecraft/libraries/it/unimi/dsi/fastutil/8.5.15/fastuti
+ l-8.5.15.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libra
+ ries/it/unimi/dsi/fastutil/8.5.18/fastutil-8.5.18.jar file:///C:/Use
+ rs/jonat/AppData/Roaming/.minecraft/libraries/net/fabricmc/fabric-lo
+ ader/0.16.14/fabric-loader-0.16.14.jar file:///C:/Users/jonat/AppDat
+ a/Roaming/.minecraft/libraries/net/fabricmc/fabric-loader/0.17.2/fab
+ ric-loader-0.17.2.jar file:///C:/Users/jonat/AppData/Roaming/.minecr
+ aft/libraries/net/fabricmc/fabric-loader/0.18.6/fabric-loader-0.18.6
+ .jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/net
+ /fabricmc/intermediary/1.21.11/intermediary-1.21.11.jar file:///C:/U
+ sers/jonat/AppData/Roaming/.minecraft/libraries/net/fabricmc/interme
+ diary/1.21.5/intermediary-1.21.5.jar file:///C:/Users/jonat/AppData/
+ Roaming/.minecraft/libraries/net/fabricmc/intermediary/1.21.8/interm
+ ediary-1.21.8.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/
+ libraries/net/fabricmc/sponge-mixin/0.15.5+mixin.0.8.7/sponge-mixin-
+ 0.15.5+mixin.0.8.7.jar file:///C:/Users/jonat/AppData/Roaming/.minec
+ raft/libraries/net/fabricmc/sponge-mixin/0.16.3+mixin.0.8.7/sponge-m
+ ixin-0.16.3+mixin.0.8.7.jar file:///C:/Users/jonat/AppData/Roaming/.
+ minecraft/libraries/net/fabricmc/sponge-mixin/0.17.0+mixin.0.8.7/spo
+ nge-mixin-0.17.0+mixin.0.8.7.jar file:///C:/Users/jonat/AppData/Roam
+ ing/.minecraft/libraries/net/java/dev/jna/jna/5.15.0/jna-5.15.0.jar 
+ file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/net/java
+ /dev/jna/jna/5.17.0/jna-5.17.0.jar file:///C:/Users/jonat/AppData/Ro
+ aming/.minecraft/libraries/net/java/dev/jna/jna-platform/5.15.0/jna-
+ platform-5.15.0.jar file:///C:/Users/jonat/AppData/Roaming/.minecraf
+ t/libraries/net/java/dev/jna/jna-platform/5.17.0/jna-platform-5.17.0
+ .jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/net
+ /jodah/typetools/0.6.3/typetools-0.6.3.jar file:///C:/Users/jonat/Ap
+ pData/Roaming/.minecraft/libraries/net/minecraft/client/1.21.4/clien
+ t-1.21.4-official.jar file:///C:/Users/jonat/AppData/Roaming/.minecr
+ aft/libraries/net/minecraftforge/accesstransformers/8.2.2/accesstran
+ sformers-8.2.2.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft
+ /libraries/net/minecraftforge/binarypatcher/1.2.0/binarypatcher-1.2.
+ 0.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/ne
+ t/minecraftforge/bootstrap/2.1.8/bootstrap-2.1.8.jar file:///C:/User
+ s/jonat/AppData/Roaming/.minecraft/libraries/net/minecraftforge/boot
+ strap-api/2.1.8/bootstrap-api-2.1.8.jar file:///C:/Users/jonat/AppDa
+ ta/Roaming/.minecraft/libraries/net/minecraftforge/coremods/5.2.6/co
+ remods-5.2.6.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/l
+ ibraries/net/minecraftforge/eventbus/6.2.27/eventbus-6.2.27.jar file
+ :///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/net/minecraf
+ tforge/fmlcore/1.21.4-54.1.3/fmlcore-1.21.4-54.1.3.jar file:///C:/Us
+ ers/jonat/AppData/Roaming/.minecraft/libraries/net/minecraftforge/fm
+ learlydisplay/1.21.4-54.1.3/fmlearlydisplay-1.21.4-54.1.3.jar file:/
+ //C:/Users/jonat/AppData/Roaming/.minecraft/libraries/net/minecraftf
+ orge/fmlloader/1.21.4-54.1.3/fmlloader-1.21.4-54.1.3.jar file:///C:/
+ Users/jonat/AppData/Roaming/.minecraft/libraries/net/minecraftforge/
+ forge/1.21.4-54.1.3/forge-1.21.4-54.1.3-client.jar file:///C:/Users/
+ jonat/AppData/Roaming/.minecraft/libraries/net/minecraftforge/forge/
+ 1.21.4-54.1.3/forge-1.21.4-54.1.3-shim.jar file:///C:/Users/jonat/Ap
+ pData/Roaming/.minecraft/libraries/net/minecraftforge/forge/1.21.4-5
+ 4.1.3/forge-1.21.4-54.1.3-universal.jar file:///C:/Users/jonat/AppDa
+ ta/Roaming/.minecraft/libraries/net/minecraftforge/ForgeAutoRenaming
+ Tool/1.0.6/ForgeAutoRenamingTool-1.0.6.jar file:///C:/Users/jonat/Ap
+ pData/Roaming/.minecraft/libraries/net/minecraftforge/forgespi/7.1.5
+ /forgespi-7.1.5.jar file:///C:/Users/jonat/AppData/Roaming/.minecraf
+ t/libraries/net/minecraftforge/installertools/1.4.3/installertools-1
+ .4.3.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries
+ /net/minecraftforge/JarJarFileSystems/0.3.26/JarJarFileSystems-0.3.2
+ 6.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/ne
+ t/minecraftforge/JarJarMetadata/0.3.26/JarJarMetadata-0.3.26.jar fil
+ e:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/net/minecra
+ ftforge/JarJarSelector/0.3.26/JarJarSelector-0.3.26.jar file:///C:/U
+ sers/jonat/AppData/Roaming/.minecraft/libraries/net/minecraftforge/j
+ avafmllanguage/1.21.4-54.1.3/javafmllanguage-1.21.4-54.1.3.jar file:
+ ///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/net/minecraft
+ forge/lowcodelanguage/1.21.4-54.1.3/lowcodelanguage-1.21.4-54.1.3.ja
+ r file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/net/mi
+ necraftforge/mclanguage/1.21.4-54.1.3/mclanguage-1.21.4-54.1.3.jar f
+ ile:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/net/minec
+ raftforge/mergetool-api/1.0/mergetool-api-1.0.jar file:///C:/Users/j
+ onat/AppData/Roaming/.minecraft/libraries/net/minecraftforge/modlaun
+ cher/10.2.4/modlauncher-10.2.4.jar file:///C:/Users/jonat/AppData/Ro
+ aming/.minecraft/libraries/net/minecraftforge/securemodules/2.2.21/s
+ ecuremodules-2.2.21.jar file:///C:/Users/jonat/AppData/Roaming/.mine
+ craft/libraries/net/minecraftforge/srgutils/0.5.1/srgutils-0.5.1.jar
+  file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/net/min
+ ecraftforge/srgutils/0.5.10/srgutils-0.5.10.jar file:///C:/Users/jon
+ at/AppData/Roaming/.minecraft/libraries/net/minecraftforge/srgutils/
+ 0.5.6/srgutils-0.5.6.jar file:///C:/Users/jonat/AppData/Roaming/.min
+ ecraft/libraries/net/minecraftforge/unsafe/0.9.2/unsafe-0.9.2.jar fi
+ le:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/net/minecr
+ ell/terminalconsoleappender/1.2.0/terminalconsoleappender-1.2.0.jar 
+ file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/net/mini
+ dev/accessors-smart/2.5.1/accessors-smart-2.5.1.jar file:///C:/Users
+ /jonat/AppData/Roaming/.minecraft/libraries/net/minidev/json-smart/2
+ .5.1/json-smart-2.5.1.jar file:///C:/Users/jonat/AppData/Roaming/.mi
+ necraft/libraries/net/sf/jopt-simple/jopt-simple/5.0.4/jopt-simple-5
+ .0.4.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries
+ /net/sf/jopt-simple/jopt-simple/6.0-alpha-3/jopt-simple-6.0-alpha-3.
+ jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/org/
+ antlr/antlr4/4.11.1/antlr4-4.11.1.jar file:///C:/Users/jonat/AppData
+ /Roaming/.minecraft/libraries/org/antlr/antlr4-runtime/4.11.1/antlr4
+ -runtime-4.11.1.jar file:///C:/Users/jonat/AppData/Roaming/.minecraf
+ t/libraries/org/apache/commons/commons-compress/1.27.1/commons-compr
+ ess-1.27.1.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/lib
+ raries/org/apache/commons/commons-compress/1.28.0/commons-compress-1
+ .28.0.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/librarie
+ s/org/apache/commons/commons-lang3/3.17.0/commons-lang3-3.17.0.jar f
+ ile:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/org/apach
+ e/commons/commons-lang3/3.19.0/commons-lang3-3.19.0.jar file:///C:/U
+ sers/jonat/AppData/Roaming/.minecraft/libraries/org/apache/httpcompo
+ nents/httpclient/4.5.13/httpclient-4.5.13.jar file:///C:/Users/jonat
+ /AppData/Roaming/.minecraft/libraries/org/apache/httpcomponents/http
+ client/4.5.14/httpclient-4.5.14.jar file:///C:/Users/jonat/AppData/R
+ oaming/.minecraft/libraries/org/apache/httpcomponents/httpcore/4.4.1
+ 6/httpcore-4.4.16.jar file:///C:/Users/jonat/AppData/Roaming/.minecr
+ aft/libraries/org/apache/logging/log4j/log4j-api/2.24.1/log4j-api-2.
+ 24.1.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries
+ /org/apache/logging/log4j/log4j-api/2.25.2/log4j-api-2.25.2.jar file
+ :///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/org/apache/l
+ ogging/log4j/log4j-core/2.24.1/log4j-core-2.24.1.jar file:///C:/User
+ s/jonat/AppData/Roaming/.minecraft/libraries/org/apache/logging/log4
+ j/log4j-core/2.25.2/log4j-core-2.25.2.jar file:///C:/Users/jonat/App
+ Data/Roaming/.minecraft/libraries/org/apache/logging/log4j/log4j-slf
+ 4j2-impl/2.24.1/log4j-slf4j2-impl-2.24.1.jar file:///C:/Users/jonat/
+ AppData/Roaming/.minecraft/libraries/org/apache/logging/log4j/log4j-
+ slf4j2-impl/2.25.2/log4j-slf4j2-impl-2.25.2.jar file:///C:/Users/jon
+ at/AppData/Roaming/.minecraft/libraries/org/apache/maven/maven-artif
+ act/3.8.8/maven-artifact-3.8.8.jar file:///C:/Users/jonat/AppData/Ro
+ aming/.minecraft/libraries/org/jcraft/jorbis/0.0.17/jorbis-0.0.17.ja
+ r file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/org/jl
+ ine/jline-reader/3.25.1/jline-reader-3.25.1.jar file:///C:/Users/jon
+ at/AppData/Roaming/.minecraft/libraries/org/jline/jline-terminal/3.2
+ 5.1/jline-terminal-3.25.1.jar file:///C:/Users/jonat/AppData/Roaming
+ /.minecraft/libraries/org/jline/jline-terminal-jna/3.25.1/jline-term
+ inal-jna-3.25.1.jar file:///C:/Users/jonat/AppData/Roaming/.minecraf
+ t/libraries/org/joml/joml/1.10.8/joml-1.10.8.jar file:///C:/Users/jo
+ nat/AppData/Roaming/.minecraft/libraries/org/jspecify/jspecify/1.0.0
+ /jspecify-1.0.0.jar file:///C:/Users/jonat/AppData/Roaming/.minecraf
+ t/libraries/org/lwjgl/lwjgl/3.3.3/lwjgl-3.3.3-natives-linux.jar file
+ :///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/org/lwjgl/lw
+ jgl/3.3.3/lwjgl-3.3.3-natives-macos-arm64.jar file:///C:/Users/jonat
+ /AppData/Roaming/.minecraft/libraries/org/lwjgl/lwjgl/3.3.3/lwjgl-3.
+ 3.3-natives-macos.jar file:///C:/Users/jonat/AppData/Roaming/.minecr
+ aft/libraries/org/lwjgl/lwjgl/3.3.3/lwjgl-3.3.3-natives-windows-arm6
+ 4.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/or
+ g/lwjgl/lwjgl/3.3.3/lwjgl-3.3.3-natives-windows-x86.jar file:///C:/U
+ sers/jonat/AppData/Roaming/.minecraft/libraries/org/lwjgl/lwjgl/3.3.
+ 3/lwjgl-3.3.3-natives-windows.jar file:///C:/Users/jonat/AppData/Roa
+ ming/.minecraft/libraries/org/lwjgl/lwjgl/3.3.3/lwjgl-3.3.3.jar file
+ :///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/org/lwjgl/lw
+ jgl/3.4.1/lwjgl-3.4.1-natives-windows-arm64.jar file:///C:/Users/jon
+ at/AppData/Roaming/.minecraft/libraries/org/lwjgl/lwjgl/3.4.1/lwjgl-
+ 3.4.1-natives-windows-x86.jar file:///C:/Users/jonat/AppData/Roaming
+ /.minecraft/libraries/org/lwjgl/lwjgl/3.4.1/lwjgl-3.4.1-natives-wind
+ ows.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/
+ org/lwjgl/lwjgl/3.4.1/lwjgl-3.4.1.jar file:///C:/Users/jonat/AppData
+ /Roaming/.minecraft/libraries/org/lwjgl/lwjgl-freetype/3.3.3/lwjgl-f
+ reetype-3.3.3-natives-linux.jar file:///C:/Users/jonat/AppData/Roami
+ ng/.minecraft/libraries/org/lwjgl/lwjgl-freetype/3.3.3/lwjgl-freetyp
+ e-3.3.3-natives-macos-arm64.jar file:///C:/Users/jonat/AppData/Roami
+ ng/.minecraft/libraries/org/lwjgl/lwjgl-freetype/3.3.3/lwjgl-freetyp
+ e-3.3.3-natives-macos.jar file:///C:/Users/jonat/AppData/Roaming/.mi
+ necraft/libraries/org/lwjgl/lwjgl-freetype/3.3.3/lwjgl-freetype-3.3.
+ 3-natives-windows-arm64.jar file:///C:/Users/jonat/AppData/Roaming/.
+ minecraft/libraries/org/lwjgl/lwjgl-freetype/3.3.3/lwjgl-freetype-3.
+ 3.3-natives-windows-x86.jar file:///C:/Users/jonat/AppData/Roaming/.
+ minecraft/libraries/org/lwjgl/lwjgl-freetype/3.3.3/lwjgl-freetype-3.
+ 3.3-natives-windows.jar file:///C:/Users/jonat/AppData/Roaming/.mine
+ craft/libraries/org/lwjgl/lwjgl-freetype/3.3.3/lwjgl-freetype-3.3.3.
+ jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/org/
+ lwjgl/lwjgl-freetype/3.4.1/lwjgl-freetype-3.4.1-natives-windows-arm6
+ 4.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/or
+ g/lwjgl/lwjgl-freetype/3.4.1/lwjgl-freetype-3.4.1-natives-windows-x8
+ 6.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/or
+ g/lwjgl/lwjgl-freetype/3.4.1/lwjgl-freetype-3.4.1-natives-windows.ja
+ r file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/org/lw
+ jgl/lwjgl-freetype/3.4.1/lwjgl-freetype-3.4.1.jar file:///C:/Users/j
+ onat/AppData/Roaming/.minecraft/libraries/org/lwjgl/lwjgl-glfw/3.3.3
+ /lwjgl-glfw-3.3.3-natives-linux.jar file:///C:/Users/jonat/AppData/R
+ oaming/.minecraft/libraries/org/lwjgl/lwjgl-glfw/3.3.3/lwjgl-glfw-3.
+ 3.3-natives-macos-arm64.jar file:///C:/Users/jonat/AppData/Roaming/.
+ minecraft/libraries/org/lwjgl/lwjgl-glfw/3.3.3/lwjgl-glfw-3.3.3-nati
+ ves-macos.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libr
+ aries/org/lwjgl/lwjgl-glfw/3.3.3/lwjgl-glfw-3.3.3-natives-windows-ar
+ m64.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/
+ org/lwjgl/lwjgl-glfw/3.3.3/lwjgl-glfw-3.3.3-natives-windows-x86.jar 
+ file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/org/lwjg
+ l/lwjgl-glfw/3.3.3/lwjgl-glfw-3.3.3-natives-windows.jar file:///C:/U
+ sers/jonat/AppData/Roaming/.minecraft/libraries/org/lwjgl/lwjgl-glfw
+ /3.3.3/lwjgl-glfw-3.3.3.jar file:///C:/Users/jonat/AppData/Roaming/.
+ minecraft/libraries/org/lwjgl/lwjgl-glfw/3.4.1/lwjgl-glfw-3.4.1-nati
+ ves-windows-arm64.jar file:///C:/Users/jonat/AppData/Roaming/.minecr
+ aft/libraries/org/lwjgl/lwjgl-glfw/3.4.1/lwjgl-glfw-3.4.1-natives-wi
+ ndows-x86.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libr
+ aries/org/lwjgl/lwjgl-glfw/3.4.1/lwjgl-glfw-3.4.1-natives-windows.ja
+ r file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/org/lw
+ jgl/lwjgl-glfw/3.4.1/lwjgl-glfw-3.4.1.jar file:///C:/Users/jonat/App
+ Data/Roaming/.minecraft/libraries/org/lwjgl/lwjgl-jemalloc/3.3.3/lwj
+ gl-jemalloc-3.3.3-natives-linux.jar file:///C:/Users/jonat/AppData/R
+ oaming/.minecraft/libraries/org/lwjgl/lwjgl-jemalloc/3.3.3/lwjgl-jem
+ alloc-3.3.3-natives-macos-arm64.jar file:///C:/Users/jonat/AppData/R
+ oaming/.minecraft/libraries/org/lwjgl/lwjgl-jemalloc/3.3.3/lwjgl-jem
+ alloc-3.3.3-natives-macos.jar file:///C:/Users/jonat/AppData/Roaming
+ /.minecraft/libraries/org/lwjgl/lwjgl-jemalloc/3.3.3/lwjgl-jemalloc-
+ 3.3.3-natives-windows-arm64.jar file:///C:/Users/jonat/AppData/Roami
+ ng/.minecraft/libraries/org/lwjgl/lwjgl-jemalloc/3.3.3/lwjgl-jemallo
+ c-3.3.3-natives-windows-x86.jar file:///C:/Users/jonat/AppData/Roami
+ ng/.minecraft/libraries/org/lwjgl/lwjgl-jemalloc/3.3.3/lwjgl-jemallo
+ c-3.3.3-natives-windows.jar file:///C:/Users/jonat/AppData/Roaming/.
+ minecraft/libraries/org/lwjgl/lwjgl-jemalloc/3.3.3/lwjgl-jemalloc-3.
+ 3.3.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/
+ org/lwjgl/lwjgl-jemalloc/3.4.1/lwjgl-jemalloc-3.4.1-natives-windows-
+ arm64.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/librarie
+ s/org/lwjgl/lwjgl-jemalloc/3.4.1/lwjgl-jemalloc-3.4.1-natives-window
+ s-x86.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/librarie
+ s/org/lwjgl/lwjgl-jemalloc/3.4.1/lwjgl-jemalloc-3.4.1-natives-window
+ s.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/or
+ g/lwjgl/lwjgl-jemalloc/3.4.1/lwjgl-jemalloc-3.4.1.jar file:///C:/Use
+ rs/jonat/AppData/Roaming/.minecraft/libraries/org/lwjgl/lwjgl-openal
+ /3.3.3/lwjgl-openal-3.3.3-natives-linux.jar file:///C:/Users/jonat/A
+ ppData/Roaming/.minecraft/libraries/org/lwjgl/lwjgl-openal/3.3.3/lwj
+ gl-openal-3.3.3-natives-macos-arm64.jar file:///C:/Users/jonat/AppDa
+ ta/Roaming/.minecraft/libraries/org/lwjgl/lwjgl-openal/3.3.3/lwjgl-o
+ penal-3.3.3-natives-macos.jar file:///C:/Users/jonat/AppData/Roaming
+ /.minecraft/libraries/org/lwjgl/lwjgl-openal/3.3.3/lwjgl-openal-3.3.
+ 3-natives-windows-arm64.jar file:///C:/Users/jonat/AppData/Roaming/.
+ minecraft/libraries/org/lwjgl/lwjgl-openal/3.3.3/lwjgl-openal-3.3.3-
+ natives-windows-x86.jar file:///C:/Users/jonat/AppData/Roaming/.mine
+ craft/libraries/org/lwjgl/lwjgl-openal/3.3.3/lwjgl-openal-3.3.3-nati
+ ves-windows.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/li
+ braries/org/lwjgl/lwjgl-openal/3.3.3/lwjgl-openal-3.3.3.jar file:///
+ C:/Users/jonat/AppData/Roaming/.minecraft/libraries/org/lwjgl/lwjgl-
+ openal/3.4.1/lwjgl-openal-3.4.1-natives-windows-arm64.jar file:///C:
+ /Users/jonat/AppData/Roaming/.minecraft/libraries/org/lwjgl/lwjgl-op
+ enal/3.4.1/lwjgl-openal-3.4.1-natives-windows-x86.jar file:///C:/Use
+ rs/jonat/AppData/Roaming/.minecraft/libraries/org/lwjgl/lwjgl-openal
+ /3.4.1/lwjgl-openal-3.4.1-natives-windows.jar file:///C:/Users/jonat
+ /AppData/Roaming/.minecraft/libraries/org/lwjgl/lwjgl-openal/3.4.1/l
+ wjgl-openal-3.4.1.jar file:///C:/Users/jonat/AppData/Roaming/.minecr
+ aft/libraries/org/lwjgl/lwjgl-opengl/3.3.3/lwjgl-opengl-3.3.3-native
+ s-linux.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/librar
+ ies/org/lwjgl/lwjgl-opengl/3.3.3/lwjgl-opengl-3.3.3-natives-macos-ar
+ m64.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/
+ org/lwjgl/lwjgl-opengl/3.3.3/lwjgl-opengl-3.3.3-natives-macos.jar fi
+ le:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/org/lwjgl/
+ lwjgl-opengl/3.3.3/lwjgl-opengl-3.3.3-natives-windows-arm64.jar file
+ :///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/org/lwjgl/lw
+ jgl-opengl/3.3.3/lwjgl-opengl-3.3.3-natives-windows-x86.jar file:///
+ C:/Users/jonat/AppData/Roaming/.minecraft/libraries/org/lwjgl/lwjgl-
+ opengl/3.3.3/lwjgl-opengl-3.3.3-natives-windows.jar file:///C:/Users
+ /jonat/AppData/Roaming/.minecraft/libraries/org/lwjgl/lwjgl-opengl/3
+ .3.3/lwjgl-opengl-3.3.3.jar file:///C:/Users/jonat/AppData/Roaming/.
+ minecraft/libraries/org/lwjgl/lwjgl-opengl/3.4.1/lwjgl-opengl-3.4.1-
+ natives-windows-arm64.jar file:///C:/Users/jonat/AppData/Roaming/.mi
+ necraft/libraries/org/lwjgl/lwjgl-opengl/3.4.1/lwjgl-opengl-3.4.1-na
+ tives-windows-x86.jar file:///C:/Users/jonat/AppData/Roaming/.minecr
+ aft/libraries/org/lwjgl/lwjgl-opengl/3.4.1/lwjgl-opengl-3.4.1-native
+ s-windows.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libr
+ aries/org/lwjgl/lwjgl-opengl/3.4.1/lwjgl-opengl-3.4.1.jar file:///C:
+ /Users/jonat/AppData/Roaming/.minecraft/libraries/org/lwjgl/lwjgl-st
+ b/3.3.3/lwjgl-stb-3.3.3-natives-linux.jar file:///C:/Users/jonat/App
+ Data/Roaming/.minecraft/libraries/org/lwjgl/lwjgl-stb/3.3.3/lwjgl-st
+ b-3.3.3-natives-macos-arm64.jar file:///C:/Users/jonat/AppData/Roami
+ ng/.minecraft/libraries/org/lwjgl/lwjgl-stb/3.3.3/lwjgl-stb-3.3.3-na
+ tives-macos.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/li
+ braries/org/lwjgl/lwjgl-stb/3.3.3/lwjgl-stb-3.3.3-natives-windows-ar
+ m64.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/
+ org/lwjgl/lwjgl-stb/3.3.3/lwjgl-stb-3.3.3-natives-windows-x86.jar fi
+ le:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/org/lwjgl/
+ lwjgl-stb/3.3.3/lwjgl-stb-3.3.3-natives-windows.jar file:///C:/Users
+ /jonat/AppData/Roaming/.minecraft/libraries/org/lwjgl/lwjgl-stb/3.3.
+ 3/lwjgl-stb-3.3.3.jar file:///C:/Users/jonat/AppData/Roaming/.minecr
+ aft/libraries/org/lwjgl/lwjgl-stb/3.4.1/lwjgl-stb-3.4.1-natives-wind
+ ows-arm64.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libr
+ aries/org/lwjgl/lwjgl-stb/3.4.1/lwjgl-stb-3.4.1-natives-windows-x86.
+ jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/org/
+ lwjgl/lwjgl-stb/3.4.1/lwjgl-stb-3.4.1-natives-windows.jar file:///C:
+ /Users/jonat/AppData/Roaming/.minecraft/libraries/org/lwjgl/lwjgl-st
+ b/3.4.1/lwjgl-stb-3.4.1.jar file:///C:/Users/jonat/AppData/Roaming/.
+ minecraft/libraries/org/lwjgl/lwjgl-tinyfd/3.3.3/lwjgl-tinyfd-3.3.3-
+ natives-linux.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/
+ libraries/org/lwjgl/lwjgl-tinyfd/3.3.3/lwjgl-tinyfd-3.3.3-natives-ma
+ cos-arm64.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libr
+ aries/org/lwjgl/lwjgl-tinyfd/3.3.3/lwjgl-tinyfd-3.3.3-natives-macos.
+ jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/org/
+ lwjgl/lwjgl-tinyfd/3.3.3/lwjgl-tinyfd-3.3.3-natives-windows-arm64.ja
+ r file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/org/lw
+ jgl/lwjgl-tinyfd/3.3.3/lwjgl-tinyfd-3.3.3-natives-windows-x86.jar fi
+ le:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/org/lwjgl/
+ lwjgl-tinyfd/3.3.3/lwjgl-tinyfd-3.3.3-natives-windows.jar file:///C:
+ /Users/jonat/AppData/Roaming/.minecraft/libraries/org/lwjgl/lwjgl-ti
+ nyfd/3.3.3/lwjgl-tinyfd-3.3.3.jar file:///C:/Users/jonat/AppData/Roa
+ ming/.minecraft/libraries/org/lwjgl/lwjgl-tinyfd/3.4.1/lwjgl-tinyfd-
+ 3.4.1-natives-windows-arm64.jar file:///C:/Users/jonat/AppData/Roami
+ ng/.minecraft/libraries/org/lwjgl/lwjgl-tinyfd/3.4.1/lwjgl-tinyfd-3.
+ 4.1-natives-windows-x86.jar file:///C:/Users/jonat/AppData/Roaming/.
+ minecraft/libraries/org/lwjgl/lwjgl-tinyfd/3.4.1/lwjgl-tinyfd-3.4.1-
+ natives-windows.jar file:///C:/Users/jonat/AppData/Roaming/.minecraf
+ t/libraries/org/lwjgl/lwjgl-tinyfd/3.4.1/lwjgl-tinyfd-3.4.1.jar file
+ :///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/org/lz4/lz4-
+ java/1.8.0/lz4-java-1.8.0.jar file:///C:/Users/jonat/AppData/Roaming
+ /.minecraft/libraries/org/openjdk/nashorn/nashorn-core/15.4/nashorn-
+ core-15.4.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libr
+ aries/org/ow2/asm/asm/9.5/asm-9.5.jar file:///C:/Users/jonat/AppData
+ /Roaming/.minecraft/libraries/org/ow2/asm/asm/9.6/asm-9.6.jar file:/
+ //C:/Users/jonat/AppData/Roaming/.minecraft/libraries/org/ow2/asm/as
+ m/9.7/asm-9.7.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/
+ libraries/org/ow2/asm/asm/9.7.1/asm-9.7.1.jar file:///C:/Users/jonat
+ /AppData/Roaming/.minecraft/libraries/org/ow2/asm/asm/9.8/asm-9.8.ja
+ r file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/org/ow
+ 2/asm/asm/9.9/asm-9.9.jar file:///C:/Users/jonat/AppData/Roaming/.mi
+ necraft/libraries/org/ow2/asm/asm-analysis/9.7.1/asm-analysis-9.7.1.
+ jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/org/
+ ow2/asm/asm-analysis/9.8/asm-analysis-9.8.jar file:///C:/Users/jonat
+ /AppData/Roaming/.minecraft/libraries/org/ow2/asm/asm-analysis/9.9/a
+ sm-analysis-9.9.jar file:///C:/Users/jonat/AppData/Roaming/.minecraf
+ t/libraries/org/ow2/asm/asm-commons/9.5/asm-commons-9.5.jar file:///
+ C:/Users/jonat/AppData/Roaming/.minecraft/libraries/org/ow2/asm/asm-
+ commons/9.7/asm-commons-9.7.jar file:///C:/Users/jonat/AppData/Roami
+ ng/.minecraft/libraries/org/ow2/asm/asm-commons/9.7.1/asm-commons-9.
+ 7.1.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/
+ org/ow2/asm/asm-commons/9.8/asm-commons-9.8.jar file:///C:/Users/jon
+ at/AppData/Roaming/.minecraft/libraries/org/ow2/asm/asm-commons/9.9/
+ asm-commons-9.9.jar file:///C:/Users/jonat/AppData/Roaming/.minecraf
+ t/libraries/org/ow2/asm/asm-tree/9.5/asm-tree-9.5.jar file:///C:/Use
+ rs/jonat/AppData/Roaming/.minecraft/libraries/org/ow2/asm/asm-tree/9
+ .7/asm-tree-9.7.jar file:///C:/Users/jonat/AppData/Roaming/.minecraf
+ t/libraries/org/ow2/asm/asm-tree/9.7.1/asm-tree-9.7.1.jar file:///C:
+ /Users/jonat/AppData/Roaming/.minecraft/libraries/org/ow2/asm/asm-tr
+ ee/9.8/asm-tree-9.8.jar file:///C:/Users/jonat/AppData/Roaming/.mine
+ craft/libraries/org/ow2/asm/asm-tree/9.9/asm-tree-9.9.jar file:///C:
+ /Users/jonat/AppData/Roaming/.minecraft/libraries/org/ow2/asm/asm-ut
+ il/9.7.1/asm-util-9.7.1.jar file:///C:/Users/jonat/AppData/Roaming/.
+ minecraft/libraries/org/ow2/asm/asm-util/9.8/asm-util-9.8.jar file:/
+ //C:/Users/jonat/AppData/Roaming/.minecraft/libraries/org/ow2/asm/as
+ m-util/9.9/asm-util-9.9.jar file:///C:/Users/jonat/AppData/Roaming/.
+ minecraft/libraries/org/slf4j/slf4j-api/2.0.16/slf4j-api-2.0.16.jar 
+ file:///C:/Users/jonat/AppData/Roaming/.minecraft/libraries/org/slf4
+ j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar file:///C:/Users/jonat/AppDa
+ ta/Roaming/.minecraft/libraries/org/spongepowered/mixin/0.8.7/mixin-
+ 0.8.7.jar file:///C:/Users/jonat/AppData/Roaming/.minecraft/librarie
+ s/trove/trove/1.0.2/trove-1.0.2.jar

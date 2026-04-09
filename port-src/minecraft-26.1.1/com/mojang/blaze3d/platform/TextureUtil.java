@@ -1,0 +1,250 @@
+package com.mojang.blaze3d.platform;
+
+import com.mojang.blaze3d.buffers.GpuBuffer;
+import com.mojang.blaze3d.buffers.GpuBuffer.MappedView;
+import com.mojang.blaze3d.systems.CommandEncoder;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.textures.GpuTexture;
+import com.mojang.logging.LogUtils;
+import it.unimi.dsi.fastutil.ints.IntArrayFIFOQueue;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
+import java.nio.channels.SeekableByteChannel;
+import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.IntUnaryOperator;
+import net.minecraft.util.ARGB;
+import org.lwjgl.system.MemoryUtil;
+import org.slf4j.Logger;
+
+public class TextureUtil {
+   private static final Logger LOGGER = LogUtils.getLogger();
+   public static final int MIN_MIPMAP_LEVEL = 0;
+   private static final int DEFAULT_IMAGE_BUFFER_SIZE = 8192;
+   private static final int[][] DIRECTIONS = new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+
+   public static ByteBuffer readResource(final InputStream inputStream) throws IOException {
+      ReadableByteChannel channel = Channels.newChannel(inputStream);
+      return channel instanceof SeekableByteChannel seekableChannel ? readResource(channel, (int)seekableChannel.size() + 1) : readResource(channel, 8192);
+   }
+
+   private static ByteBuffer readResource(final ReadableByteChannel channel, final int expectedSize) throws IOException {
+      ByteBuffer buffer = MemoryUtil.memAlloc(expectedSize);
+
+      try {
+         while (channel.read(buffer) != -1) {
+            if (!buffer.hasRemaining()) {
+               buffer = MemoryUtil.memRealloc(buffer, buffer.capacity() * 2);
+            }
+         }
+
+         buffer.flip();
+         return buffer;
+      } catch (IOException var4) {
+         MemoryUtil.memFree(buffer);
+         throw var4;
+      }
+   }
+
+   public static void writeAsPNG(final Path dir, final String prefix, final GpuTexture texture, final int maxMipLevel, final IntUnaryOperator pixelModifier) {
+      RenderSystem.assertOnRenderThread();
+      long bufferLength = 0L;
+
+      for (int i = 0; i <= maxMipLevel; i++) {
+         bufferLength += (long)texture.getFormat().pixelSize() * (long)texture.getWidth(i) * (long)texture.getHeight(i);
+      }
+
+      if (bufferLength > 2147483647L) {
+         throw new IllegalArgumentException("Exporting textures larger than 2GB is not supported");
+      } else {
+         GpuBuffer buffer = RenderSystem.getDevice().createBuffer(() -> "Texture output buffer", 9, bufferLength);
+         CommandEncoder commandEncoder = RenderSystem.getDevice().createCommandEncoder();
+         Runnable onCopyComplete = () -> {
+            MappedView read = commandEncoder.mapBuffer(buffer, true, false);
+
+            try {
+               ByteBuffer data = read.data();
+
+               IntUnaryOperator decodeTexel = switch (texture.getFormat()) {
+                  case RED8 -> byteOffset -> {
+                  int luminance = Byte.toUnsignedInt(data.get(byteOffset));
+                  return ARGB.color(luminance, luminance, luminance);
+               };
+                  case RED8I -> byteOffset -> {
+                  int luminance = data.get(byteOffset) + 128;
+                  return ARGB.color(luminance, luminance, luminance);
+               };
+                  case RGBA8 -> byteOffset -> data.getInt(byteOffset);
+                  case DEPTH32 -> byteOffset -> ARGB.gray(data.getFloat(byteOffset));
+                  default -> throw new MatchException(null, null);
+               };
+               int offsetx = 0;
+
+               for (int ix = 0; ix <= maxMipLevel; ix++) {
+                  int mipWidth = texture.getWidth(ix);
+                  int mipHeight = texture.getHeight(ix);
+
+                  try (com.mojang.blaze3d.platform.NativeImage image = new com.mojang.blaze3d.platform.NativeImage(mipWidth, mipHeight, false)) {
+                     for (int y = 0; y < mipHeight; y++) {
+                        for (int x = 0; x < mipWidth; x++) {
+                           int argb = decodeTexel.applyAsInt(offsetx + (x + y * mipWidth) * texture.getFormat().pixelSize());
+                           image.setPixelABGR(x, y, pixelModifier.applyAsInt(argb));
+                        }
+                     }
+
+                     Path target = dir.resolve(prefix + "_" + ix + ".png");
+                     image.writeToFile(target);
+                     LOGGER.debug("Exported png to: {}", target.toAbsolutePath());
+                  } catch (IOException var21) {
+                     LOGGER.debug("Unable to write: ", var21);
+                  }
+
+                  offsetx += texture.getFormat().pixelSize() * mipWidth * mipHeight;
+               }
+            } catch (Throwable var22) {
+               if (read != null) {
+                  try {
+                     read.close();
+                  } catch (Throwable var18) {
+                     var22.addSuppressed(var18);
+                  }
+               }
+
+               throw var22;
+            }
+
+            if (read != null) {
+               read.close();
+            }
+
+            buffer.close();
+         };
+         AtomicInteger completedCopies = new AtomicInteger();
+         int offset = 0;
+
+         for (int i = 0; i <= maxMipLevel; i++) {
+            commandEncoder.copyTextureToBuffer(texture, buffer, (long)offset, () -> {
+               if (completedCopies.getAndIncrement() == maxMipLevel) {
+                  onCopyComplete.run();
+               }
+            }, i);
+            offset += texture.getFormat().pixelSize() * texture.getWidth(i) * texture.getHeight(i);
+         }
+      }
+   }
+
+   public static Path getDebugTexturePath(final Path root) {
+      return root.resolve("screenshots").resolve("debug");
+   }
+
+   public static Path getDebugTexturePath() {
+      return getDebugTexturePath(Path.of("."));
+   }
+
+   public static void solidify(final com.mojang.blaze3d.platform.NativeImage image) {
+      int width = image.getWidth();
+      int height = image.getHeight();
+      int[] nearestColor = new int[width * height];
+      int[] distances = new int[width * height];
+      Arrays.fill(distances, Integer.MAX_VALUE);
+      IntArrayFIFOQueue queue = new IntArrayFIFOQueue();
+
+      for (int x = 0; x < width; x++) {
+         for (int y = 0; y < height; y++) {
+            int color = image.getPixel(x, y);
+            if (ARGB.alpha(color) != 0) {
+               int packedCoordinates = pack(x, y, width);
+               distances[packedCoordinates] = 0;
+               nearestColor[packedCoordinates] = color;
+               queue.enqueue(packedCoordinates);
+            }
+         }
+      }
+
+      while (!queue.isEmpty()) {
+         int packedCoordinates = queue.dequeueInt();
+         int x = x(packedCoordinates, width);
+         int yx = y(packedCoordinates, width);
+
+         for (int[] direction : DIRECTIONS) {
+            int neighborX = x + direction[0];
+            int neighborY = yx + direction[1];
+            int packedNeighborCoordinates = pack(neighborX, neighborY, width);
+            if (neighborX >= 0
+               && neighborY >= 0
+               && neighborX < width
+               && neighborY < height
+               && distances[packedNeighborCoordinates] > distances[packedCoordinates] + 1) {
+               distances[packedNeighborCoordinates] = distances[packedCoordinates] + 1;
+               nearestColor[packedNeighborCoordinates] = nearestColor[packedCoordinates];
+               queue.enqueue(packedNeighborCoordinates);
+            }
+         }
+      }
+
+      for (int x = 0; x < width; x++) {
+         for (int yx = 0; yx < height; yx++) {
+            int color = image.getPixel(x, yx);
+            if (ARGB.alpha(color) == 0) {
+               image.setPixel(x, yx, ARGB.color(0, nearestColor[pack(x, yx, width)]));
+            } else {
+               image.setPixel(x, yx, color);
+            }
+         }
+      }
+   }
+
+   public static void fillEmptyAreasWithDarkColor(final com.mojang.blaze3d.platform.NativeImage image) {
+      int width = image.getWidth();
+      int height = image.getHeight();
+      int darkestColor = -1;
+      int minBrightness = Integer.MAX_VALUE;
+
+      for (int x = 0; x < width; x++) {
+         for (int y = 0; y < height; y++) {
+            int color = image.getPixel(x, y);
+            int alpha = ARGB.alpha(color);
+            if (alpha != 0) {
+               int red = ARGB.red(color);
+               int green = ARGB.green(color);
+               int blue = ARGB.blue(color);
+               int brightness = red + green + blue;
+               if (brightness < minBrightness) {
+                  minBrightness = brightness;
+                  darkestColor = color;
+               }
+            }
+         }
+      }
+
+      int darkRed = 3 * ARGB.red(darkestColor) / 4;
+      int darkGreen = 3 * ARGB.green(darkestColor) / 4;
+      int darkBlue = 3 * ARGB.blue(darkestColor) / 4;
+      int darkenedColor = ARGB.color(0, darkRed, darkGreen, darkBlue);
+
+      for (int x = 0; x < width; x++) {
+         for (int yx = 0; yx < height; yx++) {
+            int color = image.getPixel(x, yx);
+            if (ARGB.alpha(color) == 0) {
+               image.setPixel(x, yx, darkenedColor);
+            }
+         }
+      }
+   }
+
+   private static int pack(final int x, final int y, final int width) {
+      return x + y * width;
+   }
+
+   private static int x(final int packed, final int width) {
+      return packed % width;
+   }
+
+   private static int y(final int packed, final int width) {
+      return packed / width;
+   }
+}

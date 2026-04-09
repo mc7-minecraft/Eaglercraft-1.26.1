@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Eaglercraft 26.1.1 JavaScript</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: #000; color: #f2f3f5; font-family: "Segoe UI", sans-serif; }
+    #eaglercraft_frame { width: 100vw; height: 100vh; position: relative; }
+    #status { position: absolute; left: 12px; top: 12px; background: rgba(0,0,0,0.6); padding: 8px 10px; border-radius: 6px; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div id="eaglercraft_frame">
+    <div id="status">Booting Eaglercraft JavaScript runtime...</div>
+  </div>
+
+  <script>
+    "use strict";
+    window.addEventListener("load", function() {
+      var relayId = Math.floor(Math.random() * 3);
+      window.eaglercraftXOpts = {
+        demoMode: false,
+        container: "eaglercraft_frame",
+        assetsURI: "build/javascript/assets.epk",
+        localesURI: "build/javascript/lang/",
+        worldsDB: "eaglercraft26_worlds",
+        resourcePacksDB: "eaglercraft26_resourcepacks",
+        servers: [
+          { addr: "wss://relay.deev.is/", name: "Eaglercraft Relay" }
+        ],
+        relays: [
+          { addr: "wss://relay.deev.is/", comment: "relay #1", primary: relayId === 0 },
+          { addr: "wss://relay.lax1dude.net/", comment: "relay #2", primary: relayId === 1 },
+          { addr: "wss://relay.shhnowisnottheti.me/", comment: "relay #3", primary: relayId === 2 }
+        ]
+      };
+
+      var q = window.location.search;
+      if ((typeof q === "string") && q[0] === "?" && (typeof window.URLSearchParams !== "undefined")) {
+        q = new window.URLSearchParams(q);
+        var s = q.get("server");
+        if (s) window.eaglercraftXOpts.joinServer = s;
+      }
+
+      var script = document.createElement("script");
+      script.src = "build/javascript/classes.js";
+      script.onload = function() {
+        document.getElementById("status").textContent = "Starting Eaglercraft JS payload...";
+        if (typeof window.main === "function") {
+          window.main();
+        } else {
+          document.getElementById("status").textContent = "classes.js loaded but main() missing";
+        }
+      };
+      script.onerror = function() {
+        document.getElementById("status").textContent = "Missing build/javascript/classes.js";
+      };
+      document.head.appendChild(script);
+    });
+  </script>
+</body>
+</html>

@@ -84,6 +84,8 @@ public class CraftingRecipeBookComponent extends RecipeBookComponent<AbstractCra
                break label15;
             }
          }
+         default:
+            break;
       }
    }
 

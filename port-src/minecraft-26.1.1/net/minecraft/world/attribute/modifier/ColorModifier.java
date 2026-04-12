@@ -25,10 +25,26 @@ public interface ColorModifier<Argument> extends AttributeModifier<Integer, Argu
          return LerpFunction.ofColor();
       }
    };
-   ColorModifier<Integer> ADD = ARGB::addRgb;
-   ColorModifier<Integer> SUBTRACT = ARGB::subtractRgb;
-   ColorModifier<Integer> MULTIPLY_RGB = ARGB::multiply;
-   ColorModifier<Integer> MULTIPLY_ARGB = ARGB::multiply;
+   ColorModifier<Integer> ADD = new ColorModifier.RgbModifier() {
+      public Integer apply(final Integer subject, final Integer argument) {
+         return ARGB.addRgb(subject, argument);
+      }
+   };
+   ColorModifier<Integer> SUBTRACT = new ColorModifier.RgbModifier() {
+      public Integer apply(final Integer subject, final Integer argument) {
+         return ARGB.subtractRgb(subject, argument);
+      }
+   };
+   ColorModifier<Integer> MULTIPLY_RGB = new ColorModifier.RgbModifier() {
+      public Integer apply(final Integer subject, final Integer argument) {
+         return ARGB.multiply(subject, argument);
+      }
+   };
+   ColorModifier<Integer> MULTIPLY_ARGB = new ColorModifier.RgbModifier() {
+      public Integer apply(final Integer subject, final Integer argument) {
+         return ARGB.multiply(subject, argument);
+      }
+   };
    ColorModifier<ColorModifier.BlendToGray> BLEND_TO_GRAY = new ColorModifier<ColorModifier.BlendToGray>() {
       public Integer apply(final Integer subject, final ColorModifier.BlendToGray argument) {
          int multipliedGreyscale = ARGB.scaleRGB(ARGB.greyscale(subject), argument.brightness);

@@ -22,8 +22,8 @@ public abstract class EntityRenameFix extends DataFix {
    }
 
    public TypeRewriteRule makeRule() {
-      TaggedChoiceType<String> oldType = this.getInputSchema().findChoiceType(References.ENTITY);
-      TaggedChoiceType<String> newType = this.getOutputSchema().findChoiceType(References.ENTITY);
+      TaggedChoiceType<String> oldType = (TaggedChoiceType<String>)this.getInputSchema().findChoiceType(References.ENTITY);
+      TaggedChoiceType<String> newType = (TaggedChoiceType<String>)this.getOutputSchema().findChoiceType(References.ENTITY);
       Function<String, Type<?>> patchedInputTypes = Util.memoize(name -> {
          Type<?> type = (Type<?>)oldType.types().get(name);
          return ExtraDataFixUtils.patchSubType(type, oldType, newType);

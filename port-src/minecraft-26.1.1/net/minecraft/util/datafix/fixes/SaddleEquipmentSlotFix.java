@@ -35,7 +35,8 @@ public class SaddleEquipmentSlotFix extends DataFix {
    }
 
    protected TypeRewriteRule makeRule() {
-      TaggedChoiceType<String> entityIdType = this.getInputSchema().findChoiceType(References.ENTITY);
+      @SuppressWarnings("unchecked")
+      TaggedChoiceType<String> entityIdType = (TaggedChoiceType<String>)this.getInputSchema().findChoiceType(References.ENTITY);
       OpticFinder<Pair<String, ?>> entityIdF = DSL.typeFinder(entityIdType);
       Type<?> inputType = this.getInputSchema().getType(References.ENTITY);
       Type<?> outputType = this.getOutputSchema().getType(References.ENTITY);

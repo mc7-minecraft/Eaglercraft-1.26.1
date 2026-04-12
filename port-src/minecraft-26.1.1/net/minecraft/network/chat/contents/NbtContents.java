@@ -43,17 +43,18 @@ public record NbtContents(
          }
       }
    );
-   public static final MapCodec<NbtContents> MAP_CODEC = RecordCodecBuilder.mapCodec(
-         i -> i.group(
-                  NBT_PATH_CODEC.fieldOf("nbt").forGetter(NbtContents::nbtPath),
-                  Codec.BOOL.lenientOptionalFieldOf("interpret", false).forGetter(NbtContents::interpreting),
-                  Codec.BOOL.lenientOptionalFieldOf("plain", false).forGetter(NbtContents::plain),
-                  ComponentSerialization.CODEC.lenientOptionalFieldOf("separator").forGetter(NbtContents::separator),
-                  DataSources.CODEC.forGetter(NbtContents::dataSource)
-               )
-               .apply(i, NbtContents::new)
+   public static final MapCodec<NbtContents> MAP_CODEC = RecordCodecBuilder.<NbtContents>mapCodec(
+         (RecordCodecBuilder.Instance<NbtContents> instance) -> instance
+            .group(
+               NBT_PATH_CODEC.fieldOf("nbt").forGetter(contents -> contents.nbtPath),
+               Codec.BOOL.lenientOptionalFieldOf("interpret", false).forGetter(contents -> contents.interpreting),
+               Codec.BOOL.lenientOptionalFieldOf("plain", false).forGetter(contents -> contents.plain),
+               ComponentSerialization.CODEC.lenientOptionalFieldOf("separator").forGetter(contents -> contents.separator),
+               DataSources.CODEC.forGetter(contents -> contents.dataSource)
+            )
+            .apply(instance, NbtContents::new)
       )
-      .validate(v -> v.interpreting && v.plain ? DataResult.error(() -> "'interpret' and 'plain' flags can't be both on") : DataResult.success(v));
+      .validate((NbtContents contents) -> contents.interpreting && contents.plain ? DataResult.error(() -> "'interpret' and 'plain' flags can't be both on") : DataResult.success(contents));
 
    @Override
    public MutableComponent resolve(final ResolutionContext context, final int recursionDepth) throws CommandSyntaxException {

@@ -20,7 +20,7 @@ import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import org.jspecify.annotations.Nullable;
 
 public class ItemStackTheFlatteningFix extends DataFix {
-   private static final Map<String, String> MAP = (Map<String, String>)DataFixUtils.make(Maps.newHashMap(), map -> {
+   private static final Map<String, String> MAP = DataFixUtils.make(Maps.<String, String>newHashMap(), map -> {
       map.put("minecraft:stone.0", "minecraft:stone");
       map.put("minecraft:stone.1", "minecraft:granite");
       map.put("minecraft:stone.2", "minecraft:polished_granite");

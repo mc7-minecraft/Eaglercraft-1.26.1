@@ -40,7 +40,9 @@ public class DiscoveryService {
 
       private static MapCodec<DiscoveryService.DiscoverComponents> typedSchema() {
          return RecordCodecBuilder.mapCodec(
-            i -> i.group(Codec.unboundedMap(Codec.STRING, Schema.CODEC).fieldOf("schemas").forGetter(DiscoveryService.DiscoverComponents::schemas))
+            i -> i.group(
+                     Codec.unboundedMap(Codec.STRING, Schema.CODEC).fieldOf("schemas").forGetter((DiscoveryService.DiscoverComponents components) -> components.schemas())
+                  )
                   .apply(i, DiscoveryService.DiscoverComponents::new)
          );
       }
@@ -49,8 +51,8 @@ public class DiscoveryService {
    public static record DiscoverInfo(String title, String version) {
       public static final MapCodec<DiscoveryService.DiscoverInfo> CODEC = RecordCodecBuilder.mapCodec(
          i -> i.group(
-                  Codec.STRING.fieldOf("title").forGetter(DiscoveryService.DiscoverInfo::title),
-                  Codec.STRING.fieldOf("version").forGetter(DiscoveryService.DiscoverInfo::version)
+                  Codec.STRING.fieldOf("title").forGetter((DiscoveryService.DiscoverInfo info) -> info.title()),
+                  Codec.STRING.fieldOf("version").forGetter((DiscoveryService.DiscoverInfo info) -> info.version())
                )
                .apply(i, DiscoveryService.DiscoverInfo::new)
       );
@@ -64,10 +66,10 @@ public class DiscoveryService {
    ) {
       public static final MapCodec<DiscoveryService.DiscoverResponse> CODEC = RecordCodecBuilder.mapCodec(
          i -> i.group(
-                  Codec.STRING.fieldOf("openrpc").forGetter(DiscoveryService.DiscoverResponse::jsonRpcProtocolVersion),
-                  DiscoveryService.DiscoverInfo.CODEC.codec().fieldOf("info").forGetter(DiscoveryService.DiscoverResponse::discoverInfo),
-                  Codec.list(MethodInfo.Named.CODEC).fieldOf("methods").forGetter(DiscoveryService.DiscoverResponse::methods),
-                  DiscoveryService.DiscoverComponents.CODEC.codec().fieldOf("components").forGetter(DiscoveryService.DiscoverResponse::components)
+                  Codec.STRING.fieldOf("openrpc").forGetter((DiscoveryService.DiscoverResponse info) -> info.jsonRpcProtocolVersion()),
+                  DiscoveryService.DiscoverInfo.CODEC.codec().fieldOf("info").forGetter((DiscoveryService.DiscoverResponse info) -> info.discoverInfo()),
+                  Codec.list(MethodInfo.Named.CODEC).fieldOf("methods").forGetter((DiscoveryService.DiscoverResponse info) -> info.methods()),
+                  DiscoveryService.DiscoverComponents.CODEC.codec().fieldOf("components").forGetter((DiscoveryService.DiscoverResponse info) -> info.components())
                )
                .apply(i, DiscoveryService.DiscoverResponse::new)
       );

@@ -115,16 +115,7 @@ public class NbtOps implements DynamicOps<Tag> {
 
    public DataResult<String> getStringValue(final Tag input) {
       if (input instanceof StringTag var2) {
-         StringTag var10000 = var2;
-
-         try {
-            var6 = var10000.value();
-         } catch (Throwable var5) {
-            throw new MatchException(var5.toString(), var5);
-         }
-
-         String var4 = var6;
-         return DataResult.success(var4);
+         return DataResult.success(var2.value());
       } else {
          return DataResult.error(() -> "Not a string");
       }
@@ -150,15 +141,7 @@ public class NbtOps implements DynamicOps<Tag> {
       if (!(map instanceof CompoundTag) && !(map instanceof EndTag)) {
          return DataResult.error(() -> "mergeToMap called with not a map: " + map, map);
       } else if (key instanceof StringTag output) {
-         StringTag var10000 = output;
-
-         try {
-            var10 = var10000.value();
-         } catch (Throwable var7) {
-            throw new MatchException(var7.toString(), var7);
-         }
-
-         String tag = var10;
+         String tag = output.value();
          CompoundTag outputx = map instanceof CompoundTag tagx ? tagx.shallowCopy() : new CompoundTag();
          outputx.put(tag, value);
          return DataResult.success(outputx);
@@ -180,16 +163,7 @@ public class NbtOps implements DynamicOps<Tag> {
             valuesIterator.forEachRemaining(entry -> {
                Tag key = (Tag)entry.getFirst();
                if (key instanceof StringTag $b$0) {
-                  StringTag var10000 = $b$0;
-
-                  try {
-                     var8 = var10000.value();
-                  } catch (Throwable var7) {
-                     throw new MatchException(var7.toString(), var7);
-                  }
-
-                  String patt1$temp = var8;
-                  output.put(patt1$temp, (Tag)entry.getSecond());
+                  output.put($b$0.value(), (Tag)entry.getSecond());
                } else {
                   missed.add(key);
                }
@@ -211,17 +185,7 @@ public class NbtOps implements DynamicOps<Tag> {
          for (Entry<Tag, Tag> entry : values.entrySet()) {
             Tag key = entry.getKey();
             if (key instanceof StringTag) {
-               StringTag var8 = (StringTag)key;
-               StringTag var13 = var8;
-
-               try {
-                  var14 = var13.value();
-               } catch (Throwable var11) {
-                  throw new MatchException(var11.toString(), var11);
-               }
-
-               String var10 = var14;
-               output.put(var10, entry.getValue());
+               output.put(((StringTag)key).value(), entry.getValue());
             } else {
                missed.add(key);
             }
@@ -238,7 +202,7 @@ public class NbtOps implements DynamicOps<Tag> {
    }
 
    public DataResult<Consumer<BiConsumer<Tag, Tag>>> getMapEntries(final Tag input) {
-      return input instanceof CompoundTag tag ? DataResult.success((Consumer<BiConsumer>)c -> {
+      return input instanceof CompoundTag tag ? DataResult.success((Consumer<BiConsumer<Tag, Tag>>)c -> {
          for (Entry<String, Tag> entry : tag.entrySet()) {
             c.accept(this.createString(entry.getKey()), entry.getValue());
          }
@@ -254,16 +218,7 @@ public class NbtOps implements DynamicOps<Tag> {
          @Nullable
          public Tag get(final Tag key) {
             if (key instanceof StringTag var2) {
-               StringTag var10000 = var2;
-
-               try {
-                  var6 = var10000.value();
-               } catch (Throwable var5) {
-                  throw new MatchException(var5.toString(), var5);
-               }
-
-               String var4 = var6;
-               return tag.get(var4);
+               return tag.get(var2.value());
             } else {
                throw new UnsupportedOperationException("Cannot get map entry with non-string key: " + key);
             }
@@ -291,16 +246,7 @@ public class NbtOps implements DynamicOps<Tag> {
          Tag key = (Tag)entry.getFirst();
          Tag value = (Tag)entry.getSecond();
          if (key instanceof StringTag $b$0) {
-            StringTag var10000 = $b$0;
-
-            try {
-               var8 = var10000.value();
-            } catch (Throwable var7) {
-               throw new MatchException(var7.toString(), var7);
-            }
-
-            String patt1$temp = var8;
-            tag.put(patt1$temp, value);
+            tag.put($b$0.value(), value);
          } else {
             throw new UnsupportedOperationException("Cannot create map with non-string key: " + key);
          }
@@ -317,7 +263,7 @@ public class NbtOps implements DynamicOps<Tag> {
    }
 
    public DataResult<ByteBuffer> getByteBuffer(final Tag input) {
-      return input instanceof ByteArrayTag array ? DataResult.success(ByteBuffer.wrap(array.getAsByteArray())) : super.getByteBuffer(input);
+      return input instanceof ByteArrayTag array ? DataResult.success(ByteBuffer.wrap(array.getAsByteArray())) : DataResult.error(() -> "Not a byte buffer");
    }
 
    public Tag createByteList(final ByteBuffer input) {
@@ -328,7 +274,7 @@ public class NbtOps implements DynamicOps<Tag> {
    }
 
    public DataResult<IntStream> getIntStream(final Tag input) {
-      return input instanceof IntArrayTag array ? DataResult.success(Arrays.stream(array.getAsIntArray())) : super.getIntStream(input);
+      return input instanceof IntArrayTag array ? DataResult.success(Arrays.stream(array.getAsIntArray())) : DataResult.error(() -> "Not an int stream");
    }
 
    public Tag createIntList(final IntStream input) {
@@ -336,7 +282,7 @@ public class NbtOps implements DynamicOps<Tag> {
    }
 
    public DataResult<LongStream> getLongStream(final Tag input) {
-      return input instanceof LongArrayTag array ? DataResult.success(Arrays.stream(array.getAsLongArray())) : super.getLongStream(input);
+      return input instanceof LongArrayTag array ? DataResult.success(Arrays.stream(array.getAsLongArray())) : DataResult.error(() -> "Not a long stream");
    }
 
    public Tag createLongList(final LongStream input) {

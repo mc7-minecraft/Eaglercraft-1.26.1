@@ -15,20 +15,19 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
 public record LootItemBlockStatePropertyCondition(Holder<Block> block, Optional<StatePropertiesPredicate> properties) implements LootItemCondition {
-   public static final MapCodec<LootItemBlockStatePropertyCondition> MAP_CODEC = RecordCodecBuilder.mapCodec(
+   public static final MapCodec<LootItemBlockStatePropertyCondition> MAP_CODEC = RecordCodecBuilder.<LootItemBlockStatePropertyCondition>mapCodec(
          i -> i.group(
                   BuiltInRegistries.BLOCK.holderByNameCodec().fieldOf("block").forGetter(LootItemBlockStatePropertyCondition::block),
                   StatePropertiesPredicate.CODEC.optionalFieldOf("properties").forGetter(LootItemBlockStatePropertyCondition::properties)
                )
                .apply(i, LootItemBlockStatePropertyCondition::new)
-      )
-      .validate(LootItemBlockStatePropertyCondition::validate);
+      ).validate(LootItemBlockStatePropertyCondition::validate);
 
    private static DataResult<LootItemBlockStatePropertyCondition> validate(final LootItemBlockStatePropertyCondition condition) {
       return condition.properties()
          .flatMap(properties -> properties.checkState(condition.block().value().getStateDefinition()))
-         .map(name -> DataResult.error(() -> "Block " + condition.block() + " has no property" + name))
-         .orElse(DataResult.success(condition));
+         .map(name -> DataResult.<LootItemBlockStatePropertyCondition>error(() -> "Block " + condition.block() + " has no property" + name))
+         .orElseGet(() -> DataResult.success(condition));
    }
 
    @Override

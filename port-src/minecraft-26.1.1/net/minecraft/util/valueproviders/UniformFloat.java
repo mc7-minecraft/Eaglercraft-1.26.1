@@ -8,11 +8,18 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 
 public record UniformFloat(float min, float max) implements FloatProvider {
-   public static final MapCodec<UniformFloat> MAP_CODEC = RecordCodecBuilder.mapCodec(
-         i -> i.group(Codec.FLOAT.fieldOf("min_inclusive").forGetter(UniformFloat::min), Codec.FLOAT.fieldOf("max_exclusive").forGetter(UniformFloat::max))
-               .apply(i, UniformFloat::new)
-      )
-      .validate(u -> u.max <= u.min ? DataResult.error(() -> "Max must be larger than min, min: " + u.min + ", max: " + u.max) : DataResult.success(u));
+   public static final MapCodec<UniformFloat> MAP_CODEC = RecordCodecBuilder.<UniformFloat>mapCodec(
+      i -> i.group(
+         Codec.FLOAT.fieldOf("min_inclusive").forGetter((UniformFloat value) -> value.min()),
+         Codec.FLOAT.fieldOf("max_exclusive").forGetter((UniformFloat value) -> value.max())
+         )
+         .apply(i, UniformFloat::new)
+   )
+   .validate(
+      (UniformFloat value) -> value.max <= value.min
+         ? DataResult.<UniformFloat>error(() -> "Max must be larger than min, min: " + value.min + ", max: " + value.max)
+         : DataResult.success(value)
+   );
 
    public static UniformFloat of(final float min, final float max) {
       if (max <= min) {

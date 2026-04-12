@@ -72,7 +72,7 @@ public class FrogAi {
       return ActivityData.create(
          Activity.CORE,
          0,
-         ImmutableList.of(
+         ImmutableList.<net.minecraft.world.entity.ai.behavior.BehaviorControl<? super Frog>>of(
             new AnimalPanic(2.0F),
             new LookAtTargetSink(45, 90),
             new MoveToTargetSink(),
@@ -85,7 +85,7 @@ public class FrogAi {
    private static ActivityData<Frog> initIdleActivity() {
       return ActivityData.create(
          Activity.IDLE,
-         ImmutableList.of(
+         ImmutableList.<Pair<Integer, ? extends net.minecraft.world.entity.ai.behavior.BehaviorControl<? super Frog>>>of(
             Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
             Pair.of(0, new AnimalMakeLove(EntityType.FROG)),
             Pair.of(1, new FollowTemptation(s -> 1.25F)),
@@ -113,7 +113,7 @@ public class FrogAi {
    private static ActivityData<Frog> initSwimActivity() {
       return ActivityData.create(
          Activity.SWIM,
-         ImmutableList.of(
+         ImmutableList.<Pair<Integer, ? extends net.minecraft.world.entity.ai.behavior.BehaviorControl<? super Frog>>>of(
             Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
             Pair.of(1, new FollowTemptation(s -> 1.25F)),
             Pair.of(2, StartAttacking.create((level, body) -> canAttack(body), (level, body) -> body.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE))),
@@ -143,7 +143,7 @@ public class FrogAi {
    private static ActivityData<Frog> initLaySpawnActivity() {
       return ActivityData.create(
          Activity.LAY_SPAWN,
-         ImmutableList.of(
+         ImmutableList.<Pair<Integer, ? extends net.minecraft.world.entity.ai.behavior.BehaviorControl<? super Frog>>>of(
             Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
             Pair.of(1, StartAttacking.create((level, body) -> canAttack(body), (level, body) -> body.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE))),
             Pair.of(2, TryFindLandNearWater.create(8, 1.0F)),
@@ -169,7 +169,7 @@ public class FrogAi {
    private static ActivityData<Frog> initJumpActivity() {
       return ActivityData.create(
          Activity.LONG_JUMP,
-         ImmutableList.of(
+         ImmutableList.<Pair<Integer, ? extends net.minecraft.world.entity.ai.behavior.BehaviorControl<? super Frog>>>of(
             Pair.of(0, new LongJumpMidJump(TIME_BETWEEN_LONG_JUMPS, SoundEvents.FROG_STEP)),
             Pair.of(
                1,
@@ -198,7 +198,9 @@ public class FrogAi {
       return ActivityData.create(
          Activity.TONGUE,
          0,
-         ImmutableList.of(StopAttackingIfTargetInvalid.create(), new ShootTongue(SoundEvents.FROG_TONGUE, SoundEvents.FROG_EAT)),
+         ImmutableList.<net.minecraft.world.entity.ai.behavior.BehaviorControl<? super Frog>>of(
+            StopAttackingIfTargetInvalid.create(), new ShootTongue(SoundEvents.FROG_TONGUE, SoundEvents.FROG_EAT)
+         ),
          MemoryModuleType.ATTACK_TARGET
       );
    }

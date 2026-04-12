@@ -17,7 +17,7 @@ import org.slf4j.Logger;
 
 public class V99 extends Schema {
    private static final Logger LOGGER = LogUtils.getLogger();
-   private static final Map<String, String> ITEM_TO_BLOCKENTITY = (Map<String, String>)DataFixUtils.make(Maps.newHashMap(), map -> {
+   private static final Map<String, String> ITEM_TO_BLOCKENTITY = (Map<String, String>)DataFixUtils.make(Maps.<String, String>newHashMap(), map -> {
       map.put("minecraft:furnace", "Furnace");
       map.put("minecraft:lit_furnace", "Furnace");
       map.put("minecraft:chest", "Chest");
@@ -56,7 +56,7 @@ public class V99 extends Schema {
    public static final Map<String, String> ITEM_TO_ENTITY = Map.of("minecraft:armor_stand", "ArmorStand", "minecraft:painting", "Painting");
    protected static final HookFunction ADD_NAMES = new HookFunction() {
       public <T> T apply(final DynamicOps<T> ops, final T value) {
-         return V99.addNames(new Dynamic(ops, value), V99.ITEM_TO_BLOCKENTITY, V99.ITEM_TO_ENTITY);
+         return (T)V99.addNames(new Dynamic<>(ops, value), V99.ITEM_TO_BLOCKENTITY, V99.ITEM_TO_ENTITY);
       }
    };
 

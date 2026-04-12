@@ -22,7 +22,7 @@ public class UnflattenTextComponentFix extends DataFix {
    }
 
    protected TypeRewriteRule makeRule() {
-      Type<Pair<String, String>> textComponentType = this.getInputSchema().getType(References.TEXT_COMPONENT);
+      Type<Pair<String, String>> textComponentType = (Type<Pair<String, String>>)this.getInputSchema().getType(References.TEXT_COMPONENT);
       Type<?> newTextComponentType = this.getOutputSchema().getType(References.TEXT_COMPONENT);
       return this.createFixer(textComponentType, newTextComponentType);
    }

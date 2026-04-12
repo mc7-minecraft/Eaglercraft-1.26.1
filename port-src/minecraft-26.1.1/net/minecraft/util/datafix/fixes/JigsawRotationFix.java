@@ -6,14 +6,18 @@ import com.mojang.serialization.Dynamic;
 import java.util.Map;
 
 public class JigsawRotationFix extends AbstractBlockPropertyFix {
-   private static final Map<String, String> RENAMES = ImmutableMap.builder()
-      .put("down", "down_south")
-      .put("up", "up_north")
-      .put("north", "north_up")
-      .put("south", "south_up")
-      .put("west", "west_up")
-      .put("east", "east_up")
-      .build();
+   private static final Map<String, String> RENAMES;
+
+   static {
+      ImmutableMap.Builder<String, String> builder = ImmutableMap.builder();
+      builder.put("down", "down_south");
+      builder.put("up", "up_north");
+      builder.put("north", "north_up");
+      builder.put("south", "south_up");
+      builder.put("west", "west_up");
+      builder.put("east", "east_up");
+      RENAMES = builder.build();
+   }
 
    public JigsawRotationFix(final Schema outputSchema) {
       super(outputSchema, "jigsaw_rotation_fix");

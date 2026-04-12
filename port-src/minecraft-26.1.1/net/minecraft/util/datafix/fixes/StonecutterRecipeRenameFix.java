@@ -3,7 +3,7 @@ package net.minecraft.util.datafix.fixes;
 import com.google.common.collect.ImmutableMap;
 
 public class StonecutterRecipeRenameFix {
-   public static final ImmutableMap<String, String> RECIPE_RENAMES = ImmutableMap.builder()
+   public static final ImmutableMap<String, String> RECIPE_RENAMES = ImmutableMap.<String, String>builder()
       .put("minecraft:chiseled_stone_bricks_stone_from_stonecutting", "minecraft:chiseled_stone_bricks_from_stone_stonecutting")
       .put("minecraft:end_stone_brick_slab_from_end_stone_brick_stonecutting", "minecraft:end_stone_brick_slab_from_end_stone_bricks_stonecutting")
       .put("minecraft:end_stone_brick_stairs_from_end_stone_brick_stonecutting", "minecraft:end_stone_brick_stairs_from_end_stone_bricks_stonecutting")
@@ -16,7 +16,7 @@ public class StonecutterRecipeRenameFix {
       .put("minecraft:quartz_slab_from_stonecutting", "minecraft:quartz_slab_from_quartz_block_stonecutting")
       .put("minecraft:stone_brick_walls_from_stone_stonecutting", "minecraft:stone_brick_wall_from_stone_stonecutting")
       .build();
-   public static final ImmutableMap<String, String> ADVANCEMENT_RENAMES = ImmutableMap.builder()
+   public static final ImmutableMap<String, String> ADVANCEMENT_RENAMES = ImmutableMap.<String, String>builder()
       .put(
          "minecraft:recipes/building_blocks/chiseled_stone_bricks_stone_from_stonecutting",
          "minecraft:recipes/building_blocks/chiseled_stone_bricks_from_stone_stonecutting"

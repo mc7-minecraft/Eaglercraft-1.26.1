@@ -178,11 +178,13 @@ public class BehaviorBuilder<E extends LivingEntity, M> implements App<BehaviorB
          return new BehaviorBuilder.Constant<>(a, debugString);
       }
 
+      private static <E extends LivingEntity, T> BehaviorBuilder.TriggerWithResult<E, T> getTrigger(final App<BehaviorBuilder.Mu<E>, T> box) {
+         return (BehaviorBuilder.TriggerWithResult<E, T>)BehaviorBuilder.get(box);
+      }
+
       public <A, R> Function<App<BehaviorBuilder.Mu<E>, A>, App<BehaviorBuilder.Mu<E>, R>> lift1(final App<BehaviorBuilder.Mu<E>, Function<A, R>> function) {
          return a -> {
-            final BehaviorBuilder.TriggerWithResult<E, A> aTrigger = (BehaviorBuilder.TriggerWithResult<E, A>)BehaviorBuilder.get(
-               (App<BehaviorBuilder.Mu<E>, M>)a
-            );
+            final BehaviorBuilder.TriggerWithResult<E, A> aTrigger = getTrigger(a);
             final BehaviorBuilder.TriggerWithResult<E, Function<A, R>> fTrigger = BehaviorBuilder.get(function);
             return BehaviorBuilder.create(new BehaviorBuilder.TriggerWithResult<E, R>() {
                {
@@ -222,9 +224,7 @@ public class BehaviorBuilder<E extends LivingEntity, M> implements App<BehaviorB
       }
 
       public <T, R> BehaviorBuilder<E, R> map(final Function<? super T, ? extends R> func, final App<BehaviorBuilder.Mu<E>, T> ts) {
-         final BehaviorBuilder.TriggerWithResult<E, T> tTrigger = (BehaviorBuilder.TriggerWithResult<E, T>)BehaviorBuilder.get(
-            (App<BehaviorBuilder.Mu<E>, M>)ts
-         );
+         final BehaviorBuilder.TriggerWithResult<E, T> tTrigger = getTrigger(ts);
          return BehaviorBuilder.create(new BehaviorBuilder.TriggerWithResult<E, R>() {
             {
                Objects.requireNonNull(Instance.this);
@@ -256,8 +256,8 @@ public class BehaviorBuilder<E extends LivingEntity, M> implements App<BehaviorB
       public <A, B, R> BehaviorBuilder<E, R> ap2(
          final App<BehaviorBuilder.Mu<E>, BiFunction<A, B, R>> func, final App<BehaviorBuilder.Mu<E>, A> a, final App<BehaviorBuilder.Mu<E>, B> b
       ) {
-         final BehaviorBuilder.TriggerWithResult<E, A> aTrigger = (BehaviorBuilder.TriggerWithResult<E, A>)BehaviorBuilder.get((App<BehaviorBuilder.Mu<E>, M>)a);
-         final BehaviorBuilder.TriggerWithResult<E, B> bTrigger = (BehaviorBuilder.TriggerWithResult<E, B>)BehaviorBuilder.get((App<BehaviorBuilder.Mu<E>, M>)b);
+         final BehaviorBuilder.TriggerWithResult<E, A> aTrigger = getTrigger(a);
+         final BehaviorBuilder.TriggerWithResult<E, B> bTrigger = getTrigger(b);
          final BehaviorBuilder.TriggerWithResult<E, BiFunction<A, B, R>> fTrigger = BehaviorBuilder.get(func);
          return BehaviorBuilder.create(new BehaviorBuilder.TriggerWithResult<E, R>() {
             {
@@ -307,15 +307,9 @@ public class BehaviorBuilder<E extends LivingEntity, M> implements App<BehaviorB
          final App<BehaviorBuilder.Mu<E>, T2> t2,
          final App<BehaviorBuilder.Mu<E>, T3> t3
       ) {
-         final BehaviorBuilder.TriggerWithResult<E, T1> t1Trigger = (BehaviorBuilder.TriggerWithResult<E, T1>)BehaviorBuilder.get(
-            (App<BehaviorBuilder.Mu<E>, M>)t1
-         );
-         final BehaviorBuilder.TriggerWithResult<E, T2> t2Trigger = (BehaviorBuilder.TriggerWithResult<E, T2>)BehaviorBuilder.get(
-            (App<BehaviorBuilder.Mu<E>, M>)t2
-         );
-         final BehaviorBuilder.TriggerWithResult<E, T3> t3Trigger = (BehaviorBuilder.TriggerWithResult<E, T3>)BehaviorBuilder.get(
-            (App<BehaviorBuilder.Mu<E>, M>)t3
-         );
+         final BehaviorBuilder.TriggerWithResult<E, T1> t1Trigger = getTrigger(t1);
+         final BehaviorBuilder.TriggerWithResult<E, T2> t2Trigger = getTrigger(t2);
+         final BehaviorBuilder.TriggerWithResult<E, T3> t3Trigger = getTrigger(t3);
          final BehaviorBuilder.TriggerWithResult<E, Function3<T1, T2, T3, R>> fTrigger = BehaviorBuilder.get(func);
          return BehaviorBuilder.create(new BehaviorBuilder.TriggerWithResult<E, R>() {
             {
@@ -372,18 +366,10 @@ public class BehaviorBuilder<E extends LivingEntity, M> implements App<BehaviorB
          final App<BehaviorBuilder.Mu<E>, T3> t3,
          final App<BehaviorBuilder.Mu<E>, T4> t4
       ) {
-         final BehaviorBuilder.TriggerWithResult<E, T1> t1Trigger = (BehaviorBuilder.TriggerWithResult<E, T1>)BehaviorBuilder.get(
-            (App<BehaviorBuilder.Mu<E>, M>)t1
-         );
-         final BehaviorBuilder.TriggerWithResult<E, T2> t2Trigger = (BehaviorBuilder.TriggerWithResult<E, T2>)BehaviorBuilder.get(
-            (App<BehaviorBuilder.Mu<E>, M>)t2
-         );
-         final BehaviorBuilder.TriggerWithResult<E, T3> t3Trigger = (BehaviorBuilder.TriggerWithResult<E, T3>)BehaviorBuilder.get(
-            (App<BehaviorBuilder.Mu<E>, M>)t3
-         );
-         final BehaviorBuilder.TriggerWithResult<E, T4> t4Trigger = (BehaviorBuilder.TriggerWithResult<E, T4>)BehaviorBuilder.get(
-            (App<BehaviorBuilder.Mu<E>, M>)t4
-         );
+         final BehaviorBuilder.TriggerWithResult<E, T1> t1Trigger = getTrigger(t1);
+         final BehaviorBuilder.TriggerWithResult<E, T2> t2Trigger = getTrigger(t2);
+         final BehaviorBuilder.TriggerWithResult<E, T3> t3Trigger = getTrigger(t3);
+         final BehaviorBuilder.TriggerWithResult<E, T4> t4Trigger = getTrigger(t4);
          final BehaviorBuilder.TriggerWithResult<E, Function4<T1, T2, T3, T4, R>> fTrigger = BehaviorBuilder.get(func);
          return BehaviorBuilder.create(
             new BehaviorBuilder.TriggerWithResult<E, R>() {

@@ -147,7 +147,7 @@ public class LevelDatToSavedDataFileFix extends FileFix {
    private static void extractWorldBorderToFile(final FileAccess<? extends CompressedNbt> targetFile, final Dynamic<?> content, final double divider) {
       OptionalDynamic<?> worldBorderTagOpt = content.get("world_border");
       if (!worldBorderTagOpt.result().isEmpty()) {
-         Dynamic<?> worldBorderTag = ((Dynamic)worldBorderTagOpt.result().get())
+         Dynamic<?> worldBorderTag = ((Dynamic<?>)worldBorderTagOpt.result().get())
             .update("center_x", x -> x.createDouble(x.asDouble(0.0) / divider))
             .update("center_z", z -> z.createDouble(z.asDouble(0.0) / divider));
          targetFile.getOnlyFile().write(worldBorderTag);

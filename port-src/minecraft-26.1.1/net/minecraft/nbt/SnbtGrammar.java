@@ -784,7 +784,7 @@ public class SnbtGrammar {
             state.errorCollector().store(state.mark(), SnbtGrammar.ERROR_INVALID_ARRAY_ELEMENT_TYPE);
             return null;
          } else {
-            return entry.create(JavaOps.INSTANCE, actualType, state);
+            return (Number)entry.create(JavaOps.INSTANCE, actualType, state);
          }
       }
 

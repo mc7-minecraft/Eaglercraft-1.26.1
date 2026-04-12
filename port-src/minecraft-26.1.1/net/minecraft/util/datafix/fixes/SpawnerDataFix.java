@@ -10,6 +10,7 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.DynamicOps;
 import java.util.List;
+import java.util.Optional;
 
 public class SpawnerDataFix extends DataFix {
    public SpawnerDataFix(final Schema outputSchema) {
@@ -46,7 +47,8 @@ public class SpawnerDataFix extends DataFix {
       List<?> entries = (List<?>)spawnPotentials.getValue();
       List<?> wrappedEntries = entries.stream().map(o -> {
          Pair<Object, Dynamic<?>> entry = (Pair<Object, Dynamic<?>>)o;
-         int weight = ((Dynamic)entry.getSecond()).get("Weight").asNumber().result().orElse(1).intValue();
+         Optional<Number> weightValue = ((Dynamic)entry.getSecond()).get("Weight").asNumber().result();
+         int weight = weightValue.isPresent() ? weightValue.get().intValue() : 1;
          Dynamic<?> newEntryRemainder = new Dynamic(ops);
          newEntryRemainder = newEntryRemainder.set("weight", newEntryRemainder.createInt(weight));
          Dynamic<?> newInnerRemainder = ((Dynamic)entry.getSecond()).remove("Weight").remove("Entity");

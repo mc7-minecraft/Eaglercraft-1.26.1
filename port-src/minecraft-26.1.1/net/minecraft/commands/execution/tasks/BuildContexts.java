@@ -37,6 +37,7 @@ public class BuildContexts<T extends ExecutionCommandSource<T>> {
       this.command = command;
    }
 
+   @SuppressWarnings("unchecked")
    protected void execute(
       final T originalSource, final List<T> initialSources, final ExecutionContext<T> context, final Frame frame, final ChainModifiers initialModifiers
    ) {
@@ -54,8 +55,8 @@ public class BuildContexts<T extends ExecutionCommandSource<T>> {
                }
 
                RedirectModifier<T> modifier = contextToRun.getRedirectModifier();
-               if (modifier instanceof CustomModifierExecutor<T> customModifierExecutor) {
-                  customModifierExecutor.apply(originalSource, currentSources, currentStage, modifiers, ExecutionControl.create(context, frame));
+               if (modifier instanceof CustomModifierExecutor<?> customModifierExecutor) {
+                  ((CustomModifierExecutor<T>)customModifierExecutor).apply(originalSource, currentSources, currentStage, modifiers, ExecutionControl.create(context, frame));
                   return;
                }
 
@@ -92,15 +93,15 @@ public class BuildContexts<T extends ExecutionCommandSource<T>> {
 
       if (currentSources.isEmpty()) {
          if (modifiers.isReturn()) {
-            context.queueNext(new CommandQueueEntry<>(frame, FallthroughTask.instance()));
+            context.queueNext(new CommandQueueEntry<T>(frame, FallthroughTask.instance()));
          }
       } else {
          CommandContext<T> executeContext = currentStage.getTopContext();
-         if (executeContext.getCommand() instanceof CustomCommandExecutor<T> customCommandExecutor) {
+         if (executeContext.getCommand() instanceof CustomCommandExecutor<?> customCommandExecutor) {
             ExecutionControl<T> executionControl = ExecutionControl.create(context, frame);
 
             for (T executionSource : currentSources) {
-               customCommandExecutor.run(executionSource, currentStage, modifiers, executionControl);
+               ((CustomCommandExecutor<T>)customCommandExecutor).run(executionSource, currentStage, modifiers, executionControl);
             }
          } else {
             if (modifiers.isReturn()) {
@@ -110,7 +111,7 @@ public class BuildContexts<T extends ExecutionCommandSource<T>> {
             }
 
             ExecuteCommand<T> action = new ExecuteCommand<>(this.commandInput, modifiers, executeContext);
-            ContinuationTask.schedule(context, frame, currentSources, (frame1, entrySource) -> new CommandQueueEntry<>(frame1, action.bind(entrySource)));
+            ContinuationTask.schedule(context, frame, currentSources, (frame1, entrySource) -> new CommandQueueEntry<T>(frame1, action.bind(entrySource)));
          }
       }
    }

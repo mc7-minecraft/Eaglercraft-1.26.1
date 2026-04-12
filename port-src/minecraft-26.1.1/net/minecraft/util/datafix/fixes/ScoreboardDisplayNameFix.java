@@ -23,7 +23,7 @@ public class ScoreboardDisplayNameFix extends DataFix {
    protected TypeRewriteRule makeRule() {
       Type<?> inputType = this.getInputSchema().getType(this.type);
       OpticFinder<?> displayNameF = inputType.findField("DisplayName");
-      OpticFinder<Pair<String, String>> textComponentF = DSL.typeFinder(this.getInputSchema().getType(References.TEXT_COMPONENT));
+      OpticFinder<Pair<String, String>> textComponentF = DSL.typeFinder((Type<Pair<String, String>>)this.getInputSchema().getType(References.TEXT_COMPONENT));
       return this.fixTypeEverywhereTyped(
          this.name,
          inputType,

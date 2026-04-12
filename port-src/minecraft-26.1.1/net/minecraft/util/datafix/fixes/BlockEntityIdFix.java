@@ -10,7 +10,7 @@ import com.mojang.datafixers.types.templates.TaggedChoice.TaggedChoiceType;
 import java.util.Map;
 
 public class BlockEntityIdFix extends DataFix {
-   public static final Map<String, String> ID_MAP = (Map<String, String>)DataFixUtils.make(Maps.newHashMap(), map -> {
+   public static final Map<String, String> ID_MAP = DataFixUtils.make(Maps.<String, String>newHashMap(), map -> {
       map.put("Airportal", "minecraft:end_portal");
       map.put("Banner", "minecraft:banner");
       map.put("Beacon", "minecraft:beacon");
@@ -43,8 +43,10 @@ public class BlockEntityIdFix extends DataFix {
    public TypeRewriteRule makeRule() {
       Type<?> oldItemStackType = this.getInputSchema().getType(References.ITEM_STACK);
       Type<?> newItemStackType = this.getOutputSchema().getType(References.ITEM_STACK);
-      TaggedChoiceType<String> oldType = this.getInputSchema().findChoiceType(References.BLOCK_ENTITY);
-      TaggedChoiceType<String> newType = this.getOutputSchema().findChoiceType(References.BLOCK_ENTITY);
+      @SuppressWarnings("unchecked")
+      TaggedChoiceType<String> oldType = (TaggedChoiceType<String>)this.getInputSchema().findChoiceType(References.BLOCK_ENTITY);
+      @SuppressWarnings("unchecked")
+      TaggedChoiceType<String> newType = (TaggedChoiceType<String>)this.getOutputSchema().findChoiceType(References.BLOCK_ENTITY);
       return TypeRewriteRule.seq(
          this.convertUnchecked("item stack block entity name hook converter", oldItemStackType, newItemStackType),
          this.fixTypeEverywhere("BlockEntityIdFix", oldType, newType, ops -> input -> input.mapFirst(id -> ID_MAP.getOrDefault(id, id)))

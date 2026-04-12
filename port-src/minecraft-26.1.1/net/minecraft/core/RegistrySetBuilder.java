@@ -421,13 +421,14 @@ public class RegistrySetBuilder {
       }
 
       private <T> Holder.Reference<T> getOrCreate(final ResourceKey<T> id) {
-         return (Holder.Reference<T>)this.holders.computeIfAbsent(id, k -> Holder.Reference.createStandAlone(this.owner, (ResourceKey<Object>)k));
+         ResourceKey<Object> key = (ResourceKey<Object>)id;
+         return (Holder.Reference<T>)this.holders.computeIfAbsent(key, k -> Holder.Reference.createStandAlone(this.owner, k));
       }
    }
 
    private static class UniversalOwner implements HolderOwner<Object> {
       public <T> HolderOwner<T> cast() {
-         return this;
+         return (HolderOwner<T>)this;
       }
    }
 

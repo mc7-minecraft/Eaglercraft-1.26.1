@@ -42,7 +42,7 @@ public class SuggestionProviders {
       if (previous != null) {
          throw new IllegalArgumentException("A command suggestion provider is already registered with the name '" + name + "'");
       } else {
-         return new SuggestionProviders.RegisteredSuggestion(name, provider);
+         return (SuggestionProvider<S>)new SuggestionProviders.RegisteredSuggestion(name, provider);
       }
    }
 

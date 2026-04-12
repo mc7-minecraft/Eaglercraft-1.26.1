@@ -17,7 +17,8 @@ public class OptionsKeyTranslationFix extends DataFix {
       return this.fixTypeEverywhereTyped(
          "OptionsKeyTranslationFix",
          this.getInputSchema().getType(References.OPTIONS),
-         input -> input.update(DSL.remainderFinder(), tag -> tag.getMapValues().map(map1 -> tag.createMap(map1.entrySet().stream().map(entry -> {
+         input -> input.update(DSL.remainderFinder(), tag -> {
+            Dynamic<?> result = tag.getMapValues().map(map1 -> tag.createMap(map1.entrySet().stream().map(entry -> {
                      if (((Dynamic)entry.getKey()).asString("").startsWith("key_")) {
                         String oldValue = ((Dynamic)entry.getValue()).asString("");
                         if (!oldValue.startsWith("key.mouse") && !oldValue.startsWith("scancode.")) {
@@ -26,7 +27,9 @@ public class OptionsKeyTranslationFix extends DataFix {
                      }
 
                      return Pair.of((Dynamic)entry.getKey(), (Dynamic)entry.getValue());
-                  }).collect(Collectors.toMap(Pair::getFirst, Pair::getSecond)))).result().orElse(tag))
+                  }).collect(Collectors.toMap(Pair::getFirst, Pair::getSecond)))).result().orElse(null);
+            return result != null ? result : tag;
+         })
       );
    }
 }

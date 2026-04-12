@@ -78,7 +78,10 @@ public class EntityRidingToPassengersFix extends DataFix {
                            ),
                            Either.right(DSL.unit())
                         );
-                        passenger = Optional.of(Pair.of(References.ENTITY_TREE.typeName(), Pair.of(passengersValue, ((Pair)updating.getSecond()).getSecond())));
+                        Entity ridingEntity = (Entity)((Pair)updating.getSecond()).getSecond();
+                        passenger = Optional.of(
+                           Pair.of(References.ENTITY_TREE.typeName(), Pair.of(passengersValue, ridingEntity))
+                        );
                         Optional<OldEntityTree> riding = ((Either)((Pair)updating.getSecond()).getFirst()).left();
                         if (riding.isEmpty()) {
                            return passenger.orElseThrow(() -> new IllegalStateException("Should always have an entity tree here"));

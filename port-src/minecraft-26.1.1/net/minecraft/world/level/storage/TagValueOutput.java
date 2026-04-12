@@ -36,16 +36,14 @@ public class TagValueOutput implements ValueOutput {
 
    @Override
    public <T> void store(final String name, final Codec<T> codec, final T value) {
-      DataResult var10000 = codec.encodeStart(this.ops, value);
-      Objects.requireNonNull(var10000);
-      Object var4 = var10000;
-      switch (var4) {
+      DataResult<Tag> result = codec.encodeStart(this.ops, value);
+      switch (result) {
          case Success success:
             this.output.put(name, (Tag)success.value());
             break;
          case Error error:
             this.problemReporter.report(new TagValueOutput.EncodeToFieldFailedProblem(name, value, error));
-            error.partialValue().ifPresent(partial -> this.output.put(name, partial));
+            error.partialValue().ifPresent(partial -> this.output.put(name, (Tag)partial));
             break;
          default:
             throw new MatchException(null, null);
@@ -61,10 +59,8 @@ public class TagValueOutput implements ValueOutput {
 
    @Override
    public <T> void store(final MapCodec<T> codec, final T value) {
-      DataResult var10000 = codec.encoder().encodeStart(this.ops, value);
-      Objects.requireNonNull(var10000);
-      Object var3 = var10000;
-      switch (var3) {
+      DataResult<Tag> result = codec.encoder().encodeStart(this.ops, value);
+      switch (result) {
          case Success success:
             this.output.merge((CompoundTag)success.value());
             break;
@@ -231,16 +227,14 @@ public class TagValueOutput implements ValueOutput {
 
       @Override
       public void add(final T value) {
-         DataResult var10000 = this.codec.encodeStart(this.ops, value);
-         Objects.requireNonNull(var10000);
-         Object var2 = var10000;
-         switch (var2) {
+         DataResult<Tag> result = this.codec.encodeStart(this.ops, value);
+         switch (result) {
             case Success success:
                this.output.add((Tag)success.value());
                break;
             case Error error:
                this.problemReporter.report(new TagValueOutput.EncodeToListFailedProblem(this.name, value, error));
-               error.partialValue().ifPresent(this.output::add);
+               error.partialValue().ifPresent(partial -> this.output.add((Tag)partial));
                break;
             default:
                throw new MatchException(null, null);

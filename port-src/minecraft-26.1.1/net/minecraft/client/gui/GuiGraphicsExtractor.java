@@ -429,6 +429,8 @@ public class GuiGraphicsExtractor {
          case GuiSpriteScaling.NineSlice nineSlice:
             this.blitNineSlicedSprite(renderPipeline, sprite, nineSlice, x, y, width, height, color);
             break;
+         default:
+            throw new IllegalStateException("Unhandled sprite scaling: " + scaling);
       }
    }
 

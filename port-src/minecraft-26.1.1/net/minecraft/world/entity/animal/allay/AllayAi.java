@@ -19,6 +19,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.AnimalPanic;
+import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
 import net.minecraft.world.entity.ai.behavior.CountDownCooldownTicks;
 import net.minecraft.world.entity.ai.behavior.DoNothing;
@@ -62,7 +63,7 @@ public class AllayAi {
       return ActivityData.create(
          Activity.CORE,
          0,
-         ImmutableList.of(
+         ImmutableList.<BehaviorControl<? super Allay>>of(
             new Swim(0.8F),
             new AnimalPanic(2.5F),
             new LookAtTargetSink(45, 90),
@@ -77,7 +78,7 @@ public class AllayAi {
       return ActivityData.create(
          Activity.IDLE,
          0,
-         ImmutableList.of(
+         ImmutableList.<BehaviorControl<? super Allay>>of(
             GoToWantedItem.create(mob -> true, 1.75F, true, 32),
             new GoAndGiveItemsToTarget<>(AllayAi::getItemDepositPosition, 2.25F, 20, AllayAi::onItemThrown),
             StayCloseToTarget.create(AllayAi::getItemDepositPosition, Predicate.not(AllayAi::hasWantedItem), 4, 16, 2.25F),

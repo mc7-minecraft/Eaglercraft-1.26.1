@@ -25,13 +25,13 @@ public class SavedDataUUIDFix extends AbstractUUIDFix {
                      tag -> tag.update(
                            "Raids",
                            raids -> raids.createList(
-                                 raids.asStream()
+                                 ((java.util.stream.Stream<Dynamic<?>>)(java.util.stream.Stream<?>)raids.asStream())
                                     .map(
                                        raid -> raid.update(
                                              "HeroesOfTheVillage",
                                              heros -> heros.createList(
-                                                   heros.asStream()
-                                                      .map(hero -> (Dynamic)createUUIDFromLongs((Dynamic<?>)hero, "UUIDMost", "UUIDLeast").orElseGet(() -> {
+                                                   ((java.util.stream.Stream<Dynamic<?>>)(java.util.stream.Stream<?>)heros.asStream())
+                                                      .map((Dynamic<?> hero) -> (Dynamic<?>)createUUIDFromLongs((Dynamic<?>)hero, "UUIDMost", "UUIDLeast").orElseGet(() -> {
                                                             LOGGER.warn("HeroesOfTheVillage contained invalid UUIDs.");
                                                             return (Dynamic<?>)hero;
                                                          }))

@@ -16,7 +16,7 @@ public class ItemLoreFix extends DataFix {
 
    protected TypeRewriteRule makeRule() {
       Type<?> itemStackType = this.getInputSchema().getType(References.ITEM_STACK);
-      Type<Pair<String, String>> textComponentType = this.getInputSchema().getType(References.TEXT_COMPONENT);
+      Type<Pair<String, String>> textComponentType = (Type<Pair<String, String>>)this.getInputSchema().getType(References.TEXT_COMPONENT);
       OpticFinder<?> tagFinder = itemStackType.findField("tag");
       OpticFinder<?> displayFinder = tagFinder.type().findField("display");
       OpticFinder<?> loreFinder = displayFinder.type().findField("Lore");

@@ -18,7 +18,7 @@ public class ChestedHorsesInventoryZeroIndexingFix extends DataFix {
 
    protected TypeRewriteRule makeRule() {
       OpticFinder<Pair<String, Pair<Either<Pair<String, String>, Unit>, Pair<Either<?, Unit>, Dynamic<?>>>>> itemStackFinder = DSL.typeFinder(
-         this.getInputSchema().getType(References.ITEM_STACK)
+         (com.mojang.datafixers.types.Type) this.getInputSchema().getType(References.ITEM_STACK)
       );
       Type<?> entityType = this.getInputSchema().getType(References.ENTITY);
       return TypeRewriteRule.seq(

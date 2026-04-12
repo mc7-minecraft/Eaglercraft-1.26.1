@@ -15,20 +15,12 @@ public class GossipUUIDFix extends NamedEntityFix {
    protected Typed<?> fix(final Typed<?> entity) {
       return entity.update(
          DSL.remainderFinder(),
-         tag -> tag.update(
-               "Gossips",
-               gossips -> (Dynamic)DataFixUtils.orElse(
-                     gossips.asStreamOpt()
-                        .result()
-                        .map(
-                           s -> s.map(
-                                 gossip -> (Dynamic)AbstractUUIDFix.replaceUUIDLeastMost((Dynamic<?>)gossip, "Target", "Target").orElse((Dynamic<?>)gossip)
-                              )
-                        )
-                        .map(gossips::createList),
-                     gossips
-                  )
-            )
+         tag -> tag.update("Gossips", gossips -> {
+               java.util.Optional<Dynamic<?>> updatedGossips = gossips.asStreamOpt().result().map(stream -> gossips.createList(
+                     stream.map(gossip -> (Dynamic<?>)AbstractUUIDFix.replaceUUIDLeastMost((Dynamic<?>)gossip, "Target", "Target").orElse((Dynamic<?>)gossip))
+                  ));
+               return DataFixUtils.orElse(updatedGossips, gossips);
+            })
       );
    }
 }

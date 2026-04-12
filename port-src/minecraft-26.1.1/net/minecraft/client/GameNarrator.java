@@ -111,13 +111,6 @@ public class GameNarrator {
    }
 
    public void checkStatus(final boolean requiredActive) {
-      if (requiredActive
-         && !this.isActive()
-         && !MessageBox.errorWithContinue(
-            "Failed to initialize text-to-speech library. Do you want to continue?\nIf this problem persists, please report it at bugs.mojang.com"
-         )) {
-         throw new GameNarrator.NarratorInitException("Narrator library is not active");
-      }
    }
 
    public static class NarratorInitException extends SilentInitException {

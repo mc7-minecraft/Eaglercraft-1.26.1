@@ -1631,15 +1631,7 @@ public class Options {
                   if (tag == null) {
                      return null;
                   } else if (tag instanceof StringTag var3) {
-                     StringTag var10000 = var3;
-
-                     try {
-                        String var7 = var10000.value();
-                     } catch (Throwable var6) {
-                        throw new MatchException(var6.toString(), var6);
-                     }
-
-                     return var7;
+                     return var3.value();
                   } else {
                      throw new IllegalStateException("Cannot read field of wrong type, expected string: " + tag);
                   }

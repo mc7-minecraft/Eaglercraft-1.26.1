@@ -73,18 +73,8 @@ public class ComponentUtils {
    }
 
    private static Style resolveStyle(final ResolutionContext context, final Style style, final int recursionDepth) throws CommandSyntaxException {
-      if (style.getHoverEvent() instanceof HoverEvent.ShowText var4) {
-         HoverEvent.ShowText var10000 = var4;
-
-         try {
-            var9 = var10000.value();
-         } catch (Throwable var7) {
-            throw new MatchException(var7.toString(), var7);
-         }
-
-         HoverEvent resolved = var9;
-         resolved = new HoverEvent.ShowText(resolve(context, resolved, recursionDepth + 1));
-         return style.withHoverEvent(resolved);
+      if (style.getHoverEvent() instanceof HoverEvent.ShowText showText) {
+         return style.withHoverEvent(new HoverEvent.ShowText(resolve(context, showText.value(), recursionDepth + 1)));
       } else {
          return style;
       }

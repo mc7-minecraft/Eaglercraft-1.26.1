@@ -183,7 +183,7 @@ public class ChunkProtoTickListFix extends DataFix {
       int relativeZ = pos >>> 8 & 15;
       String type = typeGetter.apply(container != null ? container.get().get(relativeX, relativeY, relativeZ) : null);
       return tag.createMap(
-         ImmutableMap.builder()
+         ImmutableMap.<Dynamic<?>, Dynamic<?>>builder()
             .put(tag.createString("i"), tag.createString(type))
             .put(tag.createString("x"), tag.createInt(sectionX * 16 + relativeX))
             .put(tag.createString("y"), tag.createInt(sectionY * 16 + relativeY))

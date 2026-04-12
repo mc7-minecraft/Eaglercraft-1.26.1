@@ -18,6 +18,7 @@ import net.minecraft.world.entity.ai.behavior.AnimalMakeLove;
 import net.minecraft.world.entity.ai.behavior.AnimalPanic;
 import net.minecraft.world.entity.ai.behavior.BabyFollowAdult;
 import net.minecraft.world.entity.ai.behavior.Behavior;
+import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.CountDownCooldownTicks;
 import net.minecraft.world.entity.ai.behavior.DoNothing;
 import net.minecraft.world.entity.ai.behavior.FollowTemptation;
@@ -63,7 +64,7 @@ public class ArmadilloAi {
       return ActivityData.create(
          Activity.CORE,
          0,
-         ImmutableList.of(
+         ImmutableList.<BehaviorControl<? super Armadillo>>of(
             new Swim(0.8F),
             new ArmadilloAi.ArmadilloPanic(2.0F),
             new LookAtTargetSink(45, 90),
@@ -87,7 +88,7 @@ public class ArmadilloAi {
    private static ActivityData<Armadillo> initIdleActivity() {
       return ActivityData.create(
          Activity.IDLE,
-         ImmutableList.of(
+         ImmutableList.<BehaviorControl<? super Armadillo>>of(
             Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
             Pair.of(1, new AnimalMakeLove(EntityType.ARMADILLO, 1.0F, 1)),
             Pair.of(

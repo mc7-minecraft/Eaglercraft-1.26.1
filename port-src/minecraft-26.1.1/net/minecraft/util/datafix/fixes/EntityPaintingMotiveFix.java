@@ -12,7 +12,7 @@ import java.util.Optional;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 
 public class EntityPaintingMotiveFix extends NamedEntityFix {
-   private static final Map<String, String> MAP = (Map<String, String>)DataFixUtils.make(Maps.newHashMap(), map -> {
+   private static final Map<String, String> MAP = DataFixUtils.make(Maps.<String, String>newHashMap(), map -> {
       map.put("donkeykong", "donkey_kong");
       map.put("burningskull", "burning_skull");
       map.put("skullandroses", "skull_and_roses");

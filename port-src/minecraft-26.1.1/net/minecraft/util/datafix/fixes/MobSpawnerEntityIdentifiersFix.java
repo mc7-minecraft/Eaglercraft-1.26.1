@@ -32,19 +32,19 @@ public class MobSpawnerEntityIdentifiersFix extends DataFix {
 
          Optional<? extends Stream<? extends Dynamic<?>>> spawnPotentials = input.get("SpawnPotentials").asStreamOpt().result();
          if (spawnPotentials.isPresent()) {
+            Stream<Dynamic<?>> potentialStream = (Stream<Dynamic<?>>)(Stream<?>)spawnPotentials.get();
             input = input.set(
                "SpawnPotentials",
                input.createList(
-                  spawnPotentials.get()
-                     .map(
-                        spawnPotential -> {
+                  potentialStream.map(
+                        (Dynamic<?> spawnPotential) -> {
                            Optional<String> type = spawnPotential.get("Type").asString().result();
                            if (type.isPresent()) {
                               Dynamic<?> spawnData = ((Dynamic)DataFixUtils.orElse(spawnPotential.get("Properties").result(), spawnPotential.emptyMap()))
                                  .set("id", spawnPotential.createString(type.get()));
                               return spawnPotential.set("Entity", spawnData).remove("Type").remove("Properties");
                            } else {
-                              return (Dynamic)spawnPotential;
+                              return spawnPotential;
                            }
                         }
                      )

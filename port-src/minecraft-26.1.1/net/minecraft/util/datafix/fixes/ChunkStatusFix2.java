@@ -12,18 +12,22 @@ import java.util.Map;
 import java.util.Objects;
 
 public class ChunkStatusFix2 extends DataFix {
-   private static final Map<String, String> RENAMES_AND_DOWNGRADES = ImmutableMap.builder()
-      .put("structure_references", "empty")
-      .put("biomes", "empty")
-      .put("base", "surface")
-      .put("carved", "carvers")
-      .put("liquid_carved", "liquid_carvers")
-      .put("decorated", "features")
-      .put("lighted", "light")
-      .put("mobs_spawned", "spawn")
-      .put("finalized", "heightmaps")
-      .put("fullchunk", "full")
-      .build();
+   private static final Map<String, String> RENAMES_AND_DOWNGRADES;
+
+   static {
+      ImmutableMap.Builder<String, String> builder = ImmutableMap.builder();
+      builder.put("structure_references", "empty");
+      builder.put("biomes", "empty");
+      builder.put("base", "surface");
+      builder.put("carved", "carvers");
+      builder.put("liquid_carved", "liquid_carvers");
+      builder.put("decorated", "features");
+      builder.put("lighted", "light");
+      builder.put("mobs_spawned", "spawn");
+      builder.put("finalized", "heightmaps");
+      builder.put("fullchunk", "full");
+      RENAMES_AND_DOWNGRADES = builder.build();
+   }
 
    public ChunkStatusFix2(final Schema schema, final boolean changesType) {
       super(schema, changesType);

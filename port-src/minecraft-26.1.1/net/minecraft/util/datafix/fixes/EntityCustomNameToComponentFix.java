@@ -24,7 +24,7 @@ public class EntityCustomNameToComponentFix extends DataFix {
       Type<?> entityType = this.getInputSchema().getType(References.ENTITY);
       Type<?> newEntityType = this.getOutputSchema().getType(References.ENTITY);
       OpticFinder<String> idF = DSL.fieldFinder("id", NamespacedSchema.namespacedString());
-      OpticFinder<String> customNameF = entityType.findField("CustomName");
+      OpticFinder<String> customNameF = (OpticFinder<String>)entityType.findField("CustomName");
       Type<?> newCustomNameType = newEntityType.findFieldType("CustomName");
       return this.fixTypeEverywhereTyped(
          "EntityCustomNameToComponentFix", entityType, newEntityType, entity -> fixEntity(entity, newEntityType, idF, customNameF, newCustomNameType)

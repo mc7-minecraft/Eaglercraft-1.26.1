@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import java.util.Map;
 
 public class BiomeFix {
-   public static final Map<String, String> BIOMES = ImmutableMap.builder()
+   public static final Map<String, String> BIOMES = ImmutableMap.<String, String>builder()
       .put("minecraft:extreme_hills", "minecraft:mountains")
       .put("minecraft:swampland", "minecraft:swamp")
       .put("minecraft:hell", "minecraft:nether_wastes")

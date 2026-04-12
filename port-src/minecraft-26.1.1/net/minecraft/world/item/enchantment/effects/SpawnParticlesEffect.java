@@ -87,9 +87,13 @@ public record SpawnParticlesEffect(
                   .apply(i, SpawnParticlesEffect.PositionSource::new)
          )
          .validate(
-            positioning -> positioning.type() == SpawnParticlesEffect.PositionSourceType.ENTITY_POSITION && positioning.scale() != 1.0F
-                  ? DataResult.error(() -> "Cannot scale an entity position coordinate source")
-                  : DataResult.success(positioning)
+            (SpawnParticlesEffect.PositionSource positioning) -> {
+               if (positioning.type() == SpawnParticlesEffect.PositionSourceType.ENTITY_POSITION && positioning.scale() != 1.0F) {
+                  return DataResult.error(() -> "Cannot scale an entity position coordinate source");
+               } else {
+                  return DataResult.success(positioning);
+               }
+            }
          );
 
       public double getCoordinate(final double position, final double center, final float boundingBoxSpan, final RandomSource random) {

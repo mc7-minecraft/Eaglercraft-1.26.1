@@ -120,7 +120,7 @@ public final class NbtUtils {
    }
 
    public static BlockState readBlockState(final HolderGetter<Block> blocks, final CompoundTag tag) {
-      Optional<? extends Holder<Block>> blockHolder = tag.<ResourceKey<T>>read("Name", BLOCK_NAME_CODEC).flatMap(blocks::get);
+      Optional<? extends Holder<Block>> blockHolder = tag.read("Name", BLOCK_NAME_CODEC).flatMap(blocks::get);
       if (blockHolder.isEmpty()) {
          return Blocks.AIR.defaultBlockState();
       } else {

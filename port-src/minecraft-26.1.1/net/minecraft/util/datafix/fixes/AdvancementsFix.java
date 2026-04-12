@@ -5,7 +5,7 @@ import com.mojang.datafixers.schemas.Schema;
 import java.util.Map;
 
 public class AdvancementsFix extends AdvancementsRenameFix {
-   private static final Map<String, String> RENAMES = ImmutableMap.builder()
+   private static final Map<String, String> RENAMES = ImmutableMap.<String, String>builder()
       .put("minecraft:recipes/brewing/speckled_melon", "minecraft:recipes/brewing/glistering_melon_slice")
       .put("minecraft:recipes/building_blocks/black_stained_hardened_clay", "minecraft:recipes/building_blocks/black_terracotta")
       .put("minecraft:recipes/building_blocks/blue_stained_hardened_clay", "minecraft:recipes/building_blocks/blue_terracotta")

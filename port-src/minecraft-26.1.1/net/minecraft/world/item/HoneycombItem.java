@@ -26,7 +26,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 
 public class HoneycombItem extends Item implements SignApplicator {
    public static final Supplier<BiMap<Block, Block>> WAXABLES = Suppliers.memoize(
-      () -> ImmutableBiMap.builder()
+      () -> ImmutableBiMap.<Block, Block>builder()
             .put(Blocks.COPPER_BLOCK, Blocks.WAXED_COPPER_BLOCK)
             .put(Blocks.EXPOSED_COPPER, Blocks.WAXED_EXPOSED_COPPER)
             .put(Blocks.WEATHERED_COPPER, Blocks.WAXED_WEATHERED_COPPER)
@@ -90,7 +90,7 @@ public class HoneycombItem extends Item implements SignApplicator {
    private static final String WAXED_COPPER_CHAIN = "waxed_copper_chain";
    private static final String WAXED_COPPER_LANTERN = "waxed_copper_lantern";
    private static final String WAXED_COPPER_BLOCK = "waxed_copper_block";
-   public static final ImmutableMap<Block, Pair<RecipeCategory, String>> WAXED_RECIPES = ImmutableMap.builder()
+   public static final ImmutableMap<Block, Pair<RecipeCategory, String>> WAXED_RECIPES = ImmutableMap.<Block, Pair<RecipeCategory, String>>builder()
       .put(Blocks.WAXED_COPPER_BULB, Pair.of(RecipeCategory.REDSTONE, "waxed_copper_bulb"))
       .put(Blocks.WAXED_WEATHERED_COPPER_BULB, Pair.of(RecipeCategory.REDSTONE, "waxed_weathered_copper_bulb"))
       .put(Blocks.WAXED_EXPOSED_COPPER_BULB, Pair.of(RecipeCategory.REDSTONE, "waxed_exposed_copper_bulb"))
@@ -142,7 +142,10 @@ public class HoneycombItem extends Item implements SignApplicator {
       Level level = context.getLevel();
       BlockPos pos = context.getClickedPos();
       BlockState oldState = level.getBlockState(pos);
-      return getWaxed(oldState).map(waxedState -> {
+      Optional<BlockState> waxedState = getWaxed(oldState);
+      if (waxedState.isEmpty()) {
+         return InteractionResult.PASS;
+      } else {
          Player player = context.getPlayer();
          ItemStack itemInHand = context.getItemInHand();
          if (player instanceof ServerPlayer serverPlayer) {
@@ -150,8 +153,8 @@ public class HoneycombItem extends Item implements SignApplicator {
          }
 
          itemInHand.shrink(1);
-         level.setBlock(pos, waxedState, 11);
-         level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, waxedState));
+         level.setBlock(pos, waxedState.get(), 11);
+         level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, waxedState.get()));
          level.levelEvent(player, 3003, pos, 0);
          if (oldState.getBlock() instanceof ChestBlock && oldState.getValue(ChestBlock.TYPE) != ChestType.SINGLE) {
             BlockPos neighborPos = ChestBlock.getConnectedBlockPos(pos, oldState);
@@ -160,11 +163,11 @@ public class HoneycombItem extends Item implements SignApplicator {
          }
 
          return InteractionResult.SUCCESS;
-      }).orElse(InteractionResult.PASS);
+      }
    }
 
    public static Optional<BlockState> getWaxed(final BlockState oldState) {
-      return Optional.ofNullable((Block)WAXABLES.get().get(oldState.getBlock())).map(b -> ((Block)b).withPropertiesOf(oldState));
+      return Optional.ofNullable(WAXABLES.get().get(oldState.getBlock())).map(b -> b.withPropertiesOf(oldState));
    }
 
    @Override

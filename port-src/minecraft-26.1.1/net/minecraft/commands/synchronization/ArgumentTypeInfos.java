@@ -138,8 +138,8 @@ public class ArgumentTypeInfos {
       return register(registry, "uuid", UuidArgument.class, SingletonArgumentInfo.contextFree(UuidArgument::uuid));
    }
 
-   private static <T extends ArgumentType<?>> Class<T> fixClassType(final Class<? super T> cls) {
-      return (Class<T>)cls;
+   private static <T extends ArgumentType<?>> Class<? extends ArgumentType<?>> fixClassType(final Class<T> cls) {
+      return cls;
    }
 
    public static boolean isClassRecognized(final Class<?> cls) {

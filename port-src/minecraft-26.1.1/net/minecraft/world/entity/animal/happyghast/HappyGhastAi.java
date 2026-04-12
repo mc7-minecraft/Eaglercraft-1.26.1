@@ -35,7 +35,7 @@ public class HappyGhastAi {
       return ActivityData.create(
          Activity.CORE,
          0,
-         ImmutableList.of(
+         ImmutableList.<net.minecraft.world.entity.ai.behavior.BehaviorControl<? super HappyGhast>>of(
             new Swim(0.8F),
             new AnimalPanic(2.0F, 0),
             new LookAtTargetSink(45, 90),
@@ -48,7 +48,7 @@ public class HappyGhastAi {
    private static ActivityData<HappyGhast> initIdleActivity() {
       return ActivityData.create(
          Activity.IDLE,
-         ImmutableList.of(
+         ImmutableList.<Pair<Integer, ? extends net.minecraft.world.entity.ai.behavior.BehaviorControl<? super HappyGhast>>>of(
             Pair.of(1, new FollowTemptation(mob -> 1.25F, mob -> 3.0, true)),
             Pair.of(2, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, mob -> 1.1F, MemoryModuleType.NEAREST_VISIBLE_PLAYER, true)),
             Pair.of(3, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, mob -> 1.1F, MemoryModuleType.NEAREST_VISIBLE_ADULT, true)),
@@ -58,7 +58,7 @@ public class HappyGhastAi {
    }
 
    private static ActivityData<HappyGhast> initPanicActivity() {
-      return ActivityData.create(Activity.PANIC, ImmutableList.of(), Set.of(Pair.of(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_PRESENT)));
+      return ActivityData.create(Activity.PANIC, ImmutableList.<Pair<Integer, ? extends net.minecraft.world.entity.ai.behavior.BehaviorControl<? super HappyGhast>>>of(), Set.of(Pair.of(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_PRESENT)));
    }
 
    public static void updateActivity(final HappyGhast body) {

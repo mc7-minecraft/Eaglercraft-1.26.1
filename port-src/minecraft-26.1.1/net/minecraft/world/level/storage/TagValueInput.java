@@ -51,38 +51,30 @@ public class TagValueInput implements ValueInput {
       if (tag == null) {
          return Optional.empty();
       } else {
-         Object var10000;
-         Objects.requireNonNull(var10000);
-         Object var4 = var10000;
-
-         codec.parse(this.context.ops(), tag);
-         return switch (var4) {
-            case Success success -> Optional.of(success.value());
-            case Error error -> {
-               this.problemReporter.report(new TagValueInput.DecodeFromFieldFailedProblem(name, tag, error));
-               yield error.partialValue();
-            }
-            default -> throw new MatchException(null, null);
-         };
+         DataResult<T> result = codec.parse(this.context.ops(), tag);
+         Optional<T> value = result.result();
+         if (value.isPresent()) {
+            return value;
+         } else {
+            Error<?> error = result.error().orElseThrow(() -> new MatchException(null, null));
+            this.problemReporter.report(new TagValueInput.DecodeFromFieldFailedProblem(name, tag, error));
+            return result.error().flatMap(Error::partialValue);
+         }
       }
    }
 
    @Override
    public <T> Optional<T> read(final MapCodec<T> codec) {
       DynamicOps<Tag> ops = this.context.ops();
-      Object var10000;
-      Objects.requireNonNull(var10000);
-      Object var3 = var10000;
-
-      ops.getMap(this.input).flatMap(map -> codec.decode(ops, map));
-      return switch (var3) {
-         case Success success -> Optional.of(success.value());
-         case Error error -> {
-            this.problemReporter.report(new TagValueInput.DecodeFromMapFailedProblem(error));
-            yield error.partialValue();
-         }
-         default -> throw new MatchException(null, null);
-      };
+      DataResult<T> result = ops.getMap(this.input).flatMap(map -> codec.decode(ops, map));
+      Optional<T> value = result.result();
+      if (value.isPresent()) {
+         return value;
+      } else {
+         Error<?> error = result.error().orElseThrow(() -> new MatchException(null, null));
+         this.problemReporter.report(new TagValueInput.DecodeFromMapFailedProblem(error));
+         return result.error().flatMap(Error::partialValue);
+      }
    }
 
    @Nullable
@@ -410,19 +402,15 @@ public class TagValueInput implements ValueInput {
       @Override
       public Stream<T> stream() {
          return Streams.mapWithIndex(this.list.stream(), (value, index) -> {
-            Object var10000;
-            Objects.requireNonNull(var10000);
-            DataResult selector0$temp = (DataResult)var10000;
-
-            this.codec.parse(this.context.ops(), value);
-            return switch (selector0$temp) {
-               case Success success -> success.value();
-               case Error error -> {
-                  this.reportIndexUnwrapProblem((int)index, value, error);
-                  yield error.partialValue().orElse(null);
-               }
-               default -> throw new MatchException(null, null);
-            };
+            DataResult<T> result = this.codec.parse(this.context.ops(), value);
+            Optional<T> parsed = result.result();
+            if (parsed.isPresent()) {
+               return parsed.get();
+            } else {
+               Error<?> error = result.error().orElseThrow(() -> new MatchException(null, null));
+               this.reportIndexUnwrapProblem((int)index, value, error);
+               return result.error().flatMap(Error::partialValue).orElse(null);
+            }
          }).filter(Objects::nonNull);
       }
 

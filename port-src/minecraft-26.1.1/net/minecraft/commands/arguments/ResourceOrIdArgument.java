@@ -65,7 +65,7 @@ public class ResourceOrIdArgument<T> implements ArgumentType<Holder<T>> {
    }
 
    public static <T, O> Grammar<ResourceOrIdArgument.Result<T, O>> createGrammar(final ResourceKey<? extends Registry<T>> registryKey, final DynamicOps<O> ops) {
-      Grammar<O> inlineValueGrammar = SnbtGrammar.createParser((DynamicOps<T>)ops);
+      Grammar<O> inlineValueGrammar = SnbtGrammar.createParser(ops);
       Dictionary<StringReader> rules = new Dictionary<>();
       Atom<ResourceOrIdArgument.Result<T, O>> result = Atom.of("result");
       Atom<Identifier> id = Atom.of("id");

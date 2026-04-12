@@ -17,12 +17,12 @@ public class BlockEntityUUIDFix extends AbstractUUIDFix {
    }
 
    private Dynamic<?> updateSkull(final Dynamic<?> tag) {
-      return tag.get("Owner")
+      java.util.Optional<? extends Dynamic<?>> ownerTag = tag.get("Owner")
          .get()
-         .map(ownerTag -> replaceUUIDString(ownerTag, "Id", "Id").orElse(ownerTag))
-         .map(ownerTag -> tag.remove("Owner").set("SkullOwner", ownerTag))
-         .result()
-         .orElse(tag);
+         .map(owner -> replaceUUIDString((Dynamic<?>)owner, "Id", "Id").orElse((Dynamic<?>)owner))
+         .map(owner -> tag.remove("Owner").set("SkullOwner", owner))
+         .result();
+      return ownerTag.isPresent() ? ownerTag.get() : tag;
    }
 
    private Dynamic<?> updateConduit(final Dynamic<?> tag) {

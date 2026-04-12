@@ -24,7 +24,7 @@ import org.slf4j.Logger;
 
 public class StructuresBecomeConfiguredFix extends DataFix {
    private static final Logger LOGGER = LogUtils.getLogger();
-   private static final Map<String, StructuresBecomeConfiguredFix.Conversion> CONVERSION_MAP = ImmutableMap.builder()
+   private static final Map<String, StructuresBecomeConfiguredFix.Conversion> CONVERSION_MAP = ImmutableMap.<String, StructuresBecomeConfiguredFix.Conversion>builder()
       .put(
          "mineshaft",
          StructuresBecomeConfiguredFix.Conversion.biomeMapped(
@@ -214,7 +214,7 @@ public class StructuresBecomeConfiguredFix extends DataFix {
       }
 
       private static Map<String, String> unpack(final Map<List<String>, String> packed) {
-         Builder<String, String> builder = ImmutableMap.builder();
+         Builder<String, String> builder = ImmutableMap.<String, String>builder();
 
          for (Entry<List<String>, String> entry : packed.entrySet()) {
             entry.getKey().forEach(k -> builder.put(k, entry.getValue()));

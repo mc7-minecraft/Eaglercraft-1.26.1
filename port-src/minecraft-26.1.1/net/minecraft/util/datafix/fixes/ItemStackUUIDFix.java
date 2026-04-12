@@ -32,7 +32,7 @@ public class ItemStackUUIDFix extends AbstractUUIDFix {
       return tag.update(
          "AttributeModifiers",
          modifiers -> tag.createList(
-               modifiers.asStream().map(modifier -> (Dynamic)replaceUUIDLeastMost((Dynamic<?>)modifier, "UUID", "UUID").orElse((Dynamic<?>)modifier))
+               modifiers.asStream().map((Dynamic<?> modifier) -> replaceUUIDLeastMost(modifier, "UUID", "UUID").orElse(modifier))
             )
       );
    }

@@ -55,7 +55,7 @@ public class CopperGolemAi {
       return ActivityData.create(
          Activity.CORE,
          0,
-         ImmutableList.of(
+         ImmutableList.<net.minecraft.world.entity.ai.behavior.BehaviorControl<? super CopperGolem>>of(
             new AnimalPanic(1.5F),
             new LookAtTargetSink(45, 90),
             new MoveToTargetSink(),
@@ -69,7 +69,7 @@ public class CopperGolemAi {
    private static ActivityData<CopperGolem> initIdleActivity() {
       return ActivityData.create(
          Activity.IDLE,
-         ImmutableList.of(
+         ImmutableList.<Pair<Integer, ? extends net.minecraft.world.entity.ai.behavior.BehaviorControl<? super CopperGolem>>>of(
             Pair.of(
                0,
                new TransportItemsBetweenContainers(

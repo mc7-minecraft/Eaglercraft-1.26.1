@@ -20,8 +20,10 @@ public abstract class SimplestEntityRenameFix extends DataFix {
    }
 
    public TypeRewriteRule makeRule() {
-      TaggedChoiceType<String> oldType = this.getInputSchema().findChoiceType(References.ENTITY);
-      TaggedChoiceType<String> newType = this.getOutputSchema().findChoiceType(References.ENTITY);
+      @SuppressWarnings("unchecked")
+      TaggedChoiceType<String> oldType = (TaggedChoiceType<String>)this.getInputSchema().findChoiceType(References.ENTITY);
+      @SuppressWarnings("unchecked")
+      TaggedChoiceType<String> newType = (TaggedChoiceType<String>)this.getOutputSchema().findChoiceType(References.ENTITY);
       Type<Pair<String, String>> entityNameType = DSL.named(References.ENTITY_NAME.typeName(), NamespacedSchema.namespacedString());
       if (!Objects.equals(this.getOutputSchema().getType(References.ENTITY_NAME), entityNameType)) {
          throw new IllegalStateException("Entity name type is not what was expected.");

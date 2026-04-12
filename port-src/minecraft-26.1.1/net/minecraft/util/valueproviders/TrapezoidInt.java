@@ -8,7 +8,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 
 public record TrapezoidInt(int minInclusive, int maxInclusive, int plateau) implements IntProvider {
-   public static final MapCodec<TrapezoidInt> MAP_CODEC = RecordCodecBuilder.mapCodec(
+   public static final MapCodec<TrapezoidInt> MAP_CODEC = RecordCodecBuilder.<TrapezoidInt>mapCodec(
          i -> i.group(
                   Codec.INT.fieldOf("min").forGetter(TrapezoidInt::minInclusive),
                   Codec.INT.fieldOf("max").forGetter(TrapezoidInt::maxInclusive),
@@ -17,12 +17,12 @@ public record TrapezoidInt(int minInclusive, int maxInclusive, int plateau) impl
                .apply(i, TrapezoidInt::new)
       )
       .validate(
-         c -> {
+         (TrapezoidInt c) -> {
             if (c.maxInclusive < c.minInclusive) {
-               return DataResult.error(() -> "Max must be larger than min: [" + c.minInclusive + ", " + c.maxInclusive + "]");
+               return DataResult.<TrapezoidInt>error(() -> "Max must be larger than min: [" + c.minInclusive + ", " + c.maxInclusive + "]");
             } else {
                return c.plateau > c.maxInclusive - c.minInclusive
-                  ? DataResult.error(() -> "Plateau can at most be the full span: [" + c.minInclusive + ", " + c.maxInclusive + "]")
+                  ? DataResult.<TrapezoidInt>error(() -> "Plateau can at most be the full span: [" + c.minInclusive + ", " + c.maxInclusive + "]")
                   : DataResult.success(c);
             }
          }

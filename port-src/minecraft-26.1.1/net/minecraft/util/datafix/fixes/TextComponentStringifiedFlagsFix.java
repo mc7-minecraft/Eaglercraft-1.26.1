@@ -15,7 +15,7 @@ public class TextComponentStringifiedFlagsFix extends DataFix {
    }
 
    protected TypeRewriteRule makeRule() {
-      Type<Pair<String, Either<?, Pair<?, Pair<?, Pair<?, Dynamic<?>>>>>>> textComponentType = this.getInputSchema().getType(References.TEXT_COMPONENT);
+      Type<Pair<String, Either<?, Pair<?, Pair<?, Pair<?, Dynamic<?>>>>>>> textComponentType = (Type<Pair<String, Either<?, Pair<?, Pair<?, Pair<?, Dynamic<?>>>>>>> )this.getInputSchema().getType(References.TEXT_COMPONENT);
       return this.fixTypeEverywhere(
          "TextComponentStringyFlagsFix",
          textComponentType,

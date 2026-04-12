@@ -36,7 +36,7 @@ public class TadpoleAi {
       return ActivityData.create(
          Activity.CORE,
          0,
-         ImmutableList.of(
+         ImmutableList.<net.minecraft.world.entity.ai.behavior.BehaviorControl<? super Tadpole>>of(
             new AnimalPanic(2.0F), new LookAtTargetSink(45, 90), new MoveToTargetSink(), new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS)
          )
       );
@@ -45,7 +45,7 @@ public class TadpoleAi {
    private static ActivityData<Tadpole> initIdleActivity() {
       return ActivityData.create(
          Activity.IDLE,
-         ImmutableList.of(
+         ImmutableList.<Pair<Integer, ? extends net.minecraft.world.entity.ai.behavior.BehaviorControl<? super Tadpole>>>of(
             Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
             Pair.of(1, new FollowTemptation(s -> 1.25F)),
             Pair.of(

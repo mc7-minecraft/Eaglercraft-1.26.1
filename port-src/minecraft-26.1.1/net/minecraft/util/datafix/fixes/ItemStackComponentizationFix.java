@@ -386,7 +386,7 @@ public class ItemStackComponentizationFix extends DataFix {
                   oldPredicate.get()
                      .asStream()
                      .map(
-                        value -> (Dynamic)DataFixUtils.orElse(value.asString().map(string -> fixBlockStatePredicate((Dynamic<?>)value, string)).result(), value)
+                        (Dynamic<?> value) -> DataFixUtils.orElse(value.asString().map(string -> fixBlockStatePredicate(value, string)).result(), value)
                      )
                )
             );

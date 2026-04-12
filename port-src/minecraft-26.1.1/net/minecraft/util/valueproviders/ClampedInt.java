@@ -8,7 +8,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 
 public record ClampedInt(IntProvider source, int minInclusive, int maxInclusive) implements IntProvider {
-   public static final MapCodec<ClampedInt> MAP_CODEC = RecordCodecBuilder.mapCodec(
+   public static final MapCodec<ClampedInt> MAP_CODEC = RecordCodecBuilder.<ClampedInt>mapCodec(
          i -> i.group(
                   IntProviders.CODEC.fieldOf("source").forGetter(ClampedInt::source),
                   Codec.INT.fieldOf("min_inclusive").forGetter(ClampedInt::minInclusive),
@@ -17,8 +17,8 @@ public record ClampedInt(IntProvider source, int minInclusive, int maxInclusive)
                .apply(i, ClampedInt::new)
       )
       .validate(
-         u -> u.maxInclusive < u.minInclusive
-               ? DataResult.error(() -> "Max must be at least min, min_inclusive: " + u.minInclusive + ", max_inclusive: " + u.maxInclusive)
+      (ClampedInt u) -> u.maxInclusive < u.minInclusive
+         ? DataResult.<ClampedInt>error(() -> "Max must be at least min, min_inclusive: " + u.minInclusive + ", max_inclusive: " + u.maxInclusive)
                : DataResult.success(u)
       );
 

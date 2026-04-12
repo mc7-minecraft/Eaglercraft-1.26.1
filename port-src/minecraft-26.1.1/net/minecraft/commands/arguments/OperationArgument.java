@@ -54,11 +54,15 @@ public class OperationArgument implements ArgumentType<OperationArgument.Operati
    }
 
    private static OperationArgument.Operation getOperation(final String op) throws CommandSyntaxException {
-      return (OperationArgument.Operation)(op.equals("><") ? (a, b) -> {
-         int swap = a.get();
-         a.set(b.get());
-         b.set(swap);
-      } : getSimpleOperation(op));
+      if (op.equals("><")) {
+         return (a, b) -> {
+            int swap = a.get();
+            a.set(b.get());
+            b.set(swap);
+         };
+      } else {
+         return getSimpleOperation(op);
+      }
    }
 
    private static OperationArgument.SimpleOperation getSimpleOperation(final String op) throws CommandSyntaxException {

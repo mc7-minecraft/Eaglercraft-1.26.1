@@ -47,7 +47,7 @@ public class InteractWith {
                               mob -> mob.distanceToSqr(body) <= (double)interactionRangeSqr && isTargetValid.test(mob)
                            );
                            closest.ifPresent(mob -> {
-                              target.set(mob);
+                              target.set((T)mob);
                               lookTarget.set(new EntityTracker(mob, true));
                               walkTarget.set(new WalkTarget(new EntityTracker(mob, false), speedModifier, stopDistance));
                            });

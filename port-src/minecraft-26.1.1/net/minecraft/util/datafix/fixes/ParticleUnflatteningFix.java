@@ -191,7 +191,7 @@ public class ParticleUnflatteningFix extends DataFix {
          float destZ = (float)reader.readDouble();
          reader.expect(' ');
          int arrivalInTicks = reader.readInt();
-         Dynamic<T> blockPos = result.createIntList(IntStream.of(Mth.floor(destX), Mth.floor(destY), Mth.floor(destZ)));
+           Dynamic<T> blockPos = (Dynamic<T>)result.createIntList(IntStream.of(Mth.floor(destX), Mth.floor(destY), Mth.floor(destZ)));
          Dynamic<T> positionSource = result.createMap(
             Map.of(result.createString("type"), result.createString("minecraft:block"), result.createString("pos"), blockPos)
          );

@@ -18,7 +18,8 @@ public interface ListOperation {
    MapCodec<ListOperation> UNLIMITED_CODEC = codec(Integer.MAX_VALUE);
 
    static MapCodec<ListOperation> codec(final int maxSize) {
-      return ListOperation.Type.CODEC.dispatchMap("mode", ListOperation::mode, e -> e.mapCodec).validate(op -> {
+      MapCodec<ListOperation> codec = (MapCodec<ListOperation>)ListOperation.Type.CODEC.dispatchMap("mode", ListOperation::mode, e -> e.mapCodec);
+      return codec.validate((ListOperation op) -> {
          if (op instanceof ListOperation.ReplaceSection section && section.size().isPresent()) {
             int size = section.size().get();
             if (size > maxSize) {

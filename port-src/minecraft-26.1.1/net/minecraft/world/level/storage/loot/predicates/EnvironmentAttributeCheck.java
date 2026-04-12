@@ -13,12 +13,12 @@ public record EnvironmentAttributeCheck<Value>(EnvironmentAttribute<Value> attri
       .dispatchMap("attribute", EnvironmentAttributeCheck::attribute, EnvironmentAttributeCheck::createCodec);
 
    private static <Value> MapCodec<EnvironmentAttributeCheck<Value>> createCodec(final EnvironmentAttribute<Value> attribute) {
-      return attribute.valueCodec().fieldOf("value").xmap(value -> new EnvironmentAttributeCheck<>(attribute, (Value)value), EnvironmentAttributeCheck::value);
+      return attribute.valueCodec().fieldOf("value").xmap(value -> new EnvironmentAttributeCheck<Value>(attribute, value), EnvironmentAttributeCheck::value);
    }
 
    @Override
    public MapCodec<EnvironmentAttributeCheck<Value>> codec() {
-      return (MapCodec<EnvironmentAttributeCheck<Value>>)MAP_CODEC;
+      return (MapCodec<EnvironmentAttributeCheck<Value>>)(MapCodec<?>)MAP_CODEC;
    }
 
    @Override

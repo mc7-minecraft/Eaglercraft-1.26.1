@@ -18,6 +18,7 @@ import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.behavior.AnimalMakeLove;
 import net.minecraft.world.entity.ai.behavior.AnimalPanic;
 import net.minecraft.world.entity.ai.behavior.Behavior;
+import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.CountDownCooldownTicks;
 import net.minecraft.world.entity.ai.behavior.DoNothing;
 import net.minecraft.world.entity.ai.behavior.FollowTemptation;
@@ -56,7 +57,7 @@ public class SnifferAi {
    }
 
    private static ActivityData<Sniffer> initCoreActivity() {
-      return ActivityData.create(Activity.CORE, 0, ImmutableList.of(new Swim(0.8F), new AnimalPanic<Sniffer>(2.0F) {
+      return ActivityData.create(Activity.CORE, 0, ImmutableList.<BehaviorControl<? super Sniffer>>of(new Swim(0.8F), new AnimalPanic<Sniffer>(2.0F) {
          protected void start(final ServerLevel level, final Sniffer body, final long timestamp) {
             SnifferAi.resetSniffing(body);
             super.start(level, body, timestamp);
@@ -91,7 +92,7 @@ public class SnifferAi {
    private static ActivityData<Sniffer> initIdleActivity() {
       return ActivityData.create(
          Activity.IDLE,
-         ImmutableList.of(
+         ImmutableList.<BehaviorControl<? super Sniffer>>of(
             Pair.of(0, new AnimalMakeLove(EntityType.SNIFFER) {
                @Override
                protected void start(final ServerLevel level, final Animal body, final long timestamp) {

@@ -13,6 +13,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.ActivityData;
+import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.DoNothing;
 import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
 import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
@@ -38,13 +39,15 @@ public class BreezeAi {
    }
 
    private static ActivityData<Breeze> initCoreActivity() {
-      return ActivityData.create(Activity.CORE, 0, ImmutableList.of(new Swim(0.8F), new LookAtTargetSink(45, 90)));
+      return ActivityData.create(
+         Activity.CORE, 0, ImmutableList.<BehaviorControl<? super Breeze>>of(new Swim(0.8F), new LookAtTargetSink(45, 90))
+      );
    }
 
    private static ActivityData<Breeze> initIdleActivity() {
       return ActivityData.create(
          Activity.IDLE,
-         ImmutableList.of(
+         ImmutableList.<Pair<Integer, ? extends BehaviorControl<? super Breeze>>>of(
             Pair.of(0, StartAttacking.create((var0, breeze) -> breeze.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE))),
             Pair.of(
                1,
@@ -65,7 +68,7 @@ public class BreezeAi {
    private static ActivityData<Breeze> initFightActivity(final Breeze body) {
       return ActivityData.create(
          Activity.FIGHT,
-         ImmutableList.of(
+            ImmutableList.<Pair<Integer, ? extends BehaviorControl<? super Breeze>>>of(
             Pair.of(0, StopAttackingIfTargetInvalid.create(Sensor.wasEntityAttackableLastNTicks(body, 100).negate()::test)),
             Pair.of(1, new Shoot()),
             Pair.of(2, new LongJump()),

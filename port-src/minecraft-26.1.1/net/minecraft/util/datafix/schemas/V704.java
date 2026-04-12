@@ -141,7 +141,7 @@ public class V704 extends Schema {
    });
    protected static final HookFunction ADD_NAMES = new HookFunction() {
       public <T> T apply(final DynamicOps<T> ops, final T value) {
-         return V99.addNames(new Dynamic(ops, value), V704.ITEM_TO_BLOCKENTITY, V99.ITEM_TO_ENTITY);
+         return (T)V99.addNames(new Dynamic<>(ops, value), V704.ITEM_TO_BLOCKENTITY, V99.ITEM_TO_ENTITY);
       }
    };
 

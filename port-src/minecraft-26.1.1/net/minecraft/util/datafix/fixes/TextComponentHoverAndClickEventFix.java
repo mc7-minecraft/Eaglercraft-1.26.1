@@ -24,7 +24,7 @@ public class TextComponentHoverAndClickEventFix extends DataFix {
    }
 
    protected TypeRewriteRule makeRule() {
-      Type<? extends Pair<String, ?>> hoverEventType = this.getInputSchema().getType(References.TEXT_COMPONENT).findFieldType("hoverEvent");
+      Type<? extends Pair<String, ?>> hoverEventType = (Type<? extends Pair<String, ?>>)this.getInputSchema().getType(References.TEXT_COMPONENT).findFieldType("hoverEvent");
       return this.createFixer(
          this.getInputSchema().getTypeRaw(References.TEXT_COMPONENT), this.getOutputSchema().getType(References.TEXT_COMPONENT), hoverEventType
       );
@@ -56,8 +56,12 @@ public class TextComponentHoverAndClickEventFix extends DataFix {
             oldTextComponentType,
             newTextComponentType,
             ops -> textComponent -> {
-                  boolean hasHoverOrClick = (Boolean)((Either)textComponent.getSecond()).map(simple -> false, full -> {
-                     Pair<Either<H, Unit>, Dynamic<?>> hoverAndRemainder = (Pair<Either<H, Unit>, Dynamic<?>>)((Pair)full.getSecond()).getSecond();
+                  Pair<?, ?> typedTextComponent = (Pair<?, ?>)textComponent;
+                  Either<?, ?> textComponentBody = (Either<?, ?>)typedTextComponent.getSecond();
+                  boolean hasHoverOrClick = textComponentBody.map(simple -> false, (Object fullObject) -> {
+                     Pair<?, ?> fullPair = (Pair<?, ?>)fullObject;
+                     Pair<?, ?> hoverAndRemainderPair = (Pair<?, ?>)fullPair.getSecond();
+                     Pair<Either<H, Unit>, Dynamic<?>> hoverAndRemainder = (Pair<Either<H, Unit>, Dynamic<?>>)hoverAndRemainderPair.getSecond();
                      boolean hasHover = ((Either)hoverAndRemainder.getFirst()).left().isPresent();
                      boolean hasClick = ((Dynamic)hoverAndRemainder.getSecond()).get("clickEvent").result().isPresent();
                      return hasHover || hasClick;

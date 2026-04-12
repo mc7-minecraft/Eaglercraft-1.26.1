@@ -7,7 +7,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.RandomSource;
 
 public record BiasedToBottomInt(int minInclusive, int maxInclusive) implements IntProvider {
-   public static final MapCodec<BiasedToBottomInt> MAP_CODEC = RecordCodecBuilder.mapCodec(
+   public static final MapCodec<BiasedToBottomInt> MAP_CODEC = RecordCodecBuilder.<BiasedToBottomInt>mapCodec(
          i -> i.group(
                   Codec.INT.fieldOf("min_inclusive").forGetter(BiasedToBottomInt::minInclusive),
                   Codec.INT.fieldOf("max_inclusive").forGetter(BiasedToBottomInt::maxInclusive)
@@ -15,8 +15,8 @@ public record BiasedToBottomInt(int minInclusive, int maxInclusive) implements I
                .apply(i, BiasedToBottomInt::new)
       )
       .validate(
-         u -> u.maxInclusive < u.minInclusive
-               ? DataResult.error(() -> "Max must be at least min, min_inclusive: " + u.minInclusive + ", max_inclusive: " + u.maxInclusive)
+      (BiasedToBottomInt u) -> u.maxInclusive < u.minInclusive
+         ? DataResult.<BiasedToBottomInt>error(() -> "Max must be at least min, min_inclusive: " + u.minInclusive + ", max_inclusive: " + u.maxInclusive)
                : DataResult.success(u)
       );
 

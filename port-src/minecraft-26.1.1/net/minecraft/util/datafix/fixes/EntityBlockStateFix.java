@@ -18,7 +18,7 @@ import java.util.function.Function;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 
 public class EntityBlockStateFix extends DataFix {
-   private static final Map<String, Integer> MAP = (Map<String, Integer>)DataFixUtils.make(Maps.newHashMap(), map -> {
+   private static final Map<String, Integer> MAP = DataFixUtils.make(Maps.<String, Integer>newHashMap(), map -> {
       map.put("minecraft:air", 0);
       map.put("minecraft:stone", 1);
       map.put("minecraft:grass", 2);
@@ -326,7 +326,7 @@ public class EntityBlockStateFix extends DataFix {
       );
       Dynamic<?> tag = (Dynamic<?>)input.get(DSL.remainderFinder());
       return input.update(oldType.finder(), newType, tile -> {
-         int block = (Integer)tile.map(l -> (Integer)((Either)l.getSecond()).map(l2 -> l2, EntityBlockStateFix::getBlockId), r -> {
+         int block = (Integer)tile.map(l -> (Integer)((Either)l.getSecond()).map(l2 -> l2, name -> EntityBlockStateFix.getBlockId((String)name)), r -> {
             Optional<Number> tileID = tag.get("TileID").asNumber().result();
             return tileID.map(Number::intValue).orElseGet(() -> tag.get("Tile").asByte((byte)0) & 0xFF);
          });
@@ -342,7 +342,7 @@ public class EntityBlockStateFix extends DataFix {
       Type<Pair<String, Dynamic<?>>> newType = DSL.field(newFieldName, DSL.named(References.BLOCK_STATE.typeName(), DSL.remainderType()));
       Dynamic<?> tag = (Dynamic<?>)input.getOrCreate(DSL.remainderFinder());
       return input.update(oldType.finder(), newType, tile -> {
-         int block = (Integer)((Either)tile.getSecond()).map(l -> l, EntityBlockStateFix::getBlockId);
+         int block = (Integer)((Either)tile.getSecond()).map(l -> l, name -> EntityBlockStateFix.getBlockId((String)name));
          int data = tag.get(dataName).asInt(0) & 15;
          return Pair.of(References.BLOCK_STATE.typeName(), BlockStateData.getTag(block << 4 | data));
       }).set(DSL.remainderFinder(), tag.remove(dataName));

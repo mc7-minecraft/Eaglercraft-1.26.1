@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class EntityRavagerRenameFix extends SimplestEntityRenameFix {
-   public static final Map<String, String> RENAMED_IDS = ImmutableMap.builder().put("minecraft:illager_beast_spawn_egg", "minecraft:ravager_spawn_egg").build();
+   public static final Map<String, String> RENAMED_IDS = ImmutableMap.<String, String>builder().put("minecraft:illager_beast_spawn_egg", "minecraft:ravager_spawn_egg").build();
 
    public EntityRavagerRenameFix(final Schema outputSchema, final boolean changesType) {
       super("EntityRavagerRenameFix", outputSchema, changesType);

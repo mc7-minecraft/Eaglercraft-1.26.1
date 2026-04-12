@@ -50,7 +50,7 @@ public class Breeze extends Monster {
    @SuppressWarnings({"rawtypes", "unchecked"})
    private static final Brain.Provider<Breeze> BRAIN_PROVIDER = Brain.provider(
       (java.util.Collection)List.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY, SensorType.NEAREST_PLAYERS, SensorType.BREEZE_ATTACK_ENTITY_SENSOR),
-      (Brain.ActivitySupplier)(var0 -> BreezeAi.getActivities(var0))
+      (Brain.ActivitySupplier)(var0 -> BreezeAi.getActivities((Breeze)var0))
    );
    public final AnimationState idle = new AnimationState();
    public final AnimationState slide = new AnimationState();

@@ -97,7 +97,7 @@ public class EntityDataSerializers {
    );
    public static final EntityDataSerializer<Direction> DIRECTION = EntityDataSerializer.forValueType(Direction.STREAM_CODEC);
    public static final EntityDataSerializer<Optional<EntityReference<LivingEntity>>> OPTIONAL_LIVING_ENTITY_REFERENCE = EntityDataSerializer.forValueType(
-      EntityReference.streamCodec().apply(ByteBufCodecs::optional)
+      (StreamCodec<ByteBuf, Optional<EntityReference<LivingEntity>>>)((StreamCodec<?, ?>)EntityReference.streamCodec().apply(ByteBufCodecs::optional))
    );
    public static final EntityDataSerializer<Optional<GlobalPos>> OPTIONAL_GLOBAL_POS = EntityDataSerializer.forValueType(
       GlobalPos.STREAM_CODEC.apply(ByteBufCodecs::optional)

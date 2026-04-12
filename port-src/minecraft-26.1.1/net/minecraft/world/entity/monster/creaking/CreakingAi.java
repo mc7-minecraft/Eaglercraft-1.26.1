@@ -9,6 +9,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.ActivityData;
+import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.DoNothing;
 import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
 import net.minecraft.world.entity.ai.behavior.MeleeAttack;
@@ -28,9 +29,9 @@ import net.minecraft.world.entity.schedule.Activity;
 
 public class CreakingAi {
    static ActivityData<Creaking> initCoreActivity() {
-      return ActivityData.create(Activity.CORE, 0, ImmutableList.of(new Swim<Creaking>(0.8F) {
+      return ActivityData.create(Activity.CORE, 0, ImmutableList.<BehaviorControl<? super Creaking>>of(new Swim<Creaking>(0.8F) {
          protected boolean checkExtraStartConditions(final ServerLevel level, final Creaking body) {
-            return body.canMove() && super.checkExtraStartConditions(level, (LivingEntity)body);
+            return body.canMove() && super.checkExtraStartConditions(level, body);
          }
       }, new LookAtTargetSink(45, 90), new MoveToTargetSink()));
    }
@@ -39,9 +40,9 @@ public class CreakingAi {
       return ActivityData.create(
          Activity.IDLE,
          10,
-         ImmutableList.of(
+         ImmutableList.<BehaviorControl<? super Creaking>>of(
             StartAttacking.create(
-               (level, mob) -> mob instanceof Creaking && mob.isActive(),
+               (level, mob) -> mob instanceof Creaking && ((Creaking)mob).isActive(),
                (level, mob) -> mob.getBrain().getMemory(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER)
             ),
             SetEntityLookTargetSometimes.create(8.0F, UniformInt.of(30, 60)),
@@ -58,7 +59,7 @@ public class CreakingAi {
       return ActivityData.create(
          Activity.FIGHT,
          10,
-         ImmutableList.of(
+         ImmutableList.<BehaviorControl<? super Creaking>>of(
             SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F),
             MeleeAttack.create(Creaking::canMove, 40),
             StopAttackingIfTargetInvalid.create((level, target) -> !isAttackTargetStillReachable(body, target))

@@ -40,9 +40,9 @@ public class ChunkBedBlockEntityInjecterFix extends DataFix {
       return TypeRewriteRule.seq(
          this.fixTypeEverywhere(
             "InjectBedBlockEntityType",
-            this.getInputSchema().findChoiceType(References.BLOCK_ENTITY),
-            this.getOutputSchema().findChoiceType(References.BLOCK_ENTITY),
-            ops -> v -> v
+            (com.mojang.datafixers.types.templates.TaggedChoice.TaggedChoiceType<String>)this.getInputSchema().findChoiceType(References.BLOCK_ENTITY),
+            (com.mojang.datafixers.types.templates.TaggedChoice.TaggedChoiceType<String>)this.getOutputSchema().findChoiceType(References.BLOCK_ENTITY),
+            ops -> input -> input
          ),
          this.fixTypeEverywhereTyped(
             "BedBlockEntityInjecter",

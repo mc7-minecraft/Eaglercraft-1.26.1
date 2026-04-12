@@ -1424,7 +1424,7 @@ public class OceanMonumentPieces {
       protected static final BlockState LAMP_BLOCK = Blocks.SEA_LANTERN.defaultBlockState();
       protected static final boolean DO_FILL = true;
       protected static final BlockState FILL_BLOCK = Blocks.WATER.defaultBlockState();
-      protected static final Set<Block> FILL_KEEP = ImmutableSet.builder()
+      protected static final Set<Block> FILL_KEEP = ImmutableSet.<Block>builder()
          .add(Blocks.ICE)
          .add(Blocks.PACKED_ICE)
          .add(Blocks.BLUE_ICE)

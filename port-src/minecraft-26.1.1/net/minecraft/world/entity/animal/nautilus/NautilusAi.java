@@ -67,7 +67,7 @@ public class NautilusAi {
       return ActivityData.create(
          Activity.CORE,
          0,
-         ImmutableList.of(
+         ImmutableList.<net.minecraft.world.entity.ai.behavior.BehaviorControl<? super Nautilus>>of(
             new AnimalPanic(1.6F),
             new LookAtTargetSink(45, 90),
             new MoveToTargetSink(),
@@ -81,7 +81,7 @@ public class NautilusAi {
    private static ActivityData<Nautilus> initIdleActivity() {
       return ActivityData.create(
          Activity.IDLE,
-         ImmutableList.of(
+         ImmutableList.<Pair<Integer, ? extends net.minecraft.world.entity.ai.behavior.BehaviorControl<? super Nautilus>>>of(
             Pair.of(1, new AnimalMakeLove(EntityType.NAUTILUS, 0.4F, 2)),
             Pair.of(2, new FollowTemptation(mob -> 1.3F, mob -> mob.isBaby() ? 2.5 : 3.5)),
             Pair.of(3, StartAttacking.create(NautilusAi::findNearestValidAttackTarget)),
@@ -102,7 +102,9 @@ public class NautilusAi {
    private static ActivityData<Nautilus> initFightActivity() {
       return ActivityData.create(
          Activity.FIGHT,
-         ImmutableList.of(Pair.of(0, new ChargeAttack(80, ATTACK_TARGET_CONDITIONS, 0.6F, 2.0F, 12.0, 11.0, SoundEvents.NAUTILUS_DASH))),
+         ImmutableList.<Pair<Integer, ? extends net.minecraft.world.entity.ai.behavior.BehaviorControl<? super Nautilus>>>of(
+            Pair.of(0, new ChargeAttack(80, ATTACK_TARGET_CONDITIONS, 0.6F, 2.0F, 12.0, 11.0, SoundEvents.NAUTILUS_DASH))
+         ),
          ImmutableSet.of(
             Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT),
             Pair.of(MemoryModuleType.TEMPTING_PLAYER, MemoryStatus.VALUE_ABSENT),

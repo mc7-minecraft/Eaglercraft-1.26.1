@@ -48,10 +48,10 @@ public class HolderSetCodec<E> implements Codec<HolderSet<E>> {
             return this.registryAwareCodec
                .decode(ops, input)
                .flatMap(
-                  p -> {
-                     DataResult<HolderSet<E>> result = (DataResult<HolderSet<E>>)((Either)p.getFirst())
+                  (Pair<Either<TagKey<E>, List<Holder<E>>>, T> pair) -> {
+                     DataResult<HolderSet<E>> result = pair.getFirst()
                         .map(tag -> lookupTag(registry, tag), values -> DataResult.success(HolderSet.direct(values)));
-                     return result.map(holders -> Pair.of(holders, p.getSecond()));
+                     return result.map(holders -> Pair.of(holders, pair.getSecond()));
                   }
                );
          }
@@ -85,7 +85,7 @@ public class HolderSetCodec<E> implements Codec<HolderSet<E>> {
       return this.elementCodec.listOf().decode(ops, input).flatMap(p -> {
          List<Holder.Direct<E>> directHolders = new ArrayList<>();
 
-         for (Holder<E> holder : (List)p.getFirst()) {
+         for (Holder<E> holder : (List<Holder<E>>)p.getFirst()) {
             if (!(holder instanceof Holder.Direct<E> direct)) {
                return DataResult.error(() -> "Can't decode element " + holder + " without registry");
             }

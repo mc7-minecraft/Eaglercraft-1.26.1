@@ -17,7 +17,7 @@ import net.minecraft.util.datafix.schemas.NamespacedSchema;
 
 public class ItemStackSpawnEggFix extends DataFix {
    private final String itemType;
-   private static final Map<String, String> MAP = (Map<String, String>)DataFixUtils.make(Maps.newHashMap(), map -> {
+   private static final Map<String, String> MAP = DataFixUtils.make(Maps.<String, String>newHashMap(), map -> {
       map.put("minecraft:bat", "minecraft:bat_spawn_egg");
       map.put("minecraft:blaze", "minecraft:blaze_spawn_egg");
       map.put("minecraft:cave_spider", "minecraft:cave_spider_spawn_egg");

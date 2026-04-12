@@ -49,7 +49,7 @@ public class CamelAi {
       return ActivityData.create(
          Activity.CORE,
          0,
-         ImmutableList.of(
+         ImmutableList.<net.minecraft.world.entity.ai.behavior.BehaviorControl<? super Camel>>of(
             new Swim(0.8F),
             new CamelAi.CamelPanic(4.0F),
             new LookAtTargetSink(45, 90),
@@ -63,7 +63,7 @@ public class CamelAi {
    private static ActivityData<Camel> initIdleActivity() {
       return ActivityData.create(
          Activity.IDLE,
-         ImmutableList.of(
+         ImmutableList.<Pair<Integer, ? extends net.minecraft.world.entity.ai.behavior.BehaviorControl<? super Camel>>>of(
             Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
             Pair.of(1, new AnimalMakeLove(EntityType.CAMEL)),
             Pair.of(

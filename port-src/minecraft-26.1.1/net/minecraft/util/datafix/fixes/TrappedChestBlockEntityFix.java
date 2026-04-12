@@ -76,7 +76,7 @@ public class TrappedChestBlockEntityFix extends DataFix {
                               Dynamic<?> levelTag = (Dynamic<?>)level.get(DSL.remainderFinder());
                               int chunkX = levelTag.get("xPos").asInt(0);
                               int chunkZ = levelTag.get("zPos").asInt(0);
-                              TaggedChoiceType<String> tileEntityChoiceType = this.getInputSchema().findChoiceType(References.BLOCK_ENTITY);
+                              TaggedChoiceType<String> tileEntityChoiceType = (TaggedChoiceType<String>)this.getInputSchema().findChoiceType(References.BLOCK_ENTITY);
                               return level.updateTyped(
                                  tileEntitiesF,
                                  tileEntities -> tileEntities.updateTyped(

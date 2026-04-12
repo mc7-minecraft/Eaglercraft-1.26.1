@@ -1191,6 +1191,8 @@ public class ClientLevel extends Level implements BlockAndTintGetter, CacheSlot.
             case EnderDragon dragon:
                ClientLevel.this.dragonParts.addAll(Arrays.asList(dragon.getSubEntities()));
                break;
+            default:
+               break;
          }
       }
 
@@ -1203,6 +1205,8 @@ public class ClientLevel extends Level implements BlockAndTintGetter, CacheSlot.
                break;
             case EnderDragon dragon:
                ClientLevel.this.dragonParts.removeAll(Arrays.asList(dragon.getSubEntities()));
+               break;
+            default:
                break;
          }
       }

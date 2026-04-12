@@ -48,12 +48,9 @@ public record JfrStatsResult(
       return byStatus.entrySet()
          .stream()
          .map(e -> Pair.of(e.getKey(), TimedStatSummary.summary(e.getValue())))
-         .filter(pair -> ((Optional)pair.getSecond()).isPresent())
-         .map(e -> Pair.of((ChunkStatus)e.getFirst(), (TimedStatSummary)((Optional)e.getSecond()).get()))
-         .sorted(
-            Comparator.<Pair<ChunkStatus, TimedStatSummary<ChunkGenStat>>, Duration>comparing(pair -> ((TimedStatSummary)pair.getSecond()).totalDuration())
-               .reversed()
-         )
+         .filter(pair -> pair.getSecond().isPresent())
+         .map(pair -> Pair.of(pair.getFirst(), pair.getSecond().get()))
+         .sorted((first, second) -> second.getSecond().totalDuration().compareTo(first.getSecond().totalDuration()))
          .toList();
    }
 

@@ -91,7 +91,7 @@ import org.slf4j.Logger;
 
 public class DefaultAttributes {
    private static final Logger LOGGER = LogUtils.getLogger();
-   private static final Map<EntityType<? extends LivingEntity>, AttributeSupplier> SUPPLIERS = ImmutableMap.builder()
+   private static final Map<EntityType<? extends LivingEntity>, AttributeSupplier> SUPPLIERS = ImmutableMap.<EntityType<? extends LivingEntity>, AttributeSupplier>builder()
       .put(EntityType.ALLAY, Allay.createAttributes().build())
       .put(EntityType.ARMADILLO, Armadillo.createAttributes().build())
       .put(EntityType.ARMOR_STAND, ArmorStand.createAttributes().build())

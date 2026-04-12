@@ -3,7 +3,7 @@ package net.minecraft.util.datafix.fixes;
 import com.google.common.collect.ImmutableMap;
 
 public final class CavesAndCliffsRenames {
-   public static final ImmutableMap<String, String> RENAMES = ImmutableMap.builder()
+   public static final ImmutableMap<String, String> RENAMES = ImmutableMap.<String, String>builder()
       .put("minecraft:badlands_plateau", "minecraft:badlands")
       .put("minecraft:bamboo_jungle_hills", "minecraft:bamboo_jungle")
       .put("minecraft:birch_forest_hills", "minecraft:birch_forest")

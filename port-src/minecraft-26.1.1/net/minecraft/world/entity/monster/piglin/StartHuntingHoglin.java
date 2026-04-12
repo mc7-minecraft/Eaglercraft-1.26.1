@@ -16,12 +16,12 @@ public class StartHuntingHoglin {
                   i.registered(MemoryModuleType.NEAREST_VISIBLE_ADULT_PIGLINS)
                )
                .apply(i, (huntable, angryAt, huntedRecently, nearestPiglins) -> (level, body, timestamp) -> {
-                     if (!body.isBaby() && !i.<List>tryGet(nearestPiglins).filter(p -> p.stream().anyMatch(StartHuntingHoglin::hasHuntedRecently)).isPresent()) {
+                     if (!body.isBaby() && !i.<List<AbstractPiglin>>tryGet(nearestPiglins).filter(p -> p.stream().anyMatch(StartHuntingHoglin::hasHuntedRecently)).isPresent()) {
                         Hoglin target = i.get(huntable);
                         PiglinAi.setAngerTarget(level, body, target);
                         PiglinAi.dontKillAnyMoreHoglinsForAWhile(body);
                         PiglinAi.broadcastAngerTarget(level, body, target);
-                        i.<List>tryGet(nearestPiglins).ifPresent(p -> p.forEach(PiglinAi::dontKillAnyMoreHoglinsForAWhile));
+                        i.<List<AbstractPiglin>>tryGet(nearestPiglins).ifPresent(p -> p.forEach(PiglinAi::dontKillAnyMoreHoglinsForAWhile));
                         return true;
                      } else {
                         return false;

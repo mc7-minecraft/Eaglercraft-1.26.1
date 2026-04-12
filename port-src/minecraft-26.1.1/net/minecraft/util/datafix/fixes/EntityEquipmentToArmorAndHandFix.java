@@ -64,11 +64,18 @@ public class EntityEquipmentToArmorAndHandFix extends DataFix {
                         Either<List<ItemStackNew>, Unit> handItems = Either.right(DSL.unit());
                         Either<List<ItemStackNew>, Unit> armorItems = Either.right(DSL.unit());
                         if (!items.isEmpty()) {
-                           handItems = Either.left(Lists.newArrayList(new Object[]{items.getFirst(), emptyStack}));
+                           List<ItemStackNew> hand = new java.util.ArrayList<>();
+                           hand.add((ItemStackNew)items.getFirst());
+                           hand.add(emptyStack);
+                           handItems = Either.left(hand);
                         }
 
                         if (items.size() > 1) {
-                           List<ItemStackNew> armor = Lists.newArrayList(new Object[]{emptyStack, emptyStack, emptyStack, emptyStack});
+                           List<ItemStackNew> armor = new java.util.ArrayList<>(4);
+                           armor.add(emptyStack);
+                           armor.add(emptyStack);
+                           armor.add(emptyStack);
+                           armor.add(emptyStack);
 
                            for (int i = 1; i < Math.min(items.size(), 5); i++) {
                               armor.set(i - 1, (ItemStackNew)items.get(i));

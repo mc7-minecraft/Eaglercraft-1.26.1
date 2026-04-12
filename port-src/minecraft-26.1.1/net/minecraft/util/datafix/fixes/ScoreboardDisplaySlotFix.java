@@ -13,7 +13,7 @@ import java.util.Map;
 import org.jspecify.annotations.Nullable;
 
 public class ScoreboardDisplaySlotFix extends DataFix {
-   private static final Map<String, String> SLOT_RENAMES = ImmutableMap.builder()
+      private static final Map<String, String> SLOT_RENAMES = ImmutableMap.<String, String>builder()
       .put("slot_0", "list")
       .put("slot_1", "sidebar")
       .put("slot_2", "below_name")

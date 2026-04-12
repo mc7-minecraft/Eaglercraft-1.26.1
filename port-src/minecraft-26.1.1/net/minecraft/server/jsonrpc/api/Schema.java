@@ -34,17 +34,17 @@ import net.minecraft.world.level.gamerules.GameRuleType;
 public record Schema<T>(
    Optional<URI> reference, List<String> type, Optional<Schema<?>> items, Map<String, Schema<?>> properties, List<String> enumValues, Codec<T> codec
 ) {
-   public static final Codec<? extends Schema<?>> CODEC = Codec.recursive(
+   public static final Codec<Schema<?>> CODEC = Codec.<Schema<?>>recursive(
          "Schema",
          subCodec -> RecordCodecBuilder.create(
                i -> i.group(
-                        ReferenceUtil.REFERENCE_CODEC.optionalFieldOf("$ref").forGetter(Schema::reference),
-                        ExtraCodecs.compactListCodec(Codec.STRING).optionalFieldOf("type", List.of()).forGetter(Schema::type),
-                        subCodec.optionalFieldOf("items").forGetter(Schema::items),
-                        Codec.unboundedMap(Codec.STRING, subCodec).optionalFieldOf("properties", Map.of()).forGetter(Schema::properties),
-                        Codec.STRING.listOf().optionalFieldOf("enum", List.of()).forGetter(Schema::enumValues)
-                     )
-                     .apply(i, (ref, type, items, properties, enumValues) -> null)
+            ReferenceUtil.REFERENCE_CODEC.optionalFieldOf("$ref").forGetter((Schema<?> schema) -> schema.reference()),
+            ExtraCodecs.compactListCodec(Codec.STRING).optionalFieldOf("type", List.of()).forGetter((Schema<?> schema) -> schema.type()),
+            subCodec.optionalFieldOf("items").forGetter((Schema<?> schema) -> schema.items()),
+            Codec.unboundedMap(Codec.STRING, subCodec).optionalFieldOf("properties", Map.of()).forGetter((Schema<?> schema) -> schema.properties()),
+            Codec.STRING.listOf().optionalFieldOf("enum", List.of()).forGetter((Schema<?> schema) -> schema.enumValues())
+               )
+               .apply(i, (ref, type, items, properties, enumValues) -> new Schema<>(ref, type, items, properties, enumValues, Codec.PASSTHROUGH))
             )
       )
       .validate(schema -> schema == null ? DataResult.error(() -> "Should not deserialize schema") : DataResult.success(schema));
@@ -134,7 +134,7 @@ public record Schema<T>(
    );
 
    public static <T> Codec<Schema<T>> typedCodec() {
-      return (Codec<Schema<T>>)CODEC;
+      return (Codec<Schema<T>>)(Codec<?>)CODEC;
    }
 
    public Schema<T> info() {

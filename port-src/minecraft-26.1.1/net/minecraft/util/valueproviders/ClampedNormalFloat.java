@@ -8,7 +8,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 
 public record ClampedNormalFloat(float mean, float deviation, float min, float max) implements FloatProvider {
-   public static final MapCodec<ClampedNormalFloat> MAP_CODEC = RecordCodecBuilder.mapCodec(
+   public static final MapCodec<ClampedNormalFloat> MAP_CODEC = RecordCodecBuilder.<ClampedNormalFloat>mapCodec(
          i -> i.group(
                   Codec.FLOAT.fieldOf("mean").forGetter(ClampedNormalFloat::mean),
                   Codec.FLOAT.fieldOf("deviation").forGetter(ClampedNormalFloat::deviation),
@@ -17,7 +17,11 @@ public record ClampedNormalFloat(float mean, float deviation, float min, float m
                )
                .apply(i, ClampedNormalFloat::new)
       )
-      .validate(c -> c.max < c.min ? DataResult.error(() -> "Max must be larger than min: [" + c.min + ", " + c.max + "]") : DataResult.success(c));
+      .validate(
+         (ClampedNormalFloat c) -> c.max < c.min
+            ? DataResult.<ClampedNormalFloat>error(() -> "Max must be larger than min: [" + c.min + ", " + c.max + "]")
+            : DataResult.success(c)
+      );
 
    public static ClampedNormalFloat of(final float mean, final float deviation, final float min, final float max) {
       return new ClampedNormalFloat(mean, deviation, min, max);

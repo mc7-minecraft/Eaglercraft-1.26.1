@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.properties.Property;
 
 public record DebugStickState(Map<Holder<Block>, Property<?>> properties) {
    public static final DebugStickState EMPTY = new DebugStickState(Map.of());
-   public static final Codec<DebugStickState> CODEC = Codec.dispatchedMap(
+   public static final Codec<DebugStickState> CODEC = ((Codec<Map<Holder<Block>, Property<?>>>)Codec.dispatchedMap(
          BuiltInRegistries.BLOCK.holderByNameCodec(),
          block -> Codec.STRING
                .comapFlatMap(
@@ -23,8 +23,7 @@ public record DebugStickState(Map<Holder<Block>, Property<?>> properties) {
                   },
                   Property::getName
                )
-      )
-      .xmap(DebugStickState::new, DebugStickState::properties);
+            )).xmap(map -> new DebugStickState(map), state -> state.properties());
 
    public DebugStickState withProperty(final Holder<Block> block, final Property<?> property) {
       return new DebugStickState(Util.copyAndPut(this.properties, block, property));

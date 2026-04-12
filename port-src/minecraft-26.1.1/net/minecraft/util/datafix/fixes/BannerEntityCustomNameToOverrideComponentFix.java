@@ -24,7 +24,7 @@ public class BannerEntityCustomNameToOverrideComponentFix extends DataFix {
       Type<?> blockEntityType = this.getInputSchema().getType(References.BLOCK_ENTITY);
       TaggedChoiceType<?> blockEntityIdFinder = this.getInputSchema().findChoiceType(References.BLOCK_ENTITY);
       OpticFinder<?> customNameFinder = blockEntityType.findField("CustomName");
-      OpticFinder<Pair<String, String>> textComponentFinder = DSL.typeFinder(this.getInputSchema().getType(References.TEXT_COMPONENT));
+      OpticFinder<Pair<String, String>> textComponentFinder = DSL.typeFinder((Type<Pair<String, String>>)this.getInputSchema().getType(References.TEXT_COMPONENT));
       return this.fixTypeEverywhereTyped("Banner entity custom_name to item_name component fix", blockEntityType, input -> {
          Object blockEntityId = ((Pair)input.get(blockEntityIdFinder.finder())).getFirst();
          return blockEntityId.equals("minecraft:banner") ? this.fix(input, textComponentFinder, customNameFinder) : input;

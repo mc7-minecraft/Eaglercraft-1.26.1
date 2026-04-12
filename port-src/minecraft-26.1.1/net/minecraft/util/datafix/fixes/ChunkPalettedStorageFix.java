@@ -195,7 +195,7 @@ public class ChunkPalettedStorageFix extends DataFix {
       private static final Dynamic<?> UPPER_LARGE_FERN = ExtraDataFixUtils.blockState("minecraft:large_fern", Map.of("half", "upper"));
       private static final Dynamic<?> UPPER_ROSE_BUSH = ExtraDataFixUtils.blockState("minecraft:rose_bush", Map.of("half", "upper"));
       private static final Dynamic<?> UPPER_PEONY = ExtraDataFixUtils.blockState("minecraft:peony", Map.of("half", "upper"));
-      private static final Map<String, Dynamic<?>> FLOWER_POT_MAP = (Map<String, Dynamic<?>>)DataFixUtils.make(Maps.newHashMap(), map -> {
+      private static final Map<String, Dynamic<?>> FLOWER_POT_MAP = DataFixUtils.make(Maps.<String, Dynamic<?>>newHashMap(), map -> {
          map.put("minecraft:air0", ExtraDataFixUtils.blockState("minecraft:flower_pot"));
          map.put("minecraft:red_flower0", ExtraDataFixUtils.blockState("minecraft:potted_poppy"));
          map.put("minecraft:red_flower1", ExtraDataFixUtils.blockState("minecraft:potted_blue_orchid"));
@@ -219,7 +219,7 @@ public class ChunkPalettedStorageFix extends DataFix {
          map.put("minecraft:tallgrass2", ExtraDataFixUtils.blockState("minecraft:potted_fern"));
          map.put("minecraft:cactus0", ExtraDataFixUtils.blockState("minecraft:potted_cactus"));
       });
-      private static final Map<String, Dynamic<?>> SKULL_MAP = (Map<String, Dynamic<?>>)DataFixUtils.make(Maps.newHashMap(), map -> {
+      private static final Map<String, Dynamic<?>> SKULL_MAP = DataFixUtils.make(Maps.<String, Dynamic<?>>newHashMap(), map -> {
          mapSkull(map, 0, "skeleton", "skull");
          mapSkull(map, 1, "wither_skeleton", "skull");
          mapSkull(map, 2, "zombie", "head");
@@ -227,7 +227,7 @@ public class ChunkPalettedStorageFix extends DataFix {
          mapSkull(map, 4, "creeper", "head");
          mapSkull(map, 5, "dragon", "head");
       });
-      private static final Map<String, Dynamic<?>> DOOR_MAP = (Map<String, Dynamic<?>>)DataFixUtils.make(Maps.newHashMap(), map -> {
+      private static final Map<String, Dynamic<?>> DOOR_MAP = DataFixUtils.make(Maps.<String, Dynamic<?>>newHashMap(), map -> {
          mapDoor(map, "oak_door");
          mapDoor(map, "iron_door");
          mapDoor(map, "spruce_door");
@@ -236,13 +236,13 @@ public class ChunkPalettedStorageFix extends DataFix {
          mapDoor(map, "acacia_door");
          mapDoor(map, "dark_oak_door");
       });
-      private static final Map<String, Dynamic<?>> NOTE_BLOCK_MAP = (Map<String, Dynamic<?>>)DataFixUtils.make(Maps.newHashMap(), map -> {
+      private static final Map<String, Dynamic<?>> NOTE_BLOCK_MAP = DataFixUtils.make(Maps.<String, Dynamic<?>>newHashMap(), map -> {
          for (int i = 0; i < 26; i++) {
             map.put("true" + i, ExtraDataFixUtils.blockState("minecraft:note_block", Map.of("powered", "true", "note", String.valueOf(i))));
             map.put("false" + i, ExtraDataFixUtils.blockState("minecraft:note_block", Map.of("powered", "false", "note", String.valueOf(i))));
          }
       });
-      private static final Int2ObjectMap<String> DYE_COLOR_MAP = (Int2ObjectMap<String>)DataFixUtils.make(new Int2ObjectOpenHashMap(), map -> {
+      private static final Int2ObjectMap<String> DYE_COLOR_MAP = DataFixUtils.make(new Int2ObjectOpenHashMap<String>(), map -> {
          map.put(0, "white");
          map.put(1, "orange");
          map.put(2, "magenta");
@@ -260,7 +260,7 @@ public class ChunkPalettedStorageFix extends DataFix {
          map.put(14, "red");
          map.put(15, "black");
       });
-      private static final Map<String, Dynamic<?>> BED_BLOCK_MAP = (Map<String, Dynamic<?>>)DataFixUtils.make(Maps.newHashMap(), map -> {
+      private static final Map<String, Dynamic<?>> BED_BLOCK_MAP = DataFixUtils.make(Maps.<String, Dynamic<?>>newHashMap(), map -> {
          Iterator i$ = DYE_COLOR_MAP.int2ObjectEntrySet().iterator();
 
          while (i$.hasNext()) {
@@ -270,7 +270,7 @@ public class ChunkPalettedStorageFix extends DataFix {
             }
          }
       });
-      private static final Map<String, Dynamic<?>> BANNER_BLOCK_MAP = (Map<String, Dynamic<?>>)DataFixUtils.make(Maps.newHashMap(), map -> {
+      private static final Map<String, Dynamic<?>> BANNER_BLOCK_MAP = DataFixUtils.make(Maps.<String, Dynamic<?>>newHashMap(), map -> {
          Iterator i$ = DYE_COLOR_MAP.int2ObjectEntrySet().iterator();
 
          while (i$.hasNext()) {

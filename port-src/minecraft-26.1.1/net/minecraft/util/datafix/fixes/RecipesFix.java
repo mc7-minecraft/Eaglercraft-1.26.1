@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import java.util.Map;
 
 public class RecipesFix {
-   public static final Map<String, String> RECIPES = ImmutableMap.builder()
+   public static final Map<String, String> RECIPES = ImmutableMap.<String, String>builder()
       .put("minecraft:acacia_wooden_slab", "minecraft:acacia_slab")
       .put("minecraft:birch_wooden_slab", "minecraft:birch_slab")
       .put("minecraft:black_stained_hardened_clay", "minecraft:black_terracotta")

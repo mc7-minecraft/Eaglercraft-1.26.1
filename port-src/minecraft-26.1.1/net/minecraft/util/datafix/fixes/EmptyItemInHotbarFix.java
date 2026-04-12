@@ -8,6 +8,7 @@ import com.mojang.datafixers.schemas.Schema;
 import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.datafixers.util.Unit;
+import com.mojang.datafixers.types.Type;
 import com.mojang.serialization.Dynamic;
 import java.util.Optional;
 
@@ -17,14 +18,14 @@ public class EmptyItemInHotbarFix extends DataFix {
    }
 
    public TypeRewriteRule makeRule() {
-      OpticFinder<Pair<String, Pair<Either<Pair<String, String>, Unit>, Pair<Either<?, Unit>, Dynamic<?>>>>> itemStackF = DSL.typeFinder(
-         this.getInputSchema().getType(References.ITEM_STACK)
-      );
+      OpticFinder<Pair<String, Pair<Either<Pair<String, String>, Unit>, Pair<Either<?, Unit>, Dynamic<?>>>>> itemStackF = 
+         (OpticFinder<Pair<String, Pair<Either<Pair<String, String>, Unit>, Pair<Either<?, Unit>, Dynamic<?>>>>>)
+         DSL.typeFinder(this.getInputSchema().getType(References.ITEM_STACK));
       return this.fixTypeEverywhereTyped(
          "EmptyItemInHotbarFix",
          this.getInputSchema().getType(References.HOTBAR),
          input -> input.update(itemStackF, namedStack -> namedStack.mapSecond(itemStack -> {
-                  Optional<String> id = ((Either)itemStack.getFirst()).left().map(Pair::getSecond);
+                  Optional<String> id = ((Either)itemStack.getFirst()).left().map(pair -> ((Pair<String, String>)pair).getSecond());
                   Dynamic<?> remainder = (Dynamic<?>)((Pair)itemStack.getSecond()).getSecond();
                   boolean isAir = id.isEmpty() || id.get().equals("minecraft:air");
                   boolean isEmpty = remainder.get("Count").asInt(0) <= 0;

@@ -24,7 +24,7 @@ public class LegacyHoverEventFix extends DataFix {
    }
 
    protected TypeRewriteRule makeRule() {
-      Type<? extends Pair<String, ?>> hoverEventType = this.getInputSchema().getType(References.TEXT_COMPONENT).findFieldType("hoverEvent");
+      Type<? extends Pair<String, ?>> hoverEventType = (Type<? extends Pair<String, ?>>)this.getInputSchema().getType(References.TEXT_COMPONENT).findFieldType("hoverEvent");
       return this.createFixer(this.getInputSchema().getTypeRaw(References.TEXT_COMPONENT), hoverEventType);
    }
 
@@ -61,7 +61,7 @@ public class LegacyHoverEventFix extends DataFix {
                                        if (legacyHoverValue.isEmpty()) {
                                           return hoverAndRemainder;
                                        } else {
-                                          String hoverAction = ((Either)hoverAndRemainder.getFirst()).left().<String>map(Pair::getFirst).orElse("");
+                                          String hoverAction = (String)((Either)hoverAndRemainder.getFirst()).left().map(value -> ((Pair<?, ?>)value).getFirst()).orElse("");
                                           H newHoverEvent = this.fixHoverEvent(hoverEventType, hoverAction, (Dynamic<?>)hoverEvent.get());
                                           return hoverAndRemainder.mapFirst(ignored -> Either.left(newHoverEvent));
                                        }

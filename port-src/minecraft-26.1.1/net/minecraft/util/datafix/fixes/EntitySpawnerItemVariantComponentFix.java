@@ -31,9 +31,39 @@ public class EntitySpawnerItemVariantComponentFix extends DataFix {
             String id = input.getOptional(idFinder).<String>map(Pair::getSecond).orElse("");
 
             return switch (id) {
-               case "minecraft:salmon_bucket" -> input.updateTyped(componentsFinder, EntitySpawnerItemVariantComponentFix::fixSalmonBucket);
-               case "minecraft:axolotl_bucket" -> input.updateTyped(componentsFinder, EntitySpawnerItemVariantComponentFix::fixAxolotlBucket);
-               case "minecraft:tropical_fish_bucket" -> input.updateTyped(componentsFinder, EntitySpawnerItemVariantComponentFix::fixTropicalFishBucket);
+               case "minecraft:salmon_bucket" -> input.updateTyped(
+               componentsFinder,
+               components -> Util.writeAndReadTypedOrThrow(
+                  components,
+                  components.getType(),
+                  (Dynamic<?> remainder) -> {
+                     Optional<? extends Dynamic<?>> bucketData = (Optional<? extends Dynamic<?>>)(Optional<?>)remainder.get("minecraft:bucket_entity_data").result();
+                     return bucketData.isPresent() ? fixSalmonBucket((Dynamic)remainder, (Dynamic)bucketData.get()) : remainder;
+                  }
+               )
+            );
+               case "minecraft:axolotl_bucket" -> input.updateTyped(
+               componentsFinder,
+               components -> Util.writeAndReadTypedOrThrow(
+                  components,
+                  components.getType(),
+                  (Dynamic<?> remainder) -> {
+                     Optional<? extends Dynamic<?>> bucketData = (Optional<? extends Dynamic<?>>)(Optional<?>)remainder.get("minecraft:bucket_entity_data").result();
+                     return bucketData.isPresent() ? fixAxolotlBucket((Dynamic)remainder, (Dynamic)bucketData.get()) : remainder;
+                  }
+               )
+            );
+               case "minecraft:tropical_fish_bucket" -> input.updateTyped(
+               componentsFinder,
+               components -> Util.writeAndReadTypedOrThrow(
+                  components,
+                  components.getType(),
+                  (Dynamic<?> remainder) -> {
+                     Optional<? extends Dynamic<?>> bucketData = (Optional<? extends Dynamic<?>>)(Optional<?>)remainder.get("minecraft:bucket_entity_data").result();
+                     return bucketData.isPresent() ? fixTropicalFishBucket((Dynamic)remainder, (Dynamic)bucketData.get()) : remainder;
+                  }
+               )
+            );
                case "minecraft:painting" -> input.updateTyped(
                componentsFinder,
                components -> Util.writeAndReadTypedOrThrow(components, components.getType(), EntitySpawnerItemVariantComponentFix::fixPainting)

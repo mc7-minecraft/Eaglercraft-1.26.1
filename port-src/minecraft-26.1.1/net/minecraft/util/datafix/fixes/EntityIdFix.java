@@ -10,7 +10,7 @@ import com.mojang.datafixers.types.templates.TaggedChoice.TaggedChoiceType;
 import java.util.Map;
 
 public class EntityIdFix extends DataFix {
-   private static final Map<String, String> ID_MAP = (Map<String, String>)DataFixUtils.make(Maps.newHashMap(), map -> {
+   private static final Map<String, String> ID_MAP = DataFixUtils.make(Maps.<String, String>newHashMap(), map -> {
       map.put("AreaEffectCloud", "minecraft:area_effect_cloud");
       map.put("ArmorStand", "minecraft:armor_stand");
       map.put("Arrow", "minecraft:arrow");
@@ -93,8 +93,10 @@ public class EntityIdFix extends DataFix {
    }
 
    public TypeRewriteRule makeRule() {
-      TaggedChoiceType<String> oldType = this.getInputSchema().findChoiceType(References.ENTITY);
-      TaggedChoiceType<String> newType = this.getOutputSchema().findChoiceType(References.ENTITY);
+      @SuppressWarnings("unchecked")
+      TaggedChoiceType<String> oldType = (TaggedChoiceType<String>)this.getInputSchema().findChoiceType(References.ENTITY);
+      @SuppressWarnings("unchecked")
+      TaggedChoiceType<String> newType = (TaggedChoiceType<String>)this.getOutputSchema().findChoiceType(References.ENTITY);
       Type<?> oldItemStackType = this.getInputSchema().getType(References.ITEM_STACK);
       Type<?> newItemStackType = this.getOutputSchema().getType(References.ITEM_STACK);
       return TypeRewriteRule.seq(

@@ -7,7 +7,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.RandomSource;
 
 public record TrapezoidFloat(float min, float max, float plateau) implements FloatProvider {
-   public static final MapCodec<TrapezoidFloat> MAP_CODEC = RecordCodecBuilder.mapCodec(
+   public static final MapCodec<TrapezoidFloat> MAP_CODEC = RecordCodecBuilder.<TrapezoidFloat>mapCodec(
          i -> i.group(
                   Codec.FLOAT.fieldOf("min").forGetter(TrapezoidFloat::min),
                   Codec.FLOAT.fieldOf("max").forGetter(TrapezoidFloat::max),
@@ -16,12 +16,12 @@ public record TrapezoidFloat(float min, float max, float plateau) implements Flo
                .apply(i, TrapezoidFloat::new)
       )
       .validate(
-         c -> {
+         (TrapezoidFloat c) -> {
             if (c.max < c.min) {
-               return DataResult.error(() -> "Max must be larger than min: [" + c.min + ", " + c.max + "]");
+               return DataResult.<TrapezoidFloat>error(() -> "Max must be larger than min: [" + c.min + ", " + c.max + "]");
             } else {
                return c.plateau > c.max - c.min
-                  ? DataResult.error(() -> "Plateau can at most be the full span: [" + c.min + ", " + c.max + "]")
+                  ? DataResult.<TrapezoidFloat>error(() -> "Plateau can at most be the full span: [" + c.min + ", " + c.max + "]")
                   : DataResult.success(c);
             }
          }

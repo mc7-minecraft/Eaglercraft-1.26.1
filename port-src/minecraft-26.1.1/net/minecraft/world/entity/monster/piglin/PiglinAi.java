@@ -136,7 +136,7 @@ public class PiglinAi {
       return ActivityData.create(
          Activity.CORE,
          0,
-         ImmutableList.of(
+         ImmutableList.<BehaviorControl<? super Piglin>>of(
             new LookAtTargetSink(45, 90),
             new MoveToTargetSink(),
             InteractWithDoor.create(),
@@ -154,7 +154,7 @@ public class PiglinAi {
       return ActivityData.create(
          Activity.IDLE,
          10,
-         ImmutableList.of(
+         ImmutableList.<BehaviorControl<? super Piglin>>of(
             SetEntityLookTarget.create(PiglinAi::isPlayerHoldingLovedItem, 14.0F),
             StartAttacking.create((level, piglin) -> piglin.isAdult(), PiglinAi::findNearestValidAttackTarget),
             BehaviorBuilder.triggerIf(Piglin::canHunt, StartHuntingHoglin.create()),
@@ -171,7 +171,7 @@ public class PiglinAi {
       return ActivityData.create(
          Activity.FIGHT,
          10,
-         ImmutableList.of(
+         ImmutableList.<BehaviorControl<? super Piglin>>of(
             StopAttackingIfTargetInvalid.create((level, target) -> !isNearestValidAttackTarget(level, body, target)),
             BehaviorBuilder.triggerIf(PiglinAi::hasCrossbow, BackUpIfTooClose.create(5, 0.75F)),
             SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F),
@@ -191,12 +191,12 @@ public class PiglinAi {
       return ActivityData.create(
          Activity.CELEBRATE,
          10,
-         ImmutableList.of(
+         ImmutableList.<BehaviorControl<? super Piglin>>of(
             avoidRepellent(),
             SetEntityLookTarget.create(PiglinAi::isPlayerHoldingLovedItem, 14.0F),
             StartAttacking.create((level, piglin) -> piglin.isAdult(), PiglinAi::findNearestValidAttackTarget),
             BehaviorBuilder.triggerIf(
-               body -> body instanceof Piglin && !body.isDancing(), GoToTargetLocation.create(MemoryModuleType.CELEBRATE_LOCATION, 2, 1.0F)
+               body -> body instanceof Piglin && !((Piglin)body).isDancing(), GoToTargetLocation.create(MemoryModuleType.CELEBRATE_LOCATION, 2, 1.0F)
             ),
             BehaviorBuilder.triggerIf(Piglin::isDancing, GoToTargetLocation.create(MemoryModuleType.CELEBRATE_LOCATION, 4, 0.6F)),
             new RunOne(
@@ -215,7 +215,7 @@ public class PiglinAi {
       return ActivityData.create(
          Activity.ADMIRE_ITEM,
          10,
-         ImmutableList.of(
+         ImmutableList.<BehaviorControl<? super Piglin>>of(
             GoToWantedItem.create(PiglinAi::isNotHoldingLovedItemInOffHand, 1.0F, true, 9),
             StopAdmiringIfItemTooFarAway.create(9),
             StopAdmiringIfTiredOfTryingToReachItem.create(200, 200)
@@ -228,7 +228,7 @@ public class PiglinAi {
       return ActivityData.create(
          Activity.AVOID,
          10,
-         ImmutableList.of(
+         ImmutableList.<BehaviorControl<? super Piglin>>of(
             SetWalkTargetAwayFrom.entity(MemoryModuleType.AVOID_TARGET, 1.0F, 12, true),
             createIdleLookBehaviors(),
             createIdleMovementBehaviors(),
@@ -242,7 +242,7 @@ public class PiglinAi {
       return ActivityData.create(
          Activity.RIDE,
          10,
-         ImmutableList.of(
+         ImmutableList.<BehaviorControl<? super Piglin>>of(
             Mount.create(0.8F),
             SetEntityLookTarget.create(PiglinAi::isPlayerHoldingLovedItem, 8.0F),
             BehaviorBuilder.sequence(
@@ -266,7 +266,7 @@ public class PiglinAi {
    }
 
    private static RunOne<LivingEntity> createIdleLookBehaviors() {
-      return new RunOne<>(ImmutableList.builder().addAll(createLookBehaviors()).add(Pair.of(new DoNothing(30, 60), 1)).build());
+      return new RunOne<>(ImmutableList.<Pair<? extends BehaviorControl<? super LivingEntity>, Integer>>builder().addAll(createLookBehaviors()).add(Pair.of(new DoNothing(30, 60), 1)).build());
    }
 
    private static RunOne<Piglin> createIdleMovementBehaviors() {

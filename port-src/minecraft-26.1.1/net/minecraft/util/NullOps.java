@@ -127,7 +127,7 @@ public class NullOps implements DynamicOps<Unit> {
    }
 
    public DataResult<Consumer<BiConsumer<Unit, Unit>>> getMapEntries(final Unit input) {
-      return DataResult.success((Consumer<BiConsumer>)consumer -> {
+      return DataResult.<Consumer<BiConsumer<Unit, Unit>>>success((Consumer<BiConsumer<Unit, Unit>>)consumer -> {
       });
    }
 
@@ -140,7 +140,7 @@ public class NullOps implements DynamicOps<Unit> {
    }
 
    public DataResult<Consumer<Consumer<Unit>>> getList(final Unit input) {
-      return DataResult.success((Consumer<Consumer>)consumer -> {
+      return DataResult.<Consumer<Consumer<Unit>>>success((Consumer<Consumer<Unit>>)consumer -> {
       });
    }
 

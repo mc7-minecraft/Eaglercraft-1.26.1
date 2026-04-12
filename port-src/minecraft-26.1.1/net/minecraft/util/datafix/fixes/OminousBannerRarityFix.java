@@ -27,7 +27,7 @@ public class OminousBannerRarityFix extends DataFix {
       OpticFinder<?> blockEntityComponentsFieldFinder = blockEntityType.findField("components");
       OpticFinder<?> itemStackComponentsFieldFinder = itemStackType.findField("components");
       OpticFinder<?> itemNameFinder = blockEntityComponentsFieldFinder.type().findField("minecraft:item_name");
-      OpticFinder<Pair<String, String>> textComponentFinder = DSL.typeFinder(this.getInputSchema().getType(References.TEXT_COMPONENT));
+      OpticFinder<Pair<String, String>> textComponentFinder = DSL.typeFinder((Type<Pair<String, String>>)this.getInputSchema().getType(References.TEXT_COMPONENT));
       return TypeRewriteRule.seq(this.fixTypeEverywhereTyped("Ominous Banner block entity common rarity to uncommon rarity fix", blockEntityType, input -> {
          Object blockEntityId = ((Pair)input.get(blockEntityIdFinder.finder())).getFirst();
          return blockEntityId.equals("minecraft:banner") ? this.fix(input, blockEntityComponentsFieldFinder, itemNameFinder, textComponentFinder) : input;

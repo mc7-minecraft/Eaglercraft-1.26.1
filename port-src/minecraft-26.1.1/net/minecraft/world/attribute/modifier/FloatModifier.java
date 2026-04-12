@@ -21,11 +21,31 @@ public interface FloatModifier<Argument> extends AttributeModifier<Float, Argume
          return (alpha, from, to) -> new FloatWithAlpha(Mth.lerp(alpha, from.value(), to.value()), Mth.lerp(alpha, from.alpha(), to.alpha()));
       }
    };
-   FloatModifier<Float> ADD = Float::sum;
-   FloatModifier<Float> SUBTRACT = (FloatModifier.Simple)(a, b) -> a - b;
-   FloatModifier<Float> MULTIPLY = (FloatModifier.Simple)(a, b) -> a * b;
-   FloatModifier<Float> MINIMUM = Math::min;
-   FloatModifier<Float> MAXIMUM = Math::max;
+   FloatModifier<Float> ADD = new FloatModifier.Simple() {
+      public Float apply(final Float value, final Float value2) {
+         return Float.sum(value, value2);
+      }
+   };
+   FloatModifier<Float> SUBTRACT = new FloatModifier.Simple() {
+      public Float apply(final Float value, final Float value2) {
+         return value - value2;
+      }
+   };
+   FloatModifier<Float> MULTIPLY = new FloatModifier.Simple() {
+      public Float apply(final Float value, final Float value2) {
+         return value * value2;
+      }
+   };
+   FloatModifier<Float> MINIMUM = new FloatModifier.Simple() {
+      public Float apply(final Float value, final Float value2) {
+         return Math.min(value, value2);
+      }
+   };
+   FloatModifier<Float> MAXIMUM = new FloatModifier.Simple() {
+      public Float apply(final Float value, final Float value2) {
+         return Math.max(value, value2);
+      }
+   };
 
    @FunctionalInterface
    public interface Simple extends FloatModifier<Float> {

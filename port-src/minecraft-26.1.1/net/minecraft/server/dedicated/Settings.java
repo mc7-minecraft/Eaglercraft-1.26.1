@@ -121,7 +121,7 @@ public abstract class Settings<T extends Settings<T>> {
       String value = this.getStringRaw(key);
       V result = (V)MoreObjects.firstNonNull(value != null ? deserializer.apply(value) : null, defaultValue);
       this.properties.put(key, serializer.apply(result));
-      return new Settings.MutableValue<>(key, result, serializer);
+      return this.new MutableValue<>(key, result, serializer);
    }
 
    protected <V> V get(

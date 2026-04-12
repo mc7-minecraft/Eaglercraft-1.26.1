@@ -20,6 +20,7 @@ import java.net.http.HttpResponse;
 import java.net.http.HttpRequest.Builder;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.time.Duration;
 import java.util.Locale;
 import java.util.OptionalLong;
@@ -38,12 +39,6 @@ import net.minecraft.util.Util;
 import net.minecraft.world.level.storage.LevelResource;
 import net.minecraft.world.level.storage.LevelStorageSource;
 import net.minecraft.world.level.validation.ContentValidationException;
-import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
-import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
-import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.io.output.CountingOutputStream;
 import org.apache.commons.lang3.StringUtils;
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
@@ -255,110 +250,7 @@ public class FileDownload {
    }
 
    private void untarGzipArchive(String name, @Nullable final File file, final LevelStorageSource levelStorageSource) throws IOException {
-      Pattern namePattern = Pattern.compile(".*-([0-9]+)$");
-      int number = 1;
-
-      for (char replacer : SharedConstants.ILLEGAL_FILE_CHARACTERS) {
-         name = name.replace(replacer, '_');
-      }
-
-      if (StringUtils.isEmpty(name)) {
-         name = "Realm";
-      }
-
-      name = findAvailableFolderName(name);
-
-      try {
-         for (LevelStorageSource.LevelDirectory level : levelStorageSource.findLevelCandidates()) {
-            String levelId = level.directoryName();
-            if (levelId.toLowerCase(Locale.ROOT).startsWith(name.toLowerCase(Locale.ROOT))) {
-               Matcher matcher = namePattern.matcher(levelId);
-               if (matcher.matches()) {
-                  int parsedNumber = Integer.parseInt(matcher.group(1));
-                  if (parsedNumber > number) {
-                     number = parsedNumber;
-                  }
-               } else {
-                  number++;
-               }
-            }
-         }
-      } catch (Exception var44) {
-         LOGGER.error("Error getting level list", var44);
-         this.error = true;
-         return;
-      }
-
-      String finalName;
-      if (levelStorageSource.isNewLevelIdAcceptable(name) && number <= 1) {
-         finalName = name;
-      } else {
-         finalName = name + (number == 1 ? "" : "-" + number);
-         if (!levelStorageSource.isNewLevelIdAcceptable(finalName)) {
-            boolean foundName = false;
-
-            while (!foundName) {
-               number++;
-               finalName = name + (number == 1 ? "" : "-" + number);
-               if (levelStorageSource.isNewLevelIdAcceptable(finalName)) {
-                  foundName = true;
-               }
-            }
-         }
-      }
-
-      TarArchiveInputStream tarIn = null;
-      Path worldPath = Minecraft.getInstance().getLevelSource().getLevelPath(finalName).normalize();
-
-      try {
-         FileUtil.createDirectoriesSafe(worldPath);
-         tarIn = new TarArchiveInputStream(new GzipCompressorInputStream(new BufferedInputStream(new FileInputStream(file))));
-         TarArchiveEntry tarEntry = tarIn.getNextTarEntry();
-
-         while (tarEntry != null) {
-            Path destPath = worldPath.resolve(Path.of("world").relativize(Path.of(tarEntry.getName()))).normalize();
-            if (!destPath.startsWith(worldPath)) {
-               LOGGER.warn("Unexpected entry in Realms world download: {}", tarEntry.getName());
-               tarEntry = tarIn.getNextTarEntry();
-            } else {
-               if (tarEntry.isDirectory()) {
-                  FileUtil.createDirectoriesSafe(destPath);
-               } else {
-                  Path parent = destPath.getParent();
-                  if (parent != null) {
-                     FileUtil.createDirectoriesSafe(parent);
-                  }
-
-                  try (FileOutputStream output = new FileOutputStream(destPath.toFile())) {
-                     IOUtils.copy(tarIn, output);
-                  }
-               }
-
-               tarEntry = tarIn.getNextTarEntry();
-            }
-         }
-      } catch (Exception var42) {
-         LOGGER.error("Error extracting world", var42);
-         this.error = true;
-      } finally {
-         if (tarIn != null) {
-            tarIn.close();
-         }
-
-         if (file != null) {
-            file.delete();
-         }
-
-         try (LevelStorageSource.LevelStorageAccess access = levelStorageSource.validateAndCreateAccess(finalName)) {
-            access.renameAndDropPlayer(finalName);
-         } catch (NbtException | ReportedNbtException | IOException var40) {
-            LOGGER.error("Failed to modify unpacked realms level {}", finalName, var40);
-         } catch (ContentValidationException var41) {
-            LOGGER.warn("Failed to download file", var41);
-         }
-
-         this.resourcePackPath = worldPath.resolve(LevelResource.MAP_RESOURCE_FILE.id()).toFile();
-      }
+      throw new IOException("Realms world downloads are not supported in the browser port");
    }
 
    private void finishWorldDownload(
@@ -383,13 +275,13 @@ public class FileDownload {
    ) {
       if (downloadStatus.bytesWritten >= downloadStatus.totalBytes && !this.cancelled) {
          try {
-            String actualHash = Hashing.sha1().hashBytes(Files.toByteArray(tempFile)).toString();
+            String actualHash = Hashing.sha1().hashBytes(com.google.common.io.Files.toByteArray(tempFile)).toString();
             if (actualHash.equals(worldDownload.resourcePackHash())) {
-               FileUtils.copyFile(tempFile, this.resourcePackPath);
+               java.nio.file.Files.copy(tempFile.toPath(), this.resourcePackPath.toPath(), StandardCopyOption.REPLACE_EXISTING);
                this.finished = true;
             } else {
                LOGGER.error("Resourcepack had wrong hash (expected {}, found {}). Deleting it.", worldDownload.resourcePackHash(), actualHash);
-               FileUtils.deleteQuietly(tempFile);
+               java.nio.file.Files.deleteIfExists(tempFile.toPath());
                this.error = true;
             }
          } catch (IOException var5) {
@@ -399,17 +291,38 @@ public class FileDownload {
       }
    }
 
-   private static class DownloadCountingOutputStream extends CountingOutputStream {
+   private static class DownloadCountingOutputStream extends OutputStream {
+      private final OutputStream out;
       private final RealmsDownloadLatestWorldScreen.DownloadStatus downloadStatus;
+      private long byteCount;
 
       public DownloadCountingOutputStream(final OutputStream out, final RealmsDownloadLatestWorldScreen.DownloadStatus downloadStatus) {
-         super(out);
+         this.out = out;
          this.downloadStatus = downloadStatus;
       }
 
-      protected void afterWrite(final int n) throws IOException {
-         super.afterWrite(n);
-         this.downloadStatus.bytesWritten = this.getByteCount();
+      @Override
+      public void write(final int b) throws IOException {
+         this.out.write(b);
+         this.byteCount++;
+         this.downloadStatus.bytesWritten = this.byteCount;
+      }
+
+      @Override
+      public void write(final byte[] b, final int off, final int len) throws IOException {
+         this.out.write(b, off, len);
+         this.byteCount += len;
+         this.downloadStatus.bytesWritten = this.byteCount;
+      }
+
+      @Override
+      public void flush() throws IOException {
+         this.out.flush();
+      }
+
+      @Override
+      public void close() throws IOException {
+         this.out.close();
       }
    }
 }

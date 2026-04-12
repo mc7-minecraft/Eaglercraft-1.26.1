@@ -15,7 +15,7 @@ public class WrittenBookPagesStrictJsonFix extends ItemStackTagFix {
 
    @Override
    protected Typed<?> fixItemStackTag(final Typed<?> tag) {
-      Type<Pair<String, String>> textComponentType = this.getInputSchema().getType(References.TEXT_COMPONENT);
+      Type<Pair<String, String>> textComponentType = (Type<Pair<String, String>>)this.getInputSchema().getType(References.TEXT_COMPONENT);
       Type<?> itemStackType = this.getInputSchema().getType(References.ITEM_STACK);
       OpticFinder<?> tagF = itemStackType.findField("tag");
       OpticFinder<?> pagesF = tagF.type().findField("pages");

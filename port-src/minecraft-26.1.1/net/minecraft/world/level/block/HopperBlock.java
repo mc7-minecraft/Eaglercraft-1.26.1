@@ -55,7 +55,8 @@ public class HopperBlock extends BaseEntityBlock {
       this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.DOWN).setValue(ENABLED, Boolean.valueOf(true)));
       VoxelShape inside = Block.column(12.0, 11.0, 16.0);
       this.shapes = this.makeShapes(inside);
-      this.interactionShapes = ImmutableMap.builderWithExpectedSize(5)
+      ImmutableMap.Builder<Direction, VoxelShape> interactionShapesBuilder = ImmutableMap.builderWithExpectedSize(5);
+      this.interactionShapes = interactionShapesBuilder
          .putAll(Shapes.rotateHorizontal(Shapes.or(inside, Block.boxZ(4.0, 8.0, 10.0, 0.0, 4.0))))
          .put(Direction.DOWN, inside)
          .build();

@@ -16,15 +16,19 @@ public record ComponentContents<T>(DataComponentType<T> componentType) implement
    private static final SelectItemModelProperty.Type<? extends ComponentContents<?>, ?> TYPE = createType();
 
    private static <T> SelectItemModelProperty.Type<ComponentContents<T>, T> createType() {
-      Codec<? extends DataComponentType<?>> rawComponentCodec = BuiltInRegistries.DATA_COMPONENT_TYPE
+      Codec<DataComponentType<?>> rawComponentCodec = BuiltInRegistries.DATA_COMPONENT_TYPE
          .byNameCodec()
          .validate(t -> t.isTransient() ? DataResult.error(() -> "Component can't be serialized") : DataResult.success(t));
-      MapCodec<SelectItemModel.UnbakedSwitch<ComponentContents<T>, T>> switchCodec = rawComponentCodec.dispatchMap(
+      MapCodec<?> rawSwitchCodec = rawComponentCodec.dispatchMap(
          "component",
-         switchObject -> ((ComponentContents)switchObject.property()).componentType,
+         (SelectItemModel.UnbakedSwitch<ComponentContents<T>, T> switchObject) -> switchObject.property().componentType,
          componentType -> SelectItemModelProperty.Type.createCasesFieldCodec(componentType.codecOrThrow())
-               .xmap(cases -> new SelectItemModel.UnbakedSwitch<>(new ComponentContents(componentType), cases), SelectItemModel.UnbakedSwitch::cases)
+               .xmap(
+                  cases -> new SelectItemModel.UnbakedSwitch<ComponentContents<T>, T>(new ComponentContents<>(componentType), cases),
+                  (SelectItemModel.UnbakedSwitch<ComponentContents<T>, T> switchValue) -> switchValue.cases()
+               )
       );
+      MapCodec<SelectItemModel.UnbakedSwitch<ComponentContents<T>, T>> switchCodec = (MapCodec<SelectItemModel.UnbakedSwitch<ComponentContents<T>, T>>)(MapCodec<?>)rawSwitchCodec;
       return new SelectItemModelProperty.Type<>(switchCodec);
    }
 

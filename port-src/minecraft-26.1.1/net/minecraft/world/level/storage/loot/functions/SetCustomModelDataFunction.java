@@ -20,9 +20,11 @@ import net.minecraft.world.level.storage.loot.providers.number.NumberProviders;
 
 public class SetCustomModelDataFunction extends LootItemConditionalFunction {
    private static final Codec<NumberProvider> COLOR_PROVIDER_CODEC = Codec.withAlternative(
-      NumberProviders.CODEC, ExtraCodecs.RGB_COLOR_CODEC, ConstantValue::new
+      NumberProviders.CODEC,
+      ExtraCodecs.RGB_COLOR_CODEC.xmap(ConstantValue::exactly, color -> (int)color.value()),
+      constantValue -> constantValue
    );
-   public static final MapCodec<SetCustomModelDataFunction> MAP_CODEC = RecordCodecBuilder.mapCodec(
+   public static final MapCodec<SetCustomModelDataFunction> MAP_CODEC = RecordCodecBuilder.<SetCustomModelDataFunction>mapCodec(
       i -> commonFields(i)
             .and(
                i.group(

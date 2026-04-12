@@ -1079,7 +1079,7 @@ public class MineshaftPieces {
 
       public MineShaftRoom(final CompoundTag tag) {
          super(StructurePieceType.MINE_SHAFT_ROOM, tag);
-         this.childEntranceBoxes.addAll(tag.<List<? extends BoundingBox>>read("Entrances", BoundingBox.CODEC.listOf()).orElse(List.of()));
+         this.childEntranceBoxes.addAll(tag.<List<BoundingBox>>read("Entrances", BoundingBox.CODEC.listOf()).orElse(List.of()));
       }
 
       @Override

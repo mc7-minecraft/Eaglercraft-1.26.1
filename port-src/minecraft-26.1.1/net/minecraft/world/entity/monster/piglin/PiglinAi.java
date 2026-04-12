@@ -248,7 +248,10 @@ public class PiglinAi {
             BehaviorBuilder.sequence(
                BehaviorBuilder.triggerIf(Entity::isPassenger),
                TriggerGate.triggerOneShuffled(
-                  ImmutableList.builder().addAll(createLookBehaviors()).add(Pair.of(BehaviorBuilder.triggerIf(e -> true), 1)).build()
+                  ImmutableList.<Pair<? extends Trigger<? super LivingEntity>, Integer>>builder()
+                     .addAll(createLookBehaviors())
+                     .add(Pair.of(BehaviorBuilder.triggerIf(e -> true), 1))
+                     .build()
                )
             ),
             DismountOrSkipMounting.create(8, PiglinAi::wantsToStopRiding)

@@ -113,11 +113,11 @@ public class PlaceholderLookupProvider implements HolderGetter.Provider {
       }
 
       public <T> HolderGetter<T> castAsLookup() {
-         return this;
+         return (HolderGetter<T>)this;
       }
 
       public <T> HolderOwner<T> castAsOwner() {
-         return this;
+         return (HolderOwner<T>)this;
       }
    }
 }

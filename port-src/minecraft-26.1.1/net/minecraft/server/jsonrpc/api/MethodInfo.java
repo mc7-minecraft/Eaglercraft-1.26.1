@@ -33,7 +33,7 @@ public record MethodInfo<Params, Result>(String description, Optional<ParamInfo<
                   paramsTypedCodec().fieldOf("params").forGetter((MethodInfo<Params, Result> info) -> (Optional)info.params()),
                   ResultInfo.<Result>typedCodec().optionalFieldOf("result").forGetter((MethodInfo<Params, Result> info) -> info.result())
                )
-               .apply(i, (description, params, result) -> new MethodInfo<>(description, params, result))
+               .apply(i, (String description, Optional<ParamInfo<Params>> params, Optional<ResultInfo<Result>> result) -> new MethodInfo<>(description, params, result))
       );
    }
 

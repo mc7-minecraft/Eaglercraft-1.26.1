@@ -17,7 +17,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 public class TrialChambersStructurePools {
    public static final ResourceKey<StructureTemplatePool> START = Pools.createKey("trial_chambers/chamber/end");
    public static final ResourceKey<StructureTemplatePool> HALLWAY_FALLBACK = Pools.createKey("trial_chambers/hallway/fallback");
-   public static final List<PoolAliasBinding> ALIAS_BINDINGS = ImmutableList.builder()
+   public static final List<PoolAliasBinding> ALIAS_BINDINGS = ImmutableList.<PoolAliasBinding>builder()
       .add(
          PoolAliasBinding.randomGroup(
             WeightedList.<List<PoolAliasBinding>>builder()

@@ -20,10 +20,10 @@ public class ReturnCommand {
    public static <T extends ExecutionCommandSource<T>> void register(final CommandDispatcher<T> dispatcher) {
       dispatcher.register(
          (LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)LiteralArgumentBuilder.literal("return")
-                     .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS)))
+                     .requires(source -> Commands.hasPermission(Commands.LEVEL_GAMEMASTERS).test(source)))
                   .then(RequiredArgumentBuilder.argument("value", IntegerArgumentType.integer()).executes(new ReturnCommand.ReturnValueCustomExecutor())))
                .then(LiteralArgumentBuilder.literal("fail").executes(new ReturnCommand.ReturnFailCustomExecutor())))
-            .then(LiteralArgumentBuilder.literal("run").forward(dispatcher.getRoot(), new ReturnCommand.ReturnFromCommandCustomModifier(), false))
+            .then(LiteralArgumentBuilder.literal("run").forward((com.mojang.brigadier.tree.CommandNode<T>)dispatcher.getRoot(), new ReturnCommand.ReturnFromCommandCustomModifier(), false))
       );
    }
 

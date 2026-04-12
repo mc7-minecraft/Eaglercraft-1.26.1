@@ -49,12 +49,8 @@ public class WorldPresets {
 
    public static Optional<ResourceKey<WorldPreset>> fromSettings(final WorldDimensions dimensions) {
       return dimensions.get(LevelStem.OVERWORLD).flatMap(levelStem -> {
-         Object var10000;
-         Objects.requireNonNull(var10000);
-         ChunkGenerator selector0$temp = (ChunkGenerator)var10000;
-
-         levelStem.generator();
-         return switch (selector0$temp) {
+         ChunkGenerator generator = levelStem.generator();
+         return switch (generator) {
             case FlatLevelSource ignored -> Optional.of(FLAT);
             case DebugLevelSource ignoredx -> Optional.of(DEBUG);
             case NoiseBasedChunkGenerator ignoredxx -> Optional.of(NORMAL);

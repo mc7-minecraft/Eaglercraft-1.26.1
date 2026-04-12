@@ -354,7 +354,7 @@ public class IncomingRpcMethods {
          .description("Get the available game rule keys and their current values")
          .response("gamerules", Schema.TYPED_GAME_RULE_SCHEMA.asRef().asArray())
          .register(methodRegistry, "gamerules");
-      IncomingRpcMethod.method(GameRulesService::update)
+      IncomingRpcMethod.method((minecraftApi, update, clientInfo) -> GameRulesService.update(minecraftApi, update, clientInfo))
          .description("Update game rule value")
          .param("gamerule", Schema.UNTYPED_GAME_RULE_SCHEMA.asRef())
          .response("gamerule", Schema.TYPED_GAME_RULE_SCHEMA.asRef())

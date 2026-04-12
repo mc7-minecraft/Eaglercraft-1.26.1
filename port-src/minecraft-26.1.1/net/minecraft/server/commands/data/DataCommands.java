@@ -173,16 +173,11 @@ public class DataCommands {
 
       return switch (tag) {
          case StringTag var3 -> {
-            StringTag var8 = var3;
-
             try {
-               var9 = var8.value();
+               yield var3.value();
             } catch (Throwable var6) {
                throw new MatchException(var6.toString(), var6);
             }
-
-            String var7 = var9;
-            yield var7;
          }
          case PrimitiveTag primitiveTag -> primitiveTag.toString();
          default -> throw ERROR_EXPECTED_VALUE.create(tag);
@@ -372,16 +367,11 @@ public class DataCommands {
          case CollectionTag collectionTag -> collectionTag.size();
          case CompoundTag compoundTag -> compoundTag.size();
          case StringTag var10 -> {
-            StringTag var10000 = var10;
-
             try {
-               var15 = var10000.value();
+               yield var10.value().length();
             } catch (Throwable var13) {
                throw new MatchException(var13.toString(), var13);
             }
-
-            String var14 = var15;
-            yield var14.length();
          }
          case EndTag ignored -> throw ERROR_GET_NON_EXISTENT.create(path.toString());
          default -> throw new MatchException(null, null);

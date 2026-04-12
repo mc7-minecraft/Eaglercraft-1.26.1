@@ -150,7 +150,7 @@ public class VegetationPlacements {
    }
 
    private static Builder<PlacementModifier> treePlacementBase(final PlacementModifier frequency) {
-      return ImmutableList.builder()
+      return ImmutableList.<PlacementModifier>builder()
          .add(frequency)
          .add(InSquarePlacement.spread())
          .add(TREE_THRESHOLD)

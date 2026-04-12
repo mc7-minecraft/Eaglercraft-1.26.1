@@ -25,7 +25,7 @@ public record SpawnParticlesEffect(
    SpawnParticlesEffect.VelocitySource verticalVelocity,
    FloatProvider speed
 ) implements EnchantmentEntityEffect {
-   public static final MapCodec<SpawnParticlesEffect> CODEC = RecordCodecBuilder.mapCodec(
+   public static final MapCodec<SpawnParticlesEffect> CODEC = RecordCodecBuilder.<SpawnParticlesEffect>mapCodec(
       i -> i.group(
                ParticleTypes.CODEC.fieldOf("particle").forGetter(SpawnParticlesEffect::particle),
                SpawnParticlesEffect.PositionSource.CODEC.fieldOf("horizontal_position").forGetter(SpawnParticlesEffect::horizontalPosition),
@@ -78,7 +78,7 @@ public record SpawnParticlesEffect(
    }
 
    public static record PositionSource(SpawnParticlesEffect.PositionSourceType type, float offset, float scale) {
-      public static final MapCodec<SpawnParticlesEffect.PositionSource> CODEC = RecordCodecBuilder.mapCodec(
+      public static final MapCodec<SpawnParticlesEffect.PositionSource> CODEC = RecordCodecBuilder.<SpawnParticlesEffect.PositionSource>mapCodec(
             i -> i.group(
                      SpawnParticlesEffect.PositionSourceType.CODEC.fieldOf("type").forGetter(SpawnParticlesEffect.PositionSource::type),
                      Codec.FLOAT.optionalFieldOf("offset", 0.0F).forGetter(SpawnParticlesEffect.PositionSource::offset),

@@ -219,10 +219,6 @@ public class GameRenderer implements AutoCloseable, TrackedWaypoint.Projector {
 
    public void checkEntityPostEffect(@Nullable final Entity cameraEntity) {
       switch (cameraEntity) {
-         case null:
-         default:
-            this.clearPostEffect();
-            break;
          case Creeper ignored:
             this.setPostEffect(Identifier.withDefaultNamespace("creeper"));
             break;
@@ -231,6 +227,10 @@ public class GameRenderer implements AutoCloseable, TrackedWaypoint.Projector {
             break;
          case EnderMan ignoredxx:
             this.setPostEffect(Identifier.withDefaultNamespace("invert"));
+            break;
+         case null:
+         default:
+            this.clearPostEffect();
       }
    }
 

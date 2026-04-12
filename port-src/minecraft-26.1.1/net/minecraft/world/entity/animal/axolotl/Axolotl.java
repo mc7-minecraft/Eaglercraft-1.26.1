@@ -535,7 +535,7 @@ public class Axolotl extends Animal implements Bucketable {
 
    @Override
    public Brain<Axolotl> getBrain() {
-      return super.getBrain();
+      return (Brain<Axolotl>)super.getBrain();
    }
 
    @Override
@@ -602,7 +602,6 @@ public class Axolotl extends Animal implements Bucketable {
 
    private class AxolotlLookControl extends SmoothSwimmingLookControl {
       public AxolotlLookControl(final Axolotl axolotl, final int maxYRotFromCenter) {
-         Objects.requireNonNull(Axolotl.this);
          super(axolotl, maxYRotFromCenter);
       }
 
@@ -684,3 +683,4 @@ public class Axolotl extends Animal implements Bucketable {
       }
    }
 }
+

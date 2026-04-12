@@ -28,6 +28,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -54,7 +55,7 @@ import org.slf4j.Logger;
 
 public class TestInstanceBlockEntity extends BlockEntity implements BoundingBoxRenderable, BeaconBeamOwner {
    private static final Logger LOGGER = LogUtils.getLogger();
-   private static final Component INVALID_TEST_NAME = Component.translatable("test_instance_block.invalid_test");
+   private static final MutableComponent INVALID_TEST_NAME = Component.translatable("test_instance_block.invalid_test");
    private static final List<BeaconBeamOwner.Section> BEAM_CLEARED = List.of();
    private static final List<BeaconBeamOwner.Section> BEAM_RUNNING = List.of(new BeaconBeamOwner.Section(ARGB.color(128, 128, 128)));
    private static final List<BeaconBeamOwner.Section> BEAM_SUCCESS = List.of(new BeaconBeamOwner.Section(ARGB.color(0, 255, 0)));
@@ -105,7 +106,7 @@ public class TestInstanceBlockEntity extends BlockEntity implements BoundingBoxR
    }
 
    public Component getTestName() {
-      return this.test().map(key -> Component.literal(key.identifier().toString())).orElse(INVALID_TEST_NAME);
+      return this.test().<MutableComponent>map(key -> Component.literal(key.identifier().toString())).orElse(INVALID_TEST_NAME);
    }
 
    private Optional<Holder.Reference<GameTestInstance>> getTestHolder() {
@@ -161,8 +162,7 @@ public class TestInstanceBlockEntity extends BlockEntity implements BoundingBoxR
    protected void loadAdditional(final ValueInput input) {
       input.<TestInstanceBlockEntity.Data>read("data", TestInstanceBlockEntity.Data.CODEC).ifPresent(this::set);
       this.errorMarkers.clear();
-      this.errorMarkers
-         .addAll(input.<List<? extends TestInstanceBlockEntity.ErrorMarker>>read("errors", TestInstanceBlockEntity.ErrorMarker.LIST_CODEC).orElse(List.of()));
+      this.errorMarkers.addAll(input.read("errors", TestInstanceBlockEntity.ErrorMarker.LIST_CODEC).orElse(List.of()));
    }
 
    @Override

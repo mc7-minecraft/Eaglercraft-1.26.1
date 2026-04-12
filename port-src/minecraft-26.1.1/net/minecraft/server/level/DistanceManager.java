@@ -206,7 +206,6 @@ public abstract class DistanceManager {
       protected final int maxDistance;
 
       protected FixedPlayerDistanceChunkTracker(final int maxDistance) {
-         Objects.requireNonNull(DistanceManager.this);
          super(maxDistance + 2, 16, 256);
          this.chunks = new Long2ByteOpenHashMap();
          this.maxDistance = maxDistance;
@@ -254,7 +253,6 @@ public abstract class DistanceManager {
       private final LongSet toUpdate;
 
       protected PlayerTicketTracker(final int maxDistance) {
-         Objects.requireNonNull(DistanceManager.this);
          super(maxDistance);
          this.queueLevels = Long2IntMaps.synchronize(new Long2IntOpenHashMap());
          this.toUpdate = new LongOpenHashSet();

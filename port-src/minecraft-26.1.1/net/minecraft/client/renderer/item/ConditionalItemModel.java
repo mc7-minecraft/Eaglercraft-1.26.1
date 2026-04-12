@@ -1,6 +1,7 @@
 package net.minecraft.client.renderer.item;
 
 import com.mojang.math.Transformation;
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Optional;
@@ -86,7 +87,7 @@ public class ConditionalItemModel implements ItemModel {
       private static <T extends ConditionalItemModelProperty> T swapContext(
          final T originalProperty, final RegistryContextSwapper contextSwapper, final ClientLevel context
       ) {
-         return (T)contextSwapper.swapTo(originalProperty.type().codec(), originalProperty, context.registryAccess()).result().orElse(originalProperty);
+         return (T)contextSwapper.swapTo((Codec)originalProperty.type().codec(), originalProperty, context.registryAccess()).result().orElse(originalProperty);
       }
 
       @Override

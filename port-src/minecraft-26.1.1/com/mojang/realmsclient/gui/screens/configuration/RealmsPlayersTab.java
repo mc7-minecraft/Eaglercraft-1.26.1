@@ -86,7 +86,6 @@ class RealmsPlayersTab extends GridLayoutTab implements RealmsConfigurationTab {
       private final FocusableTextWidget invitedWidget;
 
       public HeaderEntry() {
-         Objects.requireNonNull(RealmsPlayersTab.this);
          super();
          this.cachedNumberOfInvites = "";
          Component invitedText = Component.translatable("mco.configure.world.invited.number", "").withStyle(ChatFormatting.UNDERLINE);
@@ -132,7 +131,6 @@ class RealmsPlayersTab extends GridLayoutTab implements RealmsConfigurationTab {
       private static final int PLAYER_ENTRY_HEIGHT = 36;
 
       public InvitedObjectSelectionList(final int width, final int height) {
-         Objects.requireNonNull(RealmsPlayersTab.this);
          super(Minecraft.getInstance(), width, height, RealmsPlayersTab.this.configurationScreen.getHeaderHeight(), 36);
       }
 
@@ -180,7 +178,6 @@ class RealmsPlayersTab extends GridLayoutTab implements RealmsConfigurationTab {
       private final Button removeOpButton;
 
       public PlayerEntry(final PlayerInfo playerInfo) {
-         Objects.requireNonNull(RealmsPlayersTab.this);
          super();
          this.playerInfo = playerInfo;
          int index = RealmsPlayersTab.this.serverData.players.indexOf(this.playerInfo);

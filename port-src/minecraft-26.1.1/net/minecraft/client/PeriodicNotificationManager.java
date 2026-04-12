@@ -33,14 +33,14 @@ public class PeriodicNotificationManager
    implements AutoCloseable {
    private static final Codec<Map<String, List<PeriodicNotificationManager.Notification>>> CODEC = Codec.unboundedMap(
       Codec.STRING,
-      RecordCodecBuilder.create(
+      RecordCodecBuilder.<PeriodicNotificationManager.Notification>create(
             i -> i.group(
                      Codec.LONG.optionalFieldOf("delay", 0L).forGetter(PeriodicNotificationManager.Notification::delay),
                      Codec.LONG.fieldOf("period").forGetter(PeriodicNotificationManager.Notification::period),
                      Codec.STRING.fieldOf("title").forGetter(PeriodicNotificationManager.Notification::title),
                      Codec.STRING.fieldOf("message").forGetter(PeriodicNotificationManager.Notification::message)
                   )
-                  .apply(i, PeriodicNotificationManager.Notification::new)
+                  .apply(i, (delay, period, title, message) -> new PeriodicNotificationManager.Notification(delay, period, title, message))
          )
          .listOf()
    );

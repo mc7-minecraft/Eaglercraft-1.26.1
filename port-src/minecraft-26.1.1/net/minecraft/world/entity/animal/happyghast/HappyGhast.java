@@ -388,7 +388,7 @@ public class HappyGhast extends Animal {
 
    @Override
    public Brain<HappyGhast> getBrain() {
-      return super.getBrain();
+      return (Brain<HappyGhast>)super.getBrain();
    }
 
    @Override
@@ -608,7 +608,6 @@ public class HappyGhast extends Animal {
 
    private class HappyGhastBodyRotationControl extends BodyRotationControl {
       public HappyGhastBodyRotationControl() {
-         Objects.requireNonNull(HappyGhast.this);
          super(HappyGhast.this);
       }
 
@@ -625,7 +624,6 @@ public class HappyGhast extends Animal {
 
    private class HappyGhastFloatGoal extends FloatGoal {
       public HappyGhastFloatGoal() {
-         Objects.requireNonNull(HappyGhast.this);
          super(HappyGhast.this);
       }
 
@@ -637,7 +635,6 @@ public class HappyGhast extends Animal {
 
    private class HappyGhastLookControl extends LookControl {
       private HappyGhastLookControl() {
-         Objects.requireNonNull(HappyGhast.this);
          super(HappyGhast.this);
       }
 
@@ -673,3 +670,4 @@ public class HappyGhast extends Animal {
       }
    }
 }
+

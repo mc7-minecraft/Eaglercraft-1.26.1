@@ -162,7 +162,7 @@ public class Goat extends Animal {
 
    @Override
    public Brain<Goat> getBrain() {
-      return super.getBrain();
+      return (Brain<Goat>)super.getBrain();
    }
 
    @Override
@@ -352,3 +352,4 @@ public class Goat extends Animal {
       return level.getBlockState(pos.below()).is(BlockTags.GOATS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
    }
 }
+

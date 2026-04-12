@@ -65,7 +65,6 @@ public class KeyBindsList extends ContainerObjectSelectionList<KeyBindsList.Entr
       private final FocusableTextWidget categoryName;
 
       public CategoryEntry(final KeyMapping.Category category) {
-         Objects.requireNonNull(KeyBindsList.this);
          super();
          this.categoryName = FocusableTextWidget.builder(category.label(), KeyBindsList.this.minecraft.font)
             .alwaysShowBorder(false)
@@ -108,7 +107,6 @@ public class KeyBindsList extends ContainerObjectSelectionList<KeyBindsList.Entr
       private boolean hasCollision;
 
       private KeyEntry(final KeyMapping key, final Component name) {
-         Objects.requireNonNull(KeyBindsList.this);
          super();
          this.hasCollision = false;
          this.key = key;

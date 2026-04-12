@@ -56,7 +56,7 @@ public class Cow extends AbstractCow {
    protected void readAdditionalSaveData(final ValueInput input) {
       super.readAdditionalSaveData(input);
       VariantUtils.readVariant(input, Registries.COW_VARIANT).ifPresent(this::setVariant);
-      input.<ResourceKey>read("sound_variant", ResourceKey.codec(Registries.COW_SOUND_VARIANT))
+      input.<ResourceKey<CowSoundVariant>>read("sound_variant", ResourceKey.codec(Registries.COW_SOUND_VARIANT))
          .flatMap(soundVariant -> this.registryAccess().lookupOrThrow(Registries.COW_SOUND_VARIANT).get((ResourceKey<CowSoundVariant>)soundVariant))
          .ifPresent(this::setSoundVariant);
    }

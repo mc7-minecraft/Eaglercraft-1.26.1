@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public interface WeatheringCopper extends ChangeOverTimeBlock<WeatheringCopper.WeatherState> {
    Supplier<BiMap<Block, Block>> NEXT_BY_BLOCK = Suppliers.memoize(
-      () -> ImmutableBiMap.builder()
+   () -> ImmutableBiMap.<Block, Block>builder()
             .put(Blocks.COPPER_BLOCK, Blocks.EXPOSED_COPPER)
             .put(Blocks.EXPOSED_COPPER, Blocks.WEATHERED_COPPER)
             .put(Blocks.WEATHERED_COPPER, Blocks.OXIDIZED_COPPER)

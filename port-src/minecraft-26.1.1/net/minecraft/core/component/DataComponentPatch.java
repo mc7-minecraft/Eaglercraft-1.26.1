@@ -8,6 +8,7 @@ import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectMaps;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.Map.Entry;
@@ -23,7 +24,7 @@ import org.jspecify.annotations.Nullable;
 public final class DataComponentPatch {
    public static final DataComponentPatch EMPTY = new DataComponentPatch(Reference2ObjectMaps.emptyMap());
    public static final Codec<DataComponentPatch> CODEC = Codec.dispatchedMap(DataComponentPatch.PatchKey.CODEC, DataComponentPatch.PatchKey::valueCodec)
-      .xmap(data -> {
+      .<DataComponentPatch>xmap(data -> {
          if (data.isEmpty()) {
             return EMPTY;
          } else {
@@ -41,7 +42,7 @@ public final class DataComponentPatch {
             return new DataComponentPatch(map);
          }
       }, patch -> {
-         Reference2ObjectMap<DataComponentPatch.PatchKey, Object> map = new Reference2ObjectArrayMap(patch.map.size());
+         Map<DataComponentPatch.PatchKey, Object> map = new java.util.HashMap<>(patch.map.size());
          Iterator i$ = Reference2ObjectMaps.fastIterable(patch.map).iterator();
 
          while (i$.hasNext()) {
@@ -57,7 +58,7 @@ public final class DataComponentPatch {
             }
          }
 
-         return map;
+         return (Map)map;
       });
    public static final StreamCodec<RegistryFriendlyByteBuf, DataComponentPatch> STREAM_CODEC = createStreamCodec(new DataComponentPatch.CodecGetter() {
       @Override

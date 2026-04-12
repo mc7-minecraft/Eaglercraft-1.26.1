@@ -51,7 +51,6 @@ public abstract class AbstractIllager extends Raider {
 
    protected class RaiderOpenDoorGoal extends OpenDoorGoal {
       public RaiderOpenDoorGoal(final Raider raider) {
-         Objects.requireNonNull(AbstractIllager.this);
          super(raider, false);
       }
 

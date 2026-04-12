@@ -137,7 +137,10 @@ public final class EntityReference<StoredEntityType extends UniquelyIdentifyable
       Optional<UUID> uuid = input.read(key, UUIDUtil.CODEC);
       return uuid.isPresent()
          ? of(uuid.get())
-         : input.getString(key).map(oldName -> OldUsersConverter.convertMobOwnerIfNecessary(level.getServer(), oldName)).map(EntityReference::new).orElse(null);
+         : input.getString(key)
+         .map(oldName -> OldUsersConverter.convertMobOwnerIfNecessary(level.getServer(), oldName))
+         .map(owner -> new EntityReference<StoredEntityType>(owner))
+         .orElse(null);
    }
 
    @Override

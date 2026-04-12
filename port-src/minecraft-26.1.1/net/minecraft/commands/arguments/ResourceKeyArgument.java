@@ -147,7 +147,6 @@ public class ResourceKeyArgument<T> implements ArgumentType<ResourceKey<T>> {
          private final ResourceKey<? extends Registry<T>> registryKey;
 
          private Template(final ResourceKey<? extends Registry<T>> registryKey) {
-            Objects.requireNonNull(Info.this);
             super();
             this.registryKey = registryKey;
          }

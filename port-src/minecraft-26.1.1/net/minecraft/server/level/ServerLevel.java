@@ -1905,7 +1905,6 @@ public class ServerLevel extends Level implements WorldGenLevel, ServerEntityGet
 
    private final class EntityCallbacks implements LevelCallback<Entity> {
       private EntityCallbacks() {
-         Objects.requireNonNull(ServerLevel.this);
          super();
       }
 

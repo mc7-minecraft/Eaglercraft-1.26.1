@@ -2124,7 +2124,7 @@ public abstract class Entity
             this.hasVisualFire = input.getBooleanOr("HasVisualFire", false);
             this.customData = input.<CustomData>read("data", CustomData.CODEC).orElse(CustomData.EMPTY);
             this.tags.clear();
-            input.<Collection<? extends E>>read("Tags", TAG_LIST_CODEC).ifPresent(this.tags::addAll);
+            input.read("Tags", TAG_LIST_CODEC).ifPresent(this.tags::addAll);
             this.readAdditionalSaveData(input);
             if (this.repositionEntityAfterLoad()) {
                this.reapplyPosition();

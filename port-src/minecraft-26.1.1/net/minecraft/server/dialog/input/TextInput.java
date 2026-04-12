@@ -12,7 +12,7 @@ import net.minecraft.util.ExtraCodecs;
 
 public record TextInput(int width, Component label, boolean labelVisible, String initial, int maxLength, Optional<TextInput.MultilineOptions> multiline)
    implements InputControl {
-   public static final MapCodec<TextInput> MAP_CODEC = RecordCodecBuilder.mapCodec(
+      public static final MapCodec<TextInput> MAP_CODEC = RecordCodecBuilder.<TextInput>mapCodec(
          i -> i.group(
                   Dialog.WIDTH_CODEC.optionalFieldOf("width", 200).forGetter(TextInput::width),
                   ComponentSerialization.CODEC.fieldOf("label").forGetter(TextInput::label),
@@ -21,9 +21,11 @@ public record TextInput(int width, Component label, boolean labelVisible, String
                   ExtraCodecs.POSITIVE_INT.optionalFieldOf("max_length", 32).forGetter(TextInput::maxLength),
                   TextInput.MultilineOptions.CODEC.optionalFieldOf("multiline").forGetter(TextInput::multiline)
                )
-               .apply(i, TextInput::new)
+            .apply(i, (width, label, labelVisible, initial, maxLength, multiline) -> new TextInput(width, label, labelVisible, initial, maxLength, multiline))
       )
-      .validate(o -> o.initial.length() > o.maxLength() ? DataResult.error(() -> "Default text length exceeds allowed size") : DataResult.success(o));
+      .validate((TextInput input) -> input.initial.length() > input.maxLength()
+         ? DataResult.error(() -> "Default text length exceeds allowed size")
+         : DataResult.success(input));
 
    @Override
    public MapCodec<TextInput> mapCodec() {
@@ -32,12 +34,12 @@ public record TextInput(int width, Component label, boolean labelVisible, String
 
    public static record MultilineOptions(Optional<Integer> maxLines, Optional<Integer> height) {
       public static final int MAX_HEIGHT = 512;
-      public static final Codec<TextInput.MultilineOptions> CODEC = RecordCodecBuilder.create(
+      public static final Codec<TextInput.MultilineOptions> CODEC = RecordCodecBuilder.<TextInput.MultilineOptions>create(
          i -> i.group(
                   ExtraCodecs.POSITIVE_INT.optionalFieldOf("max_lines").forGetter(TextInput.MultilineOptions::maxLines),
                   ExtraCodecs.intRange(1, 512).optionalFieldOf("height").forGetter(TextInput.MultilineOptions::height)
                )
-               .apply(i, TextInput.MultilineOptions::new)
+               .apply(i, (maxLines, height) -> new TextInput.MultilineOptions(maxLines, height))
       );
    }
 }

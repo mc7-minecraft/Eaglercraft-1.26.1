@@ -137,7 +137,6 @@ public abstract class AbstractGameRulesScreen extends Screen {
       private final CycleButton<Boolean> checkbox;
 
       public BooleanRuleEntry(final Component name, final List<FormattedCharSequence> tooltip, final String narration, final GameRule<Boolean> gameRule) {
-         Objects.requireNonNull(AbstractGameRulesScreen.this);
          super(tooltip, name);
          this.checkbox = CycleButton.onOffBuilder(AbstractGameRulesScreen.this.gameRules.get(gameRule))
             .displayOnlyValue()
@@ -159,7 +158,6 @@ public abstract class AbstractGameRulesScreen extends Screen {
       private final Component label;
 
       public CategoryRuleEntry(final Component label) {
-         Objects.requireNonNull(AbstractGameRulesScreen.this);
          super(null);
          this.label = label;
       }
@@ -204,7 +202,6 @@ public abstract class AbstractGameRulesScreen extends Screen {
       protected final List<AbstractWidget> children;
 
       public GameRuleEntry(@Nullable final List<FormattedCharSequence> tooltip, final Component label) {
-         Objects.requireNonNull(AbstractGameRulesScreen.this);
          super(tooltip);
          this.children = Lists.newArrayList();
          this.label = AbstractGameRulesScreen.this.minecraft.font.split(label, 170);
@@ -234,7 +231,6 @@ public abstract class AbstractGameRulesScreen extends Screen {
       private final EditBox input;
 
       public IntegerRuleEntry(final Component label, final List<FormattedCharSequence> tooltip, final String narration, final GameRule<Integer> gameRule) {
-         Objects.requireNonNull(AbstractGameRulesScreen.this);
          super(tooltip, label);
          this.input = new EditBox(AbstractGameRulesScreen.this.minecraft.font, 10, 5, 44, 20, label.copy().append("\n").append(narration).append("\n"));
          this.input.setValue(AbstractGameRulesScreen.this.gameRules.getAsString(gameRule));
@@ -275,7 +271,6 @@ public abstract class AbstractGameRulesScreen extends Screen {
       private final GameRules gameRules;
 
       public RuleList(final GameRules gameRules) {
-         Objects.requireNonNull(AbstractGameRulesScreen.this);
          super(
             Minecraft.getInstance(),
             AbstractGameRulesScreen.this.width,
@@ -322,7 +317,7 @@ public abstract class AbstractGameRulesScreen extends Screen {
                         List<FormattedCharSequence> tooltip;
                         String narration;
                         if (optionalDescription.isPresent()) {
-                           Builder<FormattedCharSequence> result = ImmutableList.builder().add(actualName.getVisualOrderText());
+                           Builder<FormattedCharSequence> result = ImmutableList.<FormattedCharSequence>builder().add(actualName.getVisualOrderText());
                            AbstractGameRulesScreen.this.font.split(optionalDescription.get(), 150).forEach(result::add);
                            tooltip = result.add(defaultValue.getVisualOrderText()).build();
                            narration = optionalDescription.get().getString() + "\n" + defaultValue.getString();

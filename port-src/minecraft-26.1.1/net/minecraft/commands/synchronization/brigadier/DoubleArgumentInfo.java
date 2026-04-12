@@ -48,7 +48,6 @@ public class DoubleArgumentInfo implements ArgumentTypeInfo<DoubleArgumentType, 
       private final double max;
 
       private Template(final double min, final double max) {
-         Objects.requireNonNull(DoubleArgumentInfo.this);
          super();
          this.min = min;
          this.max = max;

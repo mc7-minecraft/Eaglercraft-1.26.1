@@ -381,7 +381,6 @@ public class RegionFile implements AutoCloseable {
       private final ChunkPos pos;
 
       public ChunkBuffer(final ChunkPos pos) {
-         Objects.requireNonNull(RegionFile.this);
          super(8096);
          super.write(0);
          super.write(0);

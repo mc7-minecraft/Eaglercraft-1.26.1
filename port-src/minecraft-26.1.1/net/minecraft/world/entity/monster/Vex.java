@@ -219,7 +219,6 @@ public class Vex extends Monster implements TraceableEntity {
 
    private class VexChargeAttackGoal extends Goal {
       public VexChargeAttackGoal() {
-         Objects.requireNonNull(Vex.this);
          super();
          this.setFlags(EnumSet.of(Goal.Flag.MOVE));
       }
@@ -281,7 +280,6 @@ public class Vex extends Monster implements TraceableEntity {
       private final TargetingConditions copyOwnerTargeting;
 
       public VexCopyOwnerTargetGoal(final PathfinderMob mob) {
-         Objects.requireNonNull(Vex.this);
          super(mob, false);
          this.copyOwnerTargeting = TargetingConditions.forNonCombat().ignoreLineOfSight().ignoreInvisibilityTesting();
       }
@@ -302,7 +300,6 @@ public class Vex extends Monster implements TraceableEntity {
 
    private class VexMoveControl extends MoveControl {
       public VexMoveControl(final Vex vex) {
-         Objects.requireNonNull(Vex.this);
          super(vex);
       }
 
@@ -333,7 +330,6 @@ public class Vex extends Monster implements TraceableEntity {
 
    private class VexRandomMoveGoal extends Goal {
       public VexRandomMoveGoal() {
-         Objects.requireNonNull(Vex.this);
          super();
          this.setFlags(EnumSet.of(Goal.Flag.MOVE));
       }

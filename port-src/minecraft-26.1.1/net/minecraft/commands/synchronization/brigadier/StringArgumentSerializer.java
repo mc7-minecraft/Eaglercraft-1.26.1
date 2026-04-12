@@ -35,7 +35,6 @@ public class StringArgumentSerializer implements ArgumentTypeInfo<StringArgument
       private final StringType type;
 
       public Template(final StringType type) {
-         Objects.requireNonNull(StringArgumentSerializer.this);
          super();
          this.type = type;
       }

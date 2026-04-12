@@ -71,8 +71,8 @@ public class BitmapProvider implements GlyphProvider {
          }
 
          return result;
-      }).validate(BitmapProvider.Definition::validateDimensions);
-      public static final MapCodec<BitmapProvider.Definition> CODEC = RecordCodecBuilder.mapCodec(
+      }).validate(grid -> BitmapProvider.Definition.validateDimensions(grid));
+      public static final MapCodec<BitmapProvider.Definition> CODEC = RecordCodecBuilder.<BitmapProvider.Definition>mapCodec(
             i -> i.group(
                      Identifier.CODEC.fieldOf("file").forGetter(BitmapProvider.Definition::file),
                      Codec.INT.optionalFieldOf("height", 8).forGetter(BitmapProvider.Definition::height),
@@ -81,7 +81,7 @@ public class BitmapProvider implements GlyphProvider {
                   )
                   .apply(i, BitmapProvider.Definition::new)
          )
-         .validate(BitmapProvider.Definition::validate);
+         .validate((BitmapProvider.Definition definition) -> BitmapProvider.Definition.validate(definition));
 
       private static DataResult<int[][]> validateDimensions(final int[][] grid) {
          int lineCount = grid.length;

@@ -70,7 +70,6 @@ public class ScreenNarrationCollector {
       private final int depth;
 
       private Output(final int depth) {
-         Objects.requireNonNull(ScreenNarrationCollector.this);
          super();
          this.depth = depth;
       }

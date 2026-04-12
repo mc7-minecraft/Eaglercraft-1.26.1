@@ -7,7 +7,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 
 public class VillagerHostilesSensor extends NearestVisibleLivingEntitySensor {
-   private static final ImmutableMap<EntityType<?>, Float> ACCEPTABLE_DISTANCE_FROM_HOSTILES = ImmutableMap.builder()
+   private static final ImmutableMap<EntityType<?>, Float> ACCEPTABLE_DISTANCE_FROM_HOSTILES = ImmutableMap.<EntityType<?>, Float>builder()
       .put(EntityType.DROWNED, 8.0F)
       .put(EntityType.EVOKER, 12.0F)
       .put(EntityType.HUSK, 8.0F)

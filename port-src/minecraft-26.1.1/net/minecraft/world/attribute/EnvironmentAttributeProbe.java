@@ -50,7 +50,6 @@ public class EnvironmentAttributeProbe {
       private Value newValue;
 
       public ValueProbe(final EnvironmentAttribute<Value> attribute) {
-         Objects.requireNonNull(EnvironmentAttributeProbe.this);
          super();
          Value value = this.getValueFromLevel(attribute);
          this.lastValue = value;

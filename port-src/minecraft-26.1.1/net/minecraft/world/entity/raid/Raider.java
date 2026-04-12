@@ -349,7 +349,6 @@ public abstract class Raider extends PatrollingMonster {
       private ItemEntity pursuedBannerItemEntity;
 
       public ObtainRaidLeaderBannerGoal(final T mob) {
-         Objects.requireNonNull(Raider.this);
          super();
          this.unreachableBannerCache = new Int2LongOpenHashMap();
          this.mob = mob;
@@ -438,7 +437,6 @@ public abstract class Raider extends PatrollingMonster {
       private final Raider mob;
 
       RaiderCelebration(final Raider mob) {
-         Objects.requireNonNull(Raider.this);
          super();
          this.mob = mob;
          this.setFlags(EnumSet.of(Goal.Flag.MOVE));

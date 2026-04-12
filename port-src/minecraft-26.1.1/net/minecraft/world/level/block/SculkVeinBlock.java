@@ -155,7 +155,6 @@ public class SculkVeinBlock extends MultifaceSpreadeableBlock implements SculkBe
       private final MultifaceSpreader.SpreadType[] spreadTypes;
 
       public SculkVeinSpreaderConfig(final MultifaceSpreader.SpreadType... spreadTypes) {
-         Objects.requireNonNull(SculkVeinBlock.this);
          super(SculkVeinBlock.this);
          this.spreadTypes = spreadTypes;
       }

@@ -523,7 +523,6 @@ public class MapItemSavedData extends SavedData {
       public int step;
 
       private HoldingPlayer(final Player player) {
-         Objects.requireNonNull(MapItemSavedData.this);
          super();
          this.dirtyData = true;
          this.maxDirtyX = 127;

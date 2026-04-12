@@ -202,7 +202,6 @@ public class ToastManager {
       protected boolean hasFinishedRendering;
 
       private ToastInstance(final T toast, final int firstSlotIndex, final int occupiedSlotCount) {
-         Objects.requireNonNull(ToastManager.this);
          super();
          this.toast = toast;
          this.firstSlotIndex = firstSlotIndex;

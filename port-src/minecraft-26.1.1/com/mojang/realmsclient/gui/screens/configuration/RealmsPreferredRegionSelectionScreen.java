@@ -88,7 +88,6 @@ public class RealmsPreferredRegionSelectionScreen extends Screen {
 
    private class RegionSelectionList extends ObjectSelectionList<RealmsPreferredRegionSelectionScreen.RegionSelectionList.Entry> {
       private RegionSelectionList() {
-         Objects.requireNonNull(RealmsPreferredRegionSelectionScreen.this);
          super(
             RealmsPreferredRegionSelectionScreen.this.minecraft,
             RealmsPreferredRegionSelectionScreen.this.width,
@@ -96,12 +95,12 @@ public class RealmsPreferredRegionSelectionScreen extends Screen {
             40,
             16
          );
-         this.addEntry(new RealmsPreferredRegionSelectionScreen.RegionSelectionList.Entry(this, RegionSelectionPreference.AUTOMATIC_PLAYER, null));
-         this.addEntry(new RealmsPreferredRegionSelectionScreen.RegionSelectionList.Entry(this, RegionSelectionPreference.AUTOMATIC_OWNER, null));
+         this.addEntry(new RealmsPreferredRegionSelectionScreen.RegionSelectionList.Entry(RegionSelectionPreference.AUTOMATIC_PLAYER, null));
+         this.addEntry(new RealmsPreferredRegionSelectionScreen.RegionSelectionList.Entry(RegionSelectionPreference.AUTOMATIC_OWNER, null));
          RealmsPreferredRegionSelectionScreen.this.regionServiceQuality
             .keySet()
             .stream()
-            .map(region -> new RealmsPreferredRegionSelectionScreen.RegionSelectionList.Entry(this, RegionSelectionPreference.MANUAL, region))
+            .map(region -> new RealmsPreferredRegionSelectionScreen.RegionSelectionList.Entry(RegionSelectionPreference.MANUAL, region))
             .forEach(x$0 -> this.addEntry(x$0));
       }
 
@@ -118,17 +117,11 @@ public class RealmsPreferredRegionSelectionScreen extends Screen {
          private final RealmsSettingsTab.RegionSelection regionSelection;
          private final Component name;
 
-         public Entry(
-            final RealmsPreferredRegionSelectionScreen.RegionSelectionList this$1,
-            @Nullable final RegionSelectionPreference preference,
-            final RealmsRegion region
-         ) {
-            this(this$1x, new RealmsSettingsTab.RegionSelection(preference, region));
+         public Entry(@Nullable final RegionSelectionPreference preference, final RealmsRegion region) {
+            this(new RealmsSettingsTab.RegionSelection(preference, region));
          }
 
-         public Entry(final RealmsPreferredRegionSelectionScreen.RegionSelectionList this$1, final RealmsSettingsTab.RegionSelection regionSelection) {
-            Objects.requireNonNull(this$1x);
-            this.this$1 = this$1x;
+         public Entry(final RealmsSettingsTab.RegionSelection regionSelection) {
             super();
             this.regionSelection = regionSelection;
             if (regionSelection.preference() == RegionSelectionPreference.MANUAL) {
@@ -160,9 +153,9 @@ public class RealmsPreferredRegionSelectionScreen extends Screen {
 
          @Override
          public boolean mouseClicked(final MouseButtonEvent event, final boolean doubleClick) {
-            this.this$1.setSelected(this);
+            RealmsPreferredRegionSelectionScreen.this.list.setSelected(this);
             if (doubleClick) {
-               this.this$1.playDownSound(this.this$1.minecraft.getSoundManager());
+               RealmsPreferredRegionSelectionScreen.this.list.playDownSound(RealmsPreferredRegionSelectionScreen.this.minecraft.getSoundManager());
                RealmsPreferredRegionSelectionScreen.this.onDone();
                return true;
             } else {
@@ -173,7 +166,7 @@ public class RealmsPreferredRegionSelectionScreen extends Screen {
          @Override
          public boolean keyPressed(final KeyEvent event) {
             if (event.isSelection()) {
-               this.this$1.playDownSound(this.this$1.minecraft.getSoundManager());
+               RealmsPreferredRegionSelectionScreen.this.list.playDownSound(RealmsPreferredRegionSelectionScreen.this.minecraft.getSoundManager());
                RealmsPreferredRegionSelectionScreen.this.onDone();
                return true;
             } else {

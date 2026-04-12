@@ -485,7 +485,6 @@ public class CommandSuggestions {
       private int lastNarratedEntry;
 
       private SuggestionsList(final int x, final int y, final int width, final List<Suggestion> suggestionList, final boolean immediateNarration) {
-         Objects.requireNonNull(CommandSuggestions.this);
          super();
          this.lastMouse = Vec2.ZERO;
          int listX = x - (CommandSuggestions.this.input.isBordered() ? 0 : 1);

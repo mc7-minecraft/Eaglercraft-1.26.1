@@ -195,7 +195,6 @@ public class SignBlockEntity extends BlockEntity {
          ClickEvent event = style.getClickEvent();
          switch (event) {
             case null:
-            default:
                break;
             case ClickEvent.RunCommand command:
                level.getServer().getCommands().performPrefixedCommand(createCommandSourceStack(player, level, pos), command.command());
@@ -208,6 +207,9 @@ public class SignBlockEntity extends BlockEntity {
             case ClickEvent.Custom custom:
                level.getServer().handleCustomClickAction(custom.id(), custom.payload());
                hasAnyClickCommand = true;
+               break;
+            default:
+               break;
          }
       }
 

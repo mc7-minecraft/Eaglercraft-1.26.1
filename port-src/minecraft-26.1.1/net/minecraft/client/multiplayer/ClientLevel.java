@@ -1165,7 +1165,6 @@ public class ClientLevel extends Level implements BlockAndTintGetter, CacheSlot.
 
    private final class EntityCallbacks implements LevelCallback<Entity> {
       private EntityCallbacks() {
-         Objects.requireNonNull(ClientLevel.this);
          super();
       }
 

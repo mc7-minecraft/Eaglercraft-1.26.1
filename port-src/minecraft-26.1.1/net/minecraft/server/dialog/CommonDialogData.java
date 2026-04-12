@@ -19,15 +19,15 @@ public record CommonDialogData(
    List<DialogBody> body,
    List<Input> inputs
 ) {
-   public static final MapCodec<CommonDialogData> MAP_CODEC = RecordCodecBuilder.mapCodec(
+   public static final MapCodec<CommonDialogData> MAP_CODEC = RecordCodecBuilder.<CommonDialogData>mapCodec(
          i -> i.group(
                   ComponentSerialization.CODEC.fieldOf("title").forGetter(CommonDialogData::title),
                   ComponentSerialization.CODEC.optionalFieldOf("external_title").forGetter(CommonDialogData::externalTitle),
                   Codec.BOOL.optionalFieldOf("can_close_with_escape", true).forGetter(CommonDialogData::canCloseWithEscape),
                   Codec.BOOL.optionalFieldOf("pause", true).forGetter(CommonDialogData::pause),
                   DialogAction.CODEC.optionalFieldOf("after_action", DialogAction.CLOSE).forGetter(CommonDialogData::afterAction),
-                  DialogBody.COMPACT_LIST_CODEC.optionalFieldOf("body", List.of()).forGetter(CommonDialogData::body),
-                  Input.CODEC.listOf().optionalFieldOf("inputs", List.of()).forGetter(CommonDialogData::inputs)
+                  DialogBody.COMPACT_LIST_CODEC.optionalFieldOf("body", List.<DialogBody>of()).forGetter(CommonDialogData::body),
+                  Input.CODEC.listOf().optionalFieldOf("inputs", List.<Input>of()).forGetter(CommonDialogData::inputs)
                )
                .apply(i, CommonDialogData::new)
       )

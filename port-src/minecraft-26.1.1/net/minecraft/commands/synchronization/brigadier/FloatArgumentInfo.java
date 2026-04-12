@@ -48,7 +48,6 @@ public class FloatArgumentInfo implements ArgumentTypeInfo<FloatArgumentType, Fl
       private final float max;
 
       private Template(final float min, final float max) {
-         Objects.requireNonNull(FloatArgumentInfo.this);
          super();
          this.min = min;
          this.max = max;

@@ -206,7 +206,6 @@ public class RealmsSlotOptionsScreen extends RealmsScreen {
       private final double maxValue;
 
       public SettingsSlider(final int x, final int y, final int width, final int currentValue, final float minValue, final float maxValue) {
-         Objects.requireNonNull(RealmsSlotOptionsScreen.this);
          super(x, y, width, 20, CommonComponents.EMPTY, 0.0);
          this.minValue = (double)minValue;
          this.maxValue = (double)maxValue;

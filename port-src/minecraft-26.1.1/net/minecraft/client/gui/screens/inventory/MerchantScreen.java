@@ -300,7 +300,6 @@ public class MerchantScreen extends AbstractContainerScreen<MerchantMenu> {
       final int index;
 
       public TradeOfferButton(final int x, final int y, final int index, final Button.OnPress onPress) {
-         Objects.requireNonNull(MerchantScreen.this);
          super(x, y, 88, 20, CommonComponents.EMPTY, onPress, DEFAULT_NARRATION);
          this.index = index;
          this.visible = false;

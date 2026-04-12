@@ -223,7 +223,6 @@ public class Phantom extends Mob implements Enemy {
       private int nextScanTick;
 
       private PhantomAttackPlayerTargetGoal() {
-         Objects.requireNonNull(Phantom.this);
          super();
          this.attackTargeting = TargetingConditions.forCombat().range(64.0);
          this.nextScanTick = reducedTickDelay(20);
@@ -264,7 +263,6 @@ public class Phantom extends Mob implements Enemy {
       private int nextSweepTick;
 
       private PhantomAttackStrategyGoal() {
-         Objects.requireNonNull(Phantom.this);
          super();
       }
 
@@ -315,7 +313,6 @@ public class Phantom extends Mob implements Enemy {
 
    private class PhantomBodyRotationControl extends BodyRotationControl {
       public PhantomBodyRotationControl(final Mob mob) {
-         Objects.requireNonNull(Phantom.this);
          super(mob);
       }
 
@@ -333,7 +330,6 @@ public class Phantom extends Mob implements Enemy {
       private float clockwise;
 
       private PhantomCircleAroundAnchorGoal() {
-         Objects.requireNonNull(Phantom.this);
          super();
       }
 
@@ -409,7 +405,6 @@ public class Phantom extends Mob implements Enemy {
       private float speed;
 
       public PhantomMoveControl(final Mob mob) {
-         Objects.requireNonNull(Phantom.this);
          super(mob);
          this.speed = 0.1F;
       }
@@ -457,7 +452,6 @@ public class Phantom extends Mob implements Enemy {
 
    private abstract class PhantomMoveTargetGoal extends Goal {
       public PhantomMoveTargetGoal() {
-         Objects.requireNonNull(Phantom.this);
          super();
          this.setFlags(EnumSet.of(Goal.Flag.MOVE));
       }
@@ -473,7 +467,6 @@ public class Phantom extends Mob implements Enemy {
       private int catSearchTick;
 
       private PhantomSweepAttackGoal() {
-         Objects.requireNonNull(Phantom.this);
          super();
       }
 

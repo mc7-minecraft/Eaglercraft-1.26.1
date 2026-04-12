@@ -239,7 +239,7 @@ public class Brain<E extends LivingEntity> {
    }
 
    private static <U> void callVisitor(final Brain.Visitor visitor, final MemoryModuleType<U> memoryModuleType, final MemorySlot<?> slot) {
-      slot.visit(memoryModuleType, visitor);
+      ((MemorySlot<U>)slot).visit(memoryModuleType, visitor);
    }
 
    public <U> boolean isMemoryValue(final MemoryModuleType<U> memoryType, final U value) {

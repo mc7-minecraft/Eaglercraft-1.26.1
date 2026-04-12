@@ -109,10 +109,9 @@ public record KineticWeapon(
          double baseMobDamage = livingEntity.getAttributeBaseValue(Attributes.ATTACK_DAMAGE);
          boolean affected = false;
 
-         for (EntityHitResult hitResult : (Collection)ProjectileUtil.getHitEntitiesAlong(
+         for (EntityHitResult hitResult : (Collection<EntityHitResult>)(Collection<?>)ProjectileUtil.getHitEntitiesAlong(
                livingEntity, attackRange, e -> PiercingWeapon.canHitEntity(livingEntity, e), ClipContext.Block.COLLIDER
-            )
-            .map(a -> List.of(), e -> e)) {
+            ).map(a -> List.<EntityHitResult>of(), e -> e)) {
             Entity otherEntity = hitResult.getEntity();
             if (otherEntity instanceof EnderDragonPart dragonPart) {
                otherEntity = dragonPart.parentMob;

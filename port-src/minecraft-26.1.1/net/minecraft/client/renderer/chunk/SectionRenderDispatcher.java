@@ -235,7 +235,6 @@ public class SectionRenderDispatcher {
       private boolean wasPreviouslyEmpty;
 
       public RenderSection(final int index, final long sectionNode) {
-         Objects.requireNonNull(SectionRenderDispatcher.this);
          super();
          this.sectionMesh = new AtomicReference<>(CompiledSectionMesh.UNCOMPILED);
          this.dirty = true;
@@ -495,7 +494,6 @@ public class SectionRenderDispatcher {
          protected final boolean isRecompile;
 
          public CompileTask(final boolean isRecompile) {
-            Objects.requireNonNull(RenderSection.this);
             super();
             this.isCancelled = new AtomicBoolean(false);
             this.isCompleted = new AtomicBoolean(false);
@@ -526,7 +524,6 @@ public class SectionRenderDispatcher {
          protected final RenderSectionRegion region;
 
          public RebuildTask(final RenderSectionRegion region, final boolean isRecompile) {
-            Objects.requireNonNull(RenderSection.this);
             super(isRecompile);
             this.region = region;
          }
@@ -615,7 +612,6 @@ public class SectionRenderDispatcher {
          private final CompiledSectionMesh compiledSectionMesh;
 
          public ResortTransparencyTask(final CompiledSectionMesh compiledSectionMesh) {
-            Objects.requireNonNull(RenderSection.this);
             super(true);
             this.compiledSectionMesh = compiledSectionMesh;
          }

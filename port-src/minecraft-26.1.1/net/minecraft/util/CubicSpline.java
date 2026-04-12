@@ -21,37 +21,38 @@ public interface CubicSpline<C, I extends BoundedFloatFunction<C>> extends Bound
    CubicSpline<C, I> mapAll(final CubicSpline.CoordinateVisitor<I> visitor);
 
    static <C, I extends BoundedFloatFunction<C>> Codec<CubicSpline<C, I>> codec(final Codec<I> coordinateCodec) {
-      MutableObject<Codec<CubicSpline<C, I>>> result = new MutableObject();
+      MutableObject<Codec<CubicSpline<C, I>>> result = new MutableObject<>();
 
       record Point<C, I extends BoundedFloatFunction<C>>(float location, CubicSpline<C, I> value, float derivative) {
       }
 
-      Codec<Point<C, I>> pointCodec = RecordCodecBuilder.create(
+      Codec<Point<C, I>> pointCodec = RecordCodecBuilder.<Point<C, I>>create(
          i -> i.group(
-                  Codec.FLOAT.fieldOf("location").forGetter(Point::location),
-                  Codec.lazyInitialized(result).fieldOf("value").forGetter(Point::value),
-                  Codec.FLOAT.fieldOf("derivative").forGetter(Point::derivative)
+                  Codec.FLOAT.fieldOf("location").forGetter((Point<C, I> point) -> point.location()),
+                  Codec.lazyInitialized(result).fieldOf("value").forGetter((Point<C, I> point) -> point.value()),
+                  Codec.FLOAT.fieldOf("derivative").forGetter((Point<C, I> point) -> point.derivative())
                )
                .apply(i, (x$0, x$1, x$2) -> new Point(x$0, x$1, x$2))
       );
-      Codec<CubicSpline.Multipoint<C, I>> multipointCodec = RecordCodecBuilder.create(
+      Codec<CubicSpline.Multipoint<C, I>> multipointCodec = RecordCodecBuilder.<CubicSpline.Multipoint<C, I>>create(
          i -> i.group(
                   coordinateCodec.fieldOf("coordinate").forGetter(CubicSpline.Multipoint::coordinate),
                   ExtraCodecs.nonEmptyList(pointCodec.listOf())
                      .fieldOf("points")
                      .forGetter(
-                        m -> IntStream.range(0, m.locations.length)
-                              .mapToObj(p -> new Point(m.locations()[p], (CubicSpline<C, I>)m.values().get(p), m.derivatives()[p]))
+                        (CubicSpline.Multipoint<C, I> m) -> IntStream.range(0, m.locations.length)
+                              .mapToObj((int p) -> new Point<C, I>(m.locations()[p], (CubicSpline<C, I>)m.values().get(p), m.derivatives()[p]))
                               .toList()
                      )
                )
                .apply(i, (coordinate, points) -> {
-                  float[] locations = new float[points.size()];
+                  List<Point<C, I>> typedPoints = (List<Point<C, I>>)points;
+                  float[] locations = new float[typedPoints.size()];
                   com.google.common.collect.ImmutableList.Builder<CubicSpline<C, I>> values = ImmutableList.builder();
-                  float[] derivatives = new float[points.size()];
+                  float[] derivatives = new float[typedPoints.size()];
 
-                  for (int p = 0; p < points.size(); p++) {
-                     Point<C, I> point = (Point<C, I>)points.get(p);
+                  for (int p = 0; p < typedPoints.size(); p++) {
+                     Point<C, I> point = typedPoints.get(p);
                      locations[p] = point.location();
                      values.add(point.value());
                      derivatives[p] = point.derivative();
@@ -63,8 +64,8 @@ public interface CubicSpline<C, I extends BoundedFloatFunction<C>> extends Bound
       result.setValue(
          Codec.either(Codec.FLOAT, multipointCodec)
             .xmap(
-               e -> (CubicSpline)e.map(CubicSpline.Constant::new, m -> m),
-               s -> s instanceof CubicSpline.Constant<C, I> c ? Either.left(c.value()) : Either.right((CubicSpline.Multipoint)s)
+               (Either<Float, CubicSpline.Multipoint<C, I>> e) -> (CubicSpline<C, I>)e.map(CubicSpline.Constant::new, m -> m),
+               (CubicSpline<C, I> s) -> s instanceof CubicSpline.Constant<C, I> c ? Either.left(c.value()) : Either.right((CubicSpline.Multipoint<C, I>)s)
             )
       );
       return (Codec<CubicSpline<C, I>>)result.get();

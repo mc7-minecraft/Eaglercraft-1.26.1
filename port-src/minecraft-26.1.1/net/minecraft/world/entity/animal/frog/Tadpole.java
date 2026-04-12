@@ -73,7 +73,7 @@ public class Tadpole extends AbstractFish {
 
    @Override
    public Brain<Tadpole> getBrain() {
-      return super.getBrain();
+      return (Brain<Tadpole>)super.getBrain();
    }
 
    @Override
@@ -257,3 +257,4 @@ public class Tadpole extends AbstractFish {
       return false;
    }
 }
+

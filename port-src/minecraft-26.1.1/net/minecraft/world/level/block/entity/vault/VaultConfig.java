@@ -23,8 +23,8 @@ public record VaultConfig(
 ) {
    static final String TAG_NAME = "config";
    static final VaultConfig DEFAULT = new VaultConfig();
-   static final Codec<VaultConfig> CODEC = RecordCodecBuilder.create(
-         i -> i.group(
+   static final Codec<VaultConfig> CODEC = RecordCodecBuilder.<VaultConfig>create(
+         (RecordCodecBuilder.Instance<VaultConfig> i) -> i.group(
                   LootTable.KEY_CODEC.lenientOptionalFieldOf("loot_table", DEFAULT.lootTable()).forGetter(VaultConfig::lootTable),
                   Codec.DOUBLE.lenientOptionalFieldOf("activation_range", DEFAULT.activationRange()).forGetter(VaultConfig::activationRange),
                   Codec.DOUBLE.lenientOptionalFieldOf("deactivation_range", DEFAULT.deactivationRange()).forGetter(VaultConfig::deactivationRange),
@@ -33,7 +33,7 @@ public record VaultConfig(
                )
                .apply(i, VaultConfig::new)
       )
-      .validate(VaultConfig::validate);
+      .validate((VaultConfig vaultConfig) -> vaultConfig.validate());
 
    private VaultConfig() {
       this(

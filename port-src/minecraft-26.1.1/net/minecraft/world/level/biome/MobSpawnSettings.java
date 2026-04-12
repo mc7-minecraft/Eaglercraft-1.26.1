@@ -109,7 +109,7 @@ public class MobSpawnSettings {
    }
 
    public static record SpawnerData(EntityType<?> type, int minCount, int maxCount) {
-      public static final MapCodec<MobSpawnSettings.SpawnerData> CODEC = RecordCodecBuilder.mapCodec(
+      public static final MapCodec<MobSpawnSettings.SpawnerData> CODEC = RecordCodecBuilder.<MobSpawnSettings.SpawnerData>mapCodec(
             i -> i.group(
                      BuiltInRegistries.ENTITY_TYPE.byNameCodec().fieldOf("type").forGetter((MobSpawnSettings.SpawnerData data) -> data.type),
                      ExtraCodecs.POSITIVE_INT.fieldOf("minCount").forGetter((MobSpawnSettings.SpawnerData data) -> data.minCount),
@@ -118,9 +118,9 @@ public class MobSpawnSettings {
                   .apply(i, (type, minCount, maxCount) -> new MobSpawnSettings.SpawnerData(type, minCount, maxCount))
          )
          .validate(
-            spawnerData -> spawnerData.minCount > spawnerData.maxCount
+         (MobSpawnSettings.SpawnerData spawnerData) -> spawnerData.minCount > spawnerData.maxCount
                   ? DataResult.error(() -> "minCount needs to be smaller or equal to maxCount")
-                  : DataResult.success(spawnerData)
+                  : DataResult.<MobSpawnSettings.SpawnerData>success(spawnerData)
          );
 
       public SpawnerData(EntityType<?> type, int minCount, int maxCount) {

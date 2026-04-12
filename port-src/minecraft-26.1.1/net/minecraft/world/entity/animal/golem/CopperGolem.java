@@ -155,7 +155,7 @@ public class CopperGolem extends AbstractGolem implements ContainerUser, Shearab
 
    @Override
    public Brain<CopperGolem> getBrain() {
-      return super.getBrain();
+      return (Brain<CopperGolem>)super.getBrain();
    }
 
    @Override

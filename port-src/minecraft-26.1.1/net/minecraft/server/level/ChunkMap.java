@@ -1328,7 +1328,6 @@ public class ChunkMap extends SimpleRegionStorage implements ChunkHolder.PlayerP
 
    private class DistanceManager extends net.minecraft.server.level.DistanceManager {
       protected DistanceManager(final TicketStorage ticketStorage, final Executor executor, final Executor mainThreadExecutor) {
-         Objects.requireNonNull(ChunkMap.this);
          super(ticketStorage, executor, mainThreadExecutor);
       }
 
@@ -1358,8 +1357,6 @@ public class ChunkMap extends SimpleRegionStorage implements ChunkHolder.PlayerP
       private final Set<ServerPlayerConnection> seenBy;
 
       public TrackedEntity(final Entity entity, final int range, final int updateInterval, final boolean trackDelta) {
-         Objects.requireNonNull(ChunkMap.this);
-         super();
          this.seenBy = Sets.newIdentityHashSet();
          this.serverEntity = new ServerEntity(ChunkMap.this.level, entity, updateInterval, trackDelta, this);
          this.entity = entity;

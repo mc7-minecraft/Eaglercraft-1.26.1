@@ -16,19 +16,23 @@ import net.minecraft.world.level.saveddata.SavedDataType;
 import org.jspecify.annotations.Nullable;
 
 public final class GameRuleMap extends SavedData {
-   public static final Codec<GameRuleMap> CODEC = Codec.dispatchedMap(BuiltInRegistries.GAME_RULE.byNameCodec(), GameRule::valueCodec)
-      .xmap(GameRuleMap::ofTrusted, gameRuleMap -> gameRuleMap.map());
+   private static final Codec<Map<GameRule<?>, Object>> SERIALIZED_CODEC = Codec.dispatchedMap(BuiltInRegistries.GAME_RULE.byNameCodec(), GameRule::valueCodec);
+   public static final Codec<GameRuleMap> CODEC = SERIALIZED_CODEC.xmap(GameRuleMap::fromSerializedMap, GameRuleMap::toSerializedMap);
    public static final SavedDataType<GameRuleMap> TYPE = new SavedDataType<>(
       Identifier.withDefaultNamespace("game_rules"), GameRuleMap::of, CODEC, DataFixTypes.SAVED_DATA_GAME_RULES
    );
    private final Reference2ObjectMap<GameRule<?>, Object> map;
 
-   private GameRuleMap(final Reference2ObjectMap<GameRule<?>, Object> map) {
-      this.map = map;
+   private static GameRuleMap fromSerializedMap(final Map<GameRule<?>, Object> map) {
+      return new GameRuleMap(new Reference2ObjectOpenHashMap(map));
    }
 
-   private static GameRuleMap ofTrusted(final Map<GameRule<?>, Object> map) {
-      return new GameRuleMap(new Reference2ObjectOpenHashMap(map));
+   private static Map<GameRule<?>, Object> toSerializedMap(final GameRuleMap gameRuleMap) {
+      return gameRuleMap.map;
+   }
+
+   private GameRuleMap(final Reference2ObjectMap<GameRule<?>, Object> map) {
+      this.map = map;
    }
 
    public static GameRuleMap of() {

@@ -162,7 +162,6 @@ public class TrueTypeGlyphProvider implements GlyphProvider {
       private final int index;
 
       private Glyph(final float left, final float top, final int width, final int height, final float advance, final int index) {
-         Objects.requireNonNull(TrueTypeGlyphProvider.this);
          super();
          this.width = width;
          this.height = height;

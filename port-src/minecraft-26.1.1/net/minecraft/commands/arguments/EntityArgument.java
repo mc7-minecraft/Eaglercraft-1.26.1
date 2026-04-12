@@ -190,7 +190,6 @@ public class EntityArgument implements ArgumentType<EntitySelector> {
          private final boolean playersOnly;
 
          private Template(final boolean single, final boolean playersOnly) {
-            Objects.requireNonNull(Info.this);
             super();
             this.single = single;
             this.playersOnly = playersOnly;

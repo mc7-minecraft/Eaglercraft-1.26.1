@@ -245,7 +245,7 @@ public class Wolf extends TamableAnimal implements NeutralMob {
       VariantUtils.readVariant(input, Registries.WOLF_VARIANT).ifPresent(this::setVariant);
       this.setCollarColor(input.<DyeColor>read("CollarColor", DyeColor.LEGACY_ID_CODEC).orElse(DEFAULT_COLLAR_COLOR));
       this.readPersistentAngerSaveData(this.level(), input);
-      input.<ResourceKey>read("sound_variant", ResourceKey.codec(Registries.WOLF_SOUND_VARIANT))
+      input.<ResourceKey<WolfSoundVariant>>read("sound_variant", ResourceKey.codec(Registries.WOLF_SOUND_VARIANT))
          .flatMap(soundVariant -> this.registryAccess().lookupOrThrow(Registries.WOLF_SOUND_VARIANT).get((ResourceKey<WolfSoundVariant>)soundVariant))
          .ifPresent(this::setSoundVariant);
    }
@@ -675,7 +675,6 @@ public class Wolf extends TamableAnimal implements NeutralMob {
       public WolfAvoidEntityGoal(
          final Wolf wolf, final Class<T> avoidClass, final float maxDist, final double walkSpeedModifier, final double sprintSpeedModifier
       ) {
-         Objects.requireNonNull(Wolf.this);
          super(wolf, avoidClass, maxDist, walkSpeedModifier, sprintSpeedModifier);
          this.wolf = wolf;
       }

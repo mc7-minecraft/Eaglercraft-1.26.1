@@ -319,7 +319,6 @@ public class StringSplitter {
       private int offset;
 
       public LineBreakFinder(final float maxWidth) {
-         Objects.requireNonNull(StringSplitter.this);
          super();
          this.lineBreak = -1;
          this.lineBreakStyle = Style.EMPTY;
@@ -403,7 +402,6 @@ public class StringSplitter {
       private int position;
 
       public WidthLimitedCharSink(final float maxWidth) {
-         Objects.requireNonNull(StringSplitter.this);
          super();
          this.maxWidth = maxWidth;
       }

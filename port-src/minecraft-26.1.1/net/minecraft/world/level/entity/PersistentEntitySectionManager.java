@@ -374,7 +374,6 @@ public class PersistentEntitySectionManager<T extends EntityAccess> implements A
       private EntitySection<T> currentSection;
 
       private Callback(final T entity, final long currentSectionKey, final EntitySection<T> currentSection) {
-         Objects.requireNonNull(PersistentEntitySectionManager.this);
          super();
          this.entity = entity;
          this.currentSectionKey = currentSectionKey;

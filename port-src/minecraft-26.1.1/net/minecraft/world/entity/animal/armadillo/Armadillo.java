@@ -34,6 +34,7 @@ import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
@@ -58,11 +59,12 @@ public class Armadillo extends Animal {
    public static final int SCARE_CHECK_INTERVAL = 80;
    private static final double SCARE_DISTANCE_HORIZONTAL = 7.0;
    private static final double SCARE_DISTANCE_VERTICAL = 2.0;
+   @SuppressWarnings({"rawtypes", "unchecked"})
    private static final Brain.Provider<Armadillo> BRAIN_PROVIDER = Brain.provider(
-      List.of(
+      (java.util.Collection)List.of(
          SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY, SensorType.FOOD_TEMPTATIONS, SensorType.NEAREST_ADULT, SensorType.ARMADILLO_SCARE_DETECTED
       ),
-      var0 -> ArmadilloAi.getActivities()
+      (Brain.ActivitySupplier)(var0 -> ArmadilloAi.getActivities())
    );
    private static final EntityDataAccessor<Armadillo.ArmadilloState> ARMADILLO_STATE = SynchedEntityData.defineId(
       Armadillo.class, EntityDataSerializers.ARMADILLO_STATE
@@ -131,8 +133,9 @@ public class Armadillo extends Animal {
    }
 
    @Override
+   @SuppressWarnings("unchecked")
    public Brain<Armadillo> getBrain() {
-      return super.getBrain();
+      return (Brain<Armadillo>)super.getBrain();
    }
 
    @Override

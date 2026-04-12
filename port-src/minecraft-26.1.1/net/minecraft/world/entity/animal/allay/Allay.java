@@ -119,7 +119,7 @@ public class Allay extends PathfinderMob implements InventoryCarrier, VibrationS
 
    @Override
    public Brain<Allay> getBrain() {
-      return super.getBrain();
+      return (Brain<Allay>)super.getBrain();
    }
 
    public static AttributeSupplier.Builder createAttributes() {
@@ -513,7 +513,6 @@ public class Allay extends PathfinderMob implements InventoryCarrier, VibrationS
       private final int listenerRadius;
 
       public JukeboxListener(final PositionSource listenerSource, final int listenerRadius) {
-         Objects.requireNonNull(Allay.this);
          super();
          this.listenerSource = listenerSource;
          this.listenerRadius = listenerRadius;
@@ -548,7 +547,6 @@ public class Allay extends PathfinderMob implements InventoryCarrier, VibrationS
       private final PositionSource positionSource;
 
       private VibrationUser() {
-         Objects.requireNonNull(Allay.this);
          super();
          this.positionSource = new EntityPositionSource(Allay.this, Allay.this.getEyeHeight());
       }
@@ -598,3 +596,4 @@ public class Allay extends PathfinderMob implements InventoryCarrier, VibrationS
       }
    }
 }
+

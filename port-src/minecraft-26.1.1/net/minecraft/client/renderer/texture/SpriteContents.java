@@ -261,7 +261,6 @@ public class SpriteContents implements AutoCloseable, Stitcher.Entry {
       private final boolean interpolateFrames;
 
       private AnimatedTexture(final List<SpriteContents.FrameInfo> frames, final int frameRowSize, final boolean interpolateFrames) {
-         Objects.requireNonNull(SpriteContents.this);
          super();
          this.frames = frames;
          this.frameRowSize = frameRowSize;
@@ -339,7 +338,6 @@ public class SpriteContents implements AutoCloseable, Stitcher.Entry {
       private AnimationState(
          final SpriteContents.AnimatedTexture animationInfo, final Int2ObjectMap<GpuTextureView> frameTexturesByIndex, final GpuBufferSlice[] spriteUbosByMip
       ) {
-         Objects.requireNonNull(SpriteContents.this);
          super();
          this.isDirty = true;
          this.animationInfo = animationInfo;

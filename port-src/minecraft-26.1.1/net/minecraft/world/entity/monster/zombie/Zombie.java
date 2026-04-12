@@ -563,7 +563,6 @@ public class Zombie extends Monster {
 
    private class ZombieAttackTurtleEggGoal extends RemoveBlockGoal {
       ZombieAttackTurtleEggGoal(final PathfinderMob mob, final double speedModifier, final int verticalSearchRange) {
-         Objects.requireNonNull(Zombie.this);
          super(Blocks.TURTLE_EGG, mob, speedModifier, verticalSearchRange);
       }
 

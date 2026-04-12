@@ -24,15 +24,15 @@ public class SlideDownBlockTrigger extends SimpleCriterionTrigger<SlideDownBlock
 
    public static record TriggerInstance(Optional<ContextAwarePredicate> player, Optional<Holder<Block>> block, Optional<StatePropertiesPredicate> state)
       implements SimpleCriterionTrigger.SimpleInstance {
-      public static final Codec<SlideDownBlockTrigger.TriggerInstance> CODEC = RecordCodecBuilder.create(
+      public static final Codec<SlideDownBlockTrigger.TriggerInstance> CODEC = RecordCodecBuilder.<SlideDownBlockTrigger.TriggerInstance>create(
             i -> i.group(
                      EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(SlideDownBlockTrigger.TriggerInstance::player),
                      BuiltInRegistries.BLOCK.holderByNameCodec().optionalFieldOf("block").forGetter(SlideDownBlockTrigger.TriggerInstance::block),
                      StatePropertiesPredicate.CODEC.optionalFieldOf("state").forGetter(SlideDownBlockTrigger.TriggerInstance::state)
                   )
-                  .apply(i, SlideDownBlockTrigger.TriggerInstance::new)
+            .apply(i, (player, block, state) -> new SlideDownBlockTrigger.TriggerInstance(player, block, state))
          )
-         .validate(SlideDownBlockTrigger.TriggerInstance::validate);
+         .validate(trigger -> SlideDownBlockTrigger.TriggerInstance.validate(trigger));
 
       private static DataResult<SlideDownBlockTrigger.TriggerInstance> validate(final SlideDownBlockTrigger.TriggerInstance trigger) {
          return trigger.block

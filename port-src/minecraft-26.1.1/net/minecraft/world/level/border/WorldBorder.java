@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
-import java.util.Objects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
@@ -342,7 +341,6 @@ public class WorldBorder extends SavedData {
       private double previousSize;
 
       private MovingBorderExtent(final double from, final double to, final long duration, final long gameTime) {
-         Objects.requireNonNull(WorldBorder.this);
          super();
          this.from = from;
          this.to = to;
@@ -467,7 +465,7 @@ public class WorldBorder extends SavedData {
       double centerX, double centerZ, double damagePerBlock, double safeZone, int warningBlocks, int warningTime, double size, long lerpTime, double lerpTarget
    ) {
       public static final WorldBorder.Settings DEFAULT = new WorldBorder.Settings(0.0, 0.0, 0.2, 5.0, 5, 300, 5.999997E7F, 0L, 0.0);
-      public static final Codec<WorldBorder.Settings> CODEC = RecordCodecBuilder.create(
+      public static final Codec<WorldBorder.Settings> CODEC = RecordCodecBuilder.<WorldBorder.Settings>create(
          i -> i.group(
                   Codec.doubleRange(-2.9999984E7, 2.9999984E7).fieldOf("center_x").forGetter(WorldBorder.Settings::centerX),
                   Codec.doubleRange(-2.9999984E7, 2.9999984E7).fieldOf("center_z").forGetter(WorldBorder.Settings::centerZ),
@@ -479,7 +477,21 @@ public class WorldBorder extends SavedData {
                   Codec.LONG.fieldOf("lerp_time").forGetter(WorldBorder.Settings::lerpTime),
                   Codec.DOUBLE.fieldOf("lerp_target").forGetter(WorldBorder.Settings::lerpTarget)
                )
-               .apply(i, WorldBorder.Settings::new)
+               .apply(
+                  i,
+                  (Double centerX, Double centerZ, Double damagePerBlock, Double safeZone, Integer warningBlocks, Integer warningTime, Double size, Long lerpTime, Double lerpTarget) ->
+                     new WorldBorder.Settings(
+                        centerX.doubleValue(),
+                        centerZ.doubleValue(),
+                        damagePerBlock.doubleValue(),
+                        safeZone.doubleValue(),
+                        warningBlocks.intValue(),
+                        warningTime.intValue(),
+                        size.doubleValue(),
+                        lerpTime.longValue(),
+                        lerpTarget.doubleValue()
+                     )
+               )
       );
 
       public Settings(final WorldBorder worldBorder) {
@@ -506,7 +518,6 @@ public class WorldBorder extends SavedData {
       private VoxelShape shape;
 
       public StaticBorderExtent(final double size) {
-         Objects.requireNonNull(WorldBorder.this);
          super();
          this.size = size;
          this.updateBox();

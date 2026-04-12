@@ -42,24 +42,24 @@ public class PalettedContainer<T> implements PaletteResize<T>, PalettedContainer
    }
 
    public static <T> Codec<PalettedContainerRO<T>> codecRO(final Codec<T> elementCodec, final Strategy<T> strategy, final T defaultValue) {
-      PalettedContainerRO.Unpacker<T, PalettedContainerRO<T>> unpacker = (s, data) -> unpack(s, data).map(e -> e);
+      PalettedContainerRO.Unpacker<T, PalettedContainerRO<T>> unpacker = (s, data) -> unpack(s, data).map(e -> (PalettedContainerRO<T>)e);
       return codec(elementCodec, strategy, defaultValue, unpacker);
    }
 
    private static <T, C extends PalettedContainerRO<T>> Codec<C> codec(
       final Codec<T> elementCodec, final Strategy<T> strategy, final T defaultValue, final PalettedContainerRO.Unpacker<T, C> unpacker
    ) {
-      return RecordCodecBuilder.create(
+      return RecordCodecBuilder.<PalettedContainerRO.PackedData<T>>create(
             i -> i.group(
                      elementCodec.mapResult(ExtraCodecs.orElsePartial(defaultValue))
                         .listOf()
                         .fieldOf("palette")
-                        .forGetter(PalettedContainerRO.PackedData::paletteEntries),
-                     Codec.LONG_STREAM.lenientOptionalFieldOf("data").forGetter(PalettedContainerRO.PackedData::storage)
+                        .forGetter((PalettedContainerRO.PackedData<T> packedData) -> packedData.paletteEntries()),
+                     Codec.LONG_STREAM.lenientOptionalFieldOf("data").forGetter((PalettedContainerRO.PackedData<T> packedData) -> packedData.storage())
                   )
                   .apply(i, PalettedContainerRO.PackedData::new)
          )
-         .comapFlatMap(discData -> unpacker.read(strategy, discData), palettedContainer -> palettedContainer.pack(strategy));
+         .comapFlatMap((PalettedContainerRO.PackedData<T> discData) -> unpacker.read(strategy, discData), palettedContainer -> ((C)palettedContainer).pack(strategy));
    }
 
    private PalettedContainer(final Strategy<T> strategy, final Configuration dataConfiguration, final BitStorage storage, final Palette<T> palette) {

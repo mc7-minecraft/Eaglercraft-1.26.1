@@ -552,10 +552,6 @@ public class Bee extends Animal implements FlyingAnimal, NeutralMob {
    @Override
    protected PathNavigation createNavigation(final Level level) {
       FlyingPathNavigation flyingPathNavigation = new FlyingPathNavigation(this, level) {
-         {
-            Objects.requireNonNull(Bee.this);
-         }
-
          @Override
          public boolean isStableDestination(final BlockPos pos) {
             return !this.level.getBlockState(pos.below()).isAir();
@@ -698,7 +694,6 @@ public class Bee extends Animal implements FlyingAnimal, NeutralMob {
 
    private abstract class BaseBeeGoal extends Goal {
       private BaseBeeGoal() {
-         Objects.requireNonNull(Bee.this);
          super();
       }
 
@@ -719,7 +714,6 @@ public class Bee extends Animal implements FlyingAnimal, NeutralMob {
 
    private class BeeAttackGoal extends MeleeAttackGoal {
       BeeAttackGoal(final PathfinderMob mob, final double speedModifier, final boolean trackTarget) {
-         Objects.requireNonNull(Bee.this);
          super(mob, speedModifier, trackTarget);
       }
 
@@ -763,7 +757,6 @@ public class Bee extends Animal implements FlyingAnimal, NeutralMob {
 
    private class BeeEnterHiveGoal extends Bee.BaseBeeGoal {
       private BeeEnterHiveGoal() {
-         Objects.requireNonNull(Bee.this);
          super();
       }
 
@@ -809,7 +802,6 @@ public class Bee extends Animal implements FlyingAnimal, NeutralMob {
       private int ticksStuck;
 
       BeeGoToHiveGoal() {
-         Objects.requireNonNull(Bee.this);
          super();
          this.blacklistedTargets = Lists.newArrayList();
          this.setFlags(EnumSet.of(Goal.Flag.MOVE));
@@ -922,7 +914,6 @@ public class Bee extends Animal implements FlyingAnimal, NeutralMob {
       private int travellingTicks;
 
       BeeGoToKnownFlowerGoal() {
-         Objects.requireNonNull(Bee.this);
          super();
          this.setFlags(EnumSet.of(Goal.Flag.MOVE));
       }
@@ -975,7 +966,6 @@ public class Bee extends Animal implements FlyingAnimal, NeutralMob {
       static final int GROW_CHANCE = 30;
 
       private BeeGrowCropGoal() {
-         Objects.requireNonNull(Bee.this);
          super();
       }
 
@@ -1038,7 +1028,6 @@ public class Bee extends Animal implements FlyingAnimal, NeutralMob {
 
    private class BeeHurtByOtherGoal extends HurtByTargetGoal {
       BeeHurtByOtherGoal(final Bee bee) {
-         Objects.requireNonNull(Bee.this);
          super(bee);
       }
 
@@ -1057,7 +1046,6 @@ public class Bee extends Animal implements FlyingAnimal, NeutralMob {
 
    private class BeeLocateHiveGoal extends Bee.BaseBeeGoal {
       private BeeLocateHiveGoal() {
-         Objects.requireNonNull(Bee.this);
          super();
       }
 
@@ -1101,7 +1089,6 @@ public class Bee extends Animal implements FlyingAnimal, NeutralMob {
 
    private class BeeLookControl extends LookControl {
       BeeLookControl(final Mob mob) {
-         Objects.requireNonNull(Bee.this);
          super(mob);
       }
 
@@ -1136,7 +1123,6 @@ public class Bee extends Animal implements FlyingAnimal, NeutralMob {
       private Long2LongOpenHashMap unreachableFlowerCache;
 
       BeePollinateGoal() {
-         Objects.requireNonNull(Bee.this);
          super();
          this.unreachableFlowerCache = new Long2LongOpenHashMap();
          this.setFlags(EnumSet.of(Goal.Flag.MOVE));
@@ -1302,7 +1288,6 @@ public class Bee extends Animal implements FlyingAnimal, NeutralMob {
 
    private class BeeWanderGoal extends Goal {
       BeeWanderGoal() {
-         Objects.requireNonNull(Bee.this);
          super();
          this.setFlags(EnumSet.of(Goal.Flag.MOVE));
       }
@@ -1353,7 +1338,6 @@ public class Bee extends Animal implements FlyingAnimal, NeutralMob {
       private long lastValidateTick;
 
       private ValidateFlowerGoal() {
-         Objects.requireNonNull(Bee.this);
          super();
          this.validateFlowerCooldown = Mth.nextInt(Bee.this.random, 20, 40);
          this.lastValidateTick = -1L;
@@ -1388,7 +1372,6 @@ public class Bee extends Animal implements FlyingAnimal, NeutralMob {
       private long lastValidateTick;
 
       private ValidateHiveGoal() {
-         Objects.requireNonNull(Bee.this);
          super();
          this.VALIDATE_HIVE_COOLDOWN = Mth.nextInt(Bee.this.random, 20, 40);
          this.lastValidateTick = -1L;

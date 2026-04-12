@@ -250,16 +250,7 @@ public abstract class Screen extends AbstractContainerEventHandler implements Re
       Objects.requireNonNull(event);
       switch (event) {
          case ClickEvent.RunCommand var6:
-            ClickEvent.RunCommand var10000 = var6;
-
-            try {
-               var12 = var10000.command();
-            } catch (Throwable var10) {
-               throw new MatchException(var10.toString(), var10);
-            }
-
-            String var11 = var12;
-            clickCommandAction(player, var11, activeScreen);
+            clickCommandAction(player, var6.command(), activeScreen);
             break;
          case ClickEvent.ShowDialog dialog:
             player.connection.showDialog(dialog.dialog(), activeScreen);
@@ -277,74 +268,32 @@ public abstract class Screen extends AbstractContainerEventHandler implements Re
 
    // $VF: Inserted dummy exception handlers to handle obfuscated exceptions
    protected static void defaultHandleClickEvent(final ClickEvent event, final Minecraft minecraft, @Nullable final Screen activeScreen) {
-      boolean var10000;
-      label49: {
-         Objects.requireNonNull(event);
-         Throwable var20;
-         switch (event) {
-            case ClickEvent.OpenUrl var6:
-               ClickEvent.OpenUrl var24 = var6;
+      Objects.requireNonNull(event);
+      boolean shouldActivateScreen;
+      switch (event) {
+         case ClickEvent.OpenUrl openUrl:
+            shouldActivateScreen = clickUrlAction(minecraft, activeScreen, openUrl.uri());
+            break;
+         case ClickEvent.OpenFile openFile:
+            Util.getPlatform().openFile(openFile.file());
+            shouldActivateScreen = true;
+            break;
+         case ClickEvent.SuggestCommand suggestCommand:
+            if (activeScreen != null) {
+               activeScreen.insertText(suggestCommand.command(), true);
+            }
 
-               try {
-                  var25 = var24.uri();
-               } catch (Throwable var16) {
-                  var20 = var16;
-                  boolean var27 = false;
-                  break;
-               }
-
-               URI var17 = var25;
-               clickUrlAction(minecraft, activeScreen, var17);
-               var10000 = false;
-               break label49;
-            case ClickEvent.OpenFile openFile:
-               Util.getPlatform().openFile(openFile.file());
-               var10000 = true;
-               break label49;
-            case ClickEvent.SuggestCommand var9:
-               ClickEvent.SuggestCommand var22 = var9;
-
-               try {
-                  var23 = var22.command();
-               } catch (Throwable var15) {
-                  var20 = var15;
-                  boolean var26 = false;
-                  break;
-               }
-
-               String var18 = var23;
-               if (activeScreen != null) {
-                  activeScreen.insertText(var18, true);
-               }
-
-               var10000 = true;
-               break label49;
-            case ClickEvent.CopyToClipboard var11:
-               ClickEvent.CopyToClipboard var19 = var11;
-
-               try {
-                  var21 = var19.value();
-               } catch (Throwable var14) {
-                  var20 = var14;
-                  boolean var10001 = false;
-                  break;
-               }
-
-               String var13 = var21;
-               minecraft.keyboardHandler.setClipboard(var13);
-               var10000 = true;
-               break label49;
-            default:
-               LOGGER.error("Don't know how to handle {}", event);
-               var10000 = true;
-               break label49;
-         }
-
-         Throwable var4 = var20;
-         throw new MatchException(var4.toString(), var4);
+            shouldActivateScreen = true;
+            break;
+         case ClickEvent.CopyToClipboard copyToClipboard:
+            minecraft.keyboardHandler.setClipboard(copyToClipboard.value());
+            shouldActivateScreen = true;
+            break;
+         default:
+            LOGGER.error("Don't know how to handle {}", event);
+            shouldActivateScreen = true;
       }
 
-      boolean shouldActivateScreen = var10000;
       if (shouldActivateScreen && minecraft.screen != activeScreen) {
          minecraft.setScreen(activeScreen);
       }

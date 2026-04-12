@@ -1,6 +1,5 @@
 package net.minecraft.world.entity.variant;
 
-import com.mojang.datafixers.DataFixUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.ArrayList;
@@ -19,21 +18,13 @@ public interface PriorityProvider<Context, Condition extends PriorityProvider.Se
 
    static <C, T> Stream<T> select(final Stream<T> entries, final Function<T, PriorityProvider<C, ?>> extractor, final C context) {
       List<PriorityProvider.UnpackedEntry<C, T>> unpackedEntries = new ArrayList<>();
-      entries.forEach(
-         entryx -> {
-            PriorityProvider<C, ?> provider = extractor.apply((T)entryx);
+      entries.forEach(entry -> {
+         PriorityProvider<C, ?> provider = extractor.apply(entry);
 
-            for (PriorityProvider.Selector<C, ?> selector : provider.selectors()) {
-               unpackedEntries.add(
-                  new PriorityProvider.UnpackedEntry<>(
-                     (T)entryx,
-                     selector.priority(),
-                     (PriorityProvider.SelectorCondition<C>)DataFixUtils.orElseGet(selector.condition(), PriorityProvider.SelectorCondition::alwaysTrue)
-                  )
-               );
-            }
+         for (PriorityProvider.Selector<C, ?> selector : provider.selectors()) {
+            unpackedEntries.add(new PriorityProvider.UnpackedEntry<>(entry, selector.priority(), selectorOrDefault(selector)));
          }
-      );
+      });
       unpackedEntries.sort(PriorityProvider.UnpackedEntry.HIGHEST_PRIORITY_FIRST);
       Iterator<PriorityProvider.UnpackedEntry<C, T>> iterator = unpackedEntries.iterator();
       int highestMatchedPriority = Integer.MIN_VALUE;
@@ -83,12 +74,10 @@ public interface PriorityProvider<Context, Condition extends PriorityProvider.Se
       public static <Context, Condition extends PriorityProvider.SelectorCondition<Context>> Codec<PriorityProvider.Selector<Context, Condition>> codec(
          final Codec<Condition> conditionCodec
       ) {
-         return RecordCodecBuilder.create(
-            i -> i.group(
-                     conditionCodec.optionalFieldOf("condition").forGetter(PriorityProvider.Selector::condition),
-                     Codec.INT.fieldOf("priority").forGetter(PriorityProvider.Selector::priority)
-                  )
-                  .apply(i, PriorityProvider.Selector::new)
+         return RecordCodecBuilder.<PriorityProvider.Selector<Context, Condition>>create(i -> i.group(
+               conditionCodec.optionalFieldOf("condition").forGetter((PriorityProvider.Selector<Context, Condition> selector) -> selector.condition()),
+               Codec.INT.fieldOf("priority").forGetter((PriorityProvider.Selector<Context, Condition> selector) -> selector.priority())
+            ).apply(i, (Optional<Condition> condition, Integer priority) -> new PriorityProvider.Selector<>(condition, priority))
          );
       }
    }
@@ -100,10 +89,24 @@ public interface PriorityProvider<Context, Condition extends PriorityProvider.Se
       }
    }
 
+   private static <C> PriorityProvider.SelectorCondition<C> selectorOrDefault(final PriorityProvider.Selector<C, ?> selector) {
+      Optional<? extends PriorityProvider.SelectorCondition<C>> condition = selector.condition();
+      if (condition.isPresent()) {
+         return condition.get();
+      }
+
+      return PriorityProvider.SelectorCondition.alwaysTrue();
+   }
+
+   private static <Context, Condition extends PriorityProvider.SelectorCondition<Context>> PriorityProvider.Selector<Context, Condition> createSelector(
+      final Optional<Condition> condition, final int priority
+   ) {
+      return new PriorityProvider.Selector<>(condition, priority);
+   }
+
    public static record UnpackedEntry<C, T>(T entry, int priority, PriorityProvider.SelectorCondition<C> condition) {
-      public static final Comparator<PriorityProvider.UnpackedEntry<?, ?>> HIGHEST_PRIORITY_FIRST = Comparator.comparingInt(
-            PriorityProvider.UnpackedEntry::priority
-         )
+      public static final Comparator<PriorityProvider.UnpackedEntry<?, ?>> HIGHEST_PRIORITY_FIRST = Comparator
+         .comparingInt((PriorityProvider.UnpackedEntry<?, ?> entry) -> entry.priority())
          .reversed();
    }
 }

@@ -75,7 +75,6 @@ public class TransferableSelectionList extends ObjectSelectionList<TransferableS
 
    public abstract class Entry extends ObjectSelectionList.Entry<TransferableSelectionList.Entry> {
       public Entry() {
-         Objects.requireNonNull(TransferableSelectionList.this);
          super();
       }
 
@@ -92,7 +91,6 @@ public class TransferableSelectionList extends ObjectSelectionList<TransferableS
       private final Component text;
 
       public HeaderEntry(final Font font, final Component text) {
-         Objects.requireNonNull(TransferableSelectionList.this);
          super();
          this.font = font;
          this.text = text;
@@ -124,7 +122,6 @@ public class TransferableSelectionList extends ObjectSelectionList<TransferableS
       private final MultiLineTextWidget descriptionWidget;
 
       public PackEntry(final Minecraft minecraft, final TransferableSelectionList parent, final PackSelectionModel.Entry pack) {
-         Objects.requireNonNull(TransferableSelectionList.this);
          super();
          this.minecraft = minecraft;
          this.pack = pack;

@@ -121,7 +121,6 @@ public class ItemParser {
       private final ItemParser.Visitor visitor;
 
       private State(final StringReader reader, final ItemParser.Visitor visitor) {
-         Objects.requireNonNull(ItemParser.this);
          super();
          this.reader = reader;
          this.visitor = visitor;

@@ -510,7 +510,6 @@ public abstract class FlowingFluid extends Fluid {
       private final Short2BooleanMap holeCache;
 
       private SpreadContext(final BlockGetter level, final BlockPos origin) {
-         Objects.requireNonNull(FlowingFluid.this);
          super();
          this.stateCache = new Short2ObjectOpenHashMap();
          this.holeCache = new Short2BooleanOpenHashMap();

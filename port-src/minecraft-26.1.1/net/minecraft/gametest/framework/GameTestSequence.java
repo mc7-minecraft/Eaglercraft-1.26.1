@@ -129,7 +129,6 @@ public class GameTestSequence {
       private int triggerTime;
 
       public Condition() {
-         Objects.requireNonNull(GameTestSequence.this);
          super();
          this.triggerTime = -1;
       }

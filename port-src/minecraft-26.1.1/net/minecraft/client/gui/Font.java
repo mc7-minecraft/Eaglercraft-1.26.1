@@ -273,6 +273,7 @@ public class Font {
    }
 
    private class PreparedTextBuilder implements Font.PreparedText, FormattedCharSink {
+      private final Font this$0;
       private final boolean drawShadow;
       private final int color;
       private final int backgroundColor;
@@ -294,15 +295,15 @@ public class Font {
       private List<EmptyArea> emptyAreas;
 
       public PreparedTextBuilder(final Font this$0, final float x, final float y, final int color, final boolean drawShadow, final boolean includeEmpty) {
-         this(this$0x, x, y, color, 0, drawShadow, includeEmpty);
+         this(this$0, x, y, color, 0, drawShadow, includeEmpty);
       }
 
       public PreparedTextBuilder(
          final Font this$0, final float x, final float y, final int color, final int backgroundColor, final boolean drawShadow, final boolean includeEmpty
       ) {
-         Objects.requireNonNull(this$0x);
-         this.this$0 = this$0x;
          super();
+         Objects.requireNonNull(this$0);
+         this.this$0 = this$0;
          this.left = Float.MAX_VALUE;
          this.top = Float.MAX_VALUE;
          this.right = -Float.MAX_VALUE;

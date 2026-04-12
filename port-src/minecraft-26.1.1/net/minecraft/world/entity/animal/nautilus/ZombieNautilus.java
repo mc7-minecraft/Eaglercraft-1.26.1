@@ -69,7 +69,7 @@ public class ZombieNautilus extends AbstractNautilus {
 
    @Override
    public Brain<ZombieNautilus> getBrain() {
-      return super.getBrain();
+      return (Brain<ZombieNautilus>)super.getBrain();
    }
 
    @Override
@@ -186,3 +186,4 @@ public class ZombieNautilus extends AbstractNautilus {
       return false;
    }
 }
+

@@ -35,7 +35,7 @@ public class Nautilus extends AbstractNautilus {
 
    @Override
    public Brain<Nautilus> getBrain() {
-      return super.getBrain();
+      return (Brain<Nautilus>)super.getBrain();
    }
 
    @Nullable
@@ -140,3 +140,4 @@ public class Nautilus extends AbstractNautilus {
       return !this.isAggravated();
    }
 }
+

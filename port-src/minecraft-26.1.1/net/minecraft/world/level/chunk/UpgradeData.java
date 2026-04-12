@@ -73,8 +73,8 @@ public class UpgradeData {
          }
       }
 
-      tag.<Collection<? extends E>>read("neighbor_block_ticks", BLOCK_TICKS_CODEC).ifPresent(this.neighborBlockTicks::addAll);
-      tag.<Collection<? extends E>>read("neighbor_fluid_ticks", FLUID_TICKS_CODEC).ifPresent(this.neighborFluidTicks::addAll);
+      tag.<List<SavedTick<Block>>>read("neighbor_block_ticks", BLOCK_TICKS_CODEC).ifPresent(this.neighborBlockTicks::addAll);
+      tag.<List<SavedTick<Fluid>>>read("neighbor_fluid_ticks", FLUID_TICKS_CODEC).ifPresent(this.neighborFluidTicks::addAll);
    }
 
    private UpgradeData(final UpgradeData source) {

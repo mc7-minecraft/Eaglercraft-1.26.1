@@ -643,9 +643,9 @@ public abstract class AbstractArrow extends Projectile {
       super.setOwner(owner);
 
       this.pickup = switch (owner) {
-         case null, default -> this.pickup;
          case Player ignored when this.pickup == AbstractArrow.Pickup.DISALLOWED -> AbstractArrow.Pickup.ALLOWED;
          case OminousItemSpawner ignoredx -> AbstractArrow.Pickup.DISALLOWED;
+         case null, default -> this.pickup;
       };
    }
 

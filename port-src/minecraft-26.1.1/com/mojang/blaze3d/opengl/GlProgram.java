@@ -77,7 +77,7 @@ public class GlProgram implements AutoCloseable {
       for (RenderPipeline.UniformDescription uniformDescription : uniforms) {
          String uniformName = uniformDescription.name();
 
-         Object var10000_1 = switch (uniformDescription.type()) {
+         Uniform uniform = switch (uniformDescription.type()) {
             case UNIFORM_BUFFER -> {
                int index = GL31.glGetUniformBlockIndex(this.programId, uniformName);
                if (index == -1) {
@@ -100,7 +100,6 @@ public class GlProgram implements AutoCloseable {
             }
          };
 
-         Uniform uniform = (Uniform)var10000;
          if (uniform != null) {
             this.uniformsByName.put(uniformName, uniform);
          }

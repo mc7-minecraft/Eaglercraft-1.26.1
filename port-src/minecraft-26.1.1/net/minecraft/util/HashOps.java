@@ -306,7 +306,6 @@ public class HashOps implements DynamicOps<HashCode> {
 
    private class ListHashBuilder extends AbstractListBuilder<HashCode, Hasher> {
       public ListHashBuilder() {
-         Objects.requireNonNull(HashOps.this);
          super(HashOps.this);
       }
 
@@ -328,7 +327,6 @@ public class HashOps implements DynamicOps<HashCode> {
 
    private final class MapHashBuilder extends AbstractUniversalBuilder<HashCode, List<Pair<HashCode, HashCode>>> {
       public MapHashBuilder() {
-         Objects.requireNonNull(HashOps.this);
          super(HashOps.this);
       }
 

@@ -633,7 +633,7 @@ public interface StreamCodec<B, V> extends StreamEncoder<B, V>, StreamDecoder<B,
    }
 
    default <S extends B> StreamCodec<S, V> cast() {
-      return this;
+      return (StreamCodec<S, V>)this;
    }
 
    @FunctionalInterface

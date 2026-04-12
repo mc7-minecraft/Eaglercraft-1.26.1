@@ -112,7 +112,6 @@ public class RealmsPendingInvitesScreen extends RealmsScreen {
       private final StringWidget inviteDate;
 
       Entry(final PendingInvite pendingInvite) {
-         Objects.requireNonNull(RealmsPendingInvitesScreen.this);
          super();
          this.children = new ArrayList<>();
          this.pendingInvite = pendingInvite;
@@ -216,7 +215,6 @@ public class RealmsPendingInvitesScreen extends RealmsScreen {
       public static final int ITEM_HEIGHT = 36;
 
       public PendingInvitationSelectionList(final Minecraft minecraft) {
-         Objects.requireNonNull(RealmsPendingInvitesScreen.this);
          super(
             minecraft,
             RealmsPendingInvitesScreen.this.width,

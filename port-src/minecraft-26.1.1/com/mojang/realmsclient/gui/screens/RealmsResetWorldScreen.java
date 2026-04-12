@@ -281,7 +281,6 @@ public class RealmsResetWorldScreen extends RealmsScreen {
       private final Identifier image;
 
       private FrameButton(final Font font, final Component text, final Identifier image, final Button.OnPress onPress) {
-         Objects.requireNonNull(RealmsResetWorldScreen.this);
          super(0, 0, 60, 60 + 9, text, onPress, DEFAULT_NARRATION);
          this.image = image;
       }

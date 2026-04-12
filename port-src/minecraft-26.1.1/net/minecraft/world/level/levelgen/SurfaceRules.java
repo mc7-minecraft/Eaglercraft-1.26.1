@@ -184,7 +184,6 @@ public class SurfaceRules {
       public SurfaceRules.Condition apply(final SurfaceRules.Context ruleContext) {
          class BiomeCondition extends SurfaceRules.LazyYCondition {
             private BiomeCondition() {
-               Objects.requireNonNull(BiomeConditionSource.this);
                super(ruleContext);
             }
 
@@ -386,7 +385,6 @@ public class SurfaceRules {
 
       private final class AbovePreliminarySurfaceCondition implements SurfaceRules.Condition {
          private AbovePreliminarySurfaceCondition() {
-            Objects.requireNonNull(Context.this);
             super();
          }
 
@@ -541,7 +539,6 @@ public class SurfaceRules {
 
          class NoiseThresholdCondition extends SurfaceRules.LazyXZCondition {
             private NoiseThresholdCondition() {
-               Objects.requireNonNull(NoiseThresholdConditionSource.this);
                super(ruleContext);
             }
 
@@ -677,7 +674,6 @@ public class SurfaceRules {
 
          class StoneDepthCondition extends SurfaceRules.LazyYCondition {
             private StoneDepthCondition() {
-               Objects.requireNonNull(StoneDepthCheck.this);
                super(ruleContext);
             }
 
@@ -770,7 +766,6 @@ public class SurfaceRules {
 
          class VerticalGradientCondition extends SurfaceRules.LazyYCondition {
             private VerticalGradientCondition() {
-               Objects.requireNonNull(VerticalGradientConditionSource.this);
                super(ruleContext);
             }
 
@@ -813,7 +808,6 @@ public class SurfaceRules {
       public SurfaceRules.Condition apply(final SurfaceRules.Context ruleContext) {
          class WaterCondition extends SurfaceRules.LazyYCondition {
             private WaterCondition() {
-               Objects.requireNonNull(WaterConditionSource.this);
                super(ruleContext);
             }
 
@@ -851,7 +845,6 @@ public class SurfaceRules {
       public SurfaceRules.Condition apply(final SurfaceRules.Context ruleContext) {
          class YCondition extends SurfaceRules.LazyYCondition {
             private YCondition() {
-               Objects.requireNonNull(YConditionSource.this);
                super(ruleContext);
             }
 

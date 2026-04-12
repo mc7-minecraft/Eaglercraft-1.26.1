@@ -13,8 +13,12 @@ public record ArgumentSignatures(List<ArgumentSignatures.Entry> entries) {
    private static final int MAX_ARGUMENT_COUNT = 8;
    private static final int MAX_ARGUMENT_NAME_LENGTH = 16;
 
+   private static List<ArgumentSignatures.Entry> readEntries(final FriendlyByteBuf input) {
+      return input.readCollection(size -> new ArrayList<>(Math.min(size, 8)), ArgumentSignatures.Entry::new);
+   }
+
    public ArgumentSignatures(final FriendlyByteBuf input) {
-      this(input.readCollection(FriendlyByteBuf.limitValue(ArrayList::new, 8), ArgumentSignatures.Entry::new));
+      this(readEntries(input));
    }
 
    public void write(final FriendlyByteBuf output) {

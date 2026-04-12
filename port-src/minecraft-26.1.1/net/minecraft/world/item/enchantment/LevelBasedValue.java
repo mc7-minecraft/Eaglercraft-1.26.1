@@ -48,15 +48,15 @@ public interface LevelBasedValue {
    MapCodec<? extends LevelBasedValue> codec();
 
    public static record Clamped(LevelBasedValue value, float min, float max) implements LevelBasedValue {
-      public static final MapCodec<LevelBasedValue.Clamped> CODEC = RecordCodecBuilder.mapCodec(
-            i -> i.group(
-                     LevelBasedValue.CODEC.fieldOf("value").forGetter(LevelBasedValue.Clamped::value),
-                     Codec.FLOAT.fieldOf("min").forGetter(LevelBasedValue.Clamped::min),
-                     Codec.FLOAT.fieldOf("max").forGetter(LevelBasedValue.Clamped::max)
+      public static final MapCodec<LevelBasedValue.Clamped> CODEC = RecordCodecBuilder.<LevelBasedValue.Clamped>mapCodec(
+         (RecordCodecBuilder.Instance<LevelBasedValue.Clamped> i) -> i.group(
+                     LevelBasedValue.CODEC.fieldOf("value").forGetter((LevelBasedValue.Clamped clamped) -> clamped.value()),
+                     Codec.FLOAT.fieldOf("min").forGetter((LevelBasedValue.Clamped clamped) -> clamped.min()),
+                     Codec.FLOAT.fieldOf("max").forGetter((LevelBasedValue.Clamped clamped) -> clamped.max())
                   )
-                  .apply(i, LevelBasedValue.Clamped::new)
+                  .apply(i, (value, min, max) -> new LevelBasedValue.Clamped(value, min, max))
          )
-         .validate(u -> u.max <= u.min ? DataResult.error(() -> "Max must be larger than min, min: " + u.min + ", max: " + u.max) : DataResult.success(u));
+         .validate((LevelBasedValue.Clamped u) -> u.max <= u.min ? DataResult.error(() -> "Max must be larger than min, min: " + u.min + ", max: " + u.max) : DataResult.success(u));
 
       @Override
       public float calculate(final int level) {

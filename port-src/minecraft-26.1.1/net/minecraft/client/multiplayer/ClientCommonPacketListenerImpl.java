@@ -400,7 +400,6 @@ public abstract class ClientCommonPacketListenerImpl implements ClientCommonPack
 
    protected abstract class CommonDialogAccess implements DialogConnectionAccess {
       protected CommonDialogAccess() {
-         Objects.requireNonNull(ClientCommonPacketListenerImpl.this);
          super();
       }
 
@@ -441,7 +440,6 @@ public abstract class ClientCommonPacketListenerImpl implements ClientCommonPack
          final boolean required,
          @Nullable final Component prompt
       ) {
-         Objects.requireNonNull(ClientCommonPacketListenerImpl.this);
          super(
             result -> {
                minecraft.setScreen(parentScreen);
@@ -486,7 +484,7 @@ public abstract class ClientCommonPacketListenerImpl implements ClientCommonPack
       public ClientCommonPacketListenerImpl.PackConfirmScreen update(
          final Minecraft minecraft, final UUID id, final URL url, final String hash, final boolean required, @Nullable final Component prompt
       ) {
-         List<ClientCommonPacketListenerImpl.PackConfirmScreen.PendingRequest> extendedRequests = ImmutableList.builderWithExpectedSize(
+         List<ClientCommonPacketListenerImpl.PackConfirmScreen.PendingRequest> extendedRequests = ImmutableList.<ClientCommonPacketListenerImpl.PackConfirmScreen.PendingRequest>builderWithExpectedSize(
                this.requests.size() + 1
             )
             .addAll(this.requests)

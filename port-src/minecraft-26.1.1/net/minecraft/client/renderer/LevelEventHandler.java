@@ -335,33 +335,33 @@ public class LevelEventHandler {
             this.level.playLocalSound(pos, SoundEvents.SPLASH_POTION_BREAK, SoundSource.NEUTRAL, 1.0F, random.nextFloat() * 0.1F + 0.9F, false);
             break;
          case 2003:
-            double x = (double)pos.getX() + 0.5;
-            double y = (double)pos.getY();
-            double z = (double)pos.getZ() + 0.5;
-            ItemParticleOption breakParticle = new ItemParticleOption(ParticleTypes.ITEM, Items.ENDER_EYE);
+            double x2003 = (double)pos.getX() + 0.5;
+            double y2003 = (double)pos.getY();
+            double z2003 = (double)pos.getZ() + 0.5;
+            ItemParticleOption breakParticle2003 = new ItemParticleOption(ParticleTypes.ITEM, Items.ENDER_EYE);
 
             for (int i = 0; i < 8; i++) {
-               this.level.addParticle(breakParticle, x, y, z, random.nextGaussian() * 0.15, random.nextDouble() * 0.2, random.nextGaussian() * 0.15);
+               this.level.addParticle(breakParticle2003, x2003, y2003, z2003, random.nextGaussian() * 0.15, random.nextDouble() * 0.2, random.nextGaussian() * 0.15);
             }
 
             for (double angle = 0.0; angle < Math.PI * 2; angle += Math.PI / 20) {
                this.level
                   .addParticle(
-                     ParticleTypes.PORTAL, x + Math.cos(angle) * 5.0, y - 0.4, z + Math.sin(angle) * 5.0, Math.cos(angle) * -5.0, 0.0, Math.sin(angle) * -5.0
+                     ParticleTypes.PORTAL, x2003 + Math.cos(angle) * 5.0, y2003 - 0.4, z2003 + Math.sin(angle) * 5.0, Math.cos(angle) * -5.0, 0.0, Math.sin(angle) * -5.0
                   );
                this.level
                   .addParticle(
-                     ParticleTypes.PORTAL, x + Math.cos(angle) * 5.0, y - 0.4, z + Math.sin(angle) * 5.0, Math.cos(angle) * -7.0, 0.0, Math.sin(angle) * -7.0
+                     ParticleTypes.PORTAL, x2003 + Math.cos(angle) * 5.0, y2003 - 0.4, z2003 + Math.sin(angle) * 5.0, Math.cos(angle) * -7.0, 0.0, Math.sin(angle) * -7.0
                   );
             }
             break;
          case 2004:
             for (int i = 0; i < 20; i++) {
-               double x = (double)pos.getX() + 0.5 + (random.nextDouble() - 0.5) * 2.0;
-               double y = (double)pos.getY() + 0.5 + (random.nextDouble() - 0.5) * 2.0;
-               double z = (double)pos.getZ() + 0.5 + (random.nextDouble() - 0.5) * 2.0;
-               this.level.addParticle(ParticleTypes.SMOKE, x, y, z, 0.0, 0.0, 0.0);
-               this.level.addParticle(ParticleTypes.FLAME, x, y, z, 0.0, 0.0, 0.0);
+               double x2004 = (double)pos.getX() + 0.5 + (random.nextDouble() - 0.5) * 2.0;
+               double y2004 = (double)pos.getY() + 0.5 + (random.nextDouble() - 0.5) * 2.0;
+               double z2004 = (double)pos.getZ() + 0.5 + (random.nextDouble() - 0.5) * 2.0;
+               this.level.addParticle(ParticleTypes.SMOKE, x2004, y2004, z2004, 0.0, 0.0, 0.0);
+               this.level.addParticle(ParticleTypes.FLAME, x2004, y2004, z2004, 0.0, 0.0, 0.0);
             }
             break;
          case 2006:

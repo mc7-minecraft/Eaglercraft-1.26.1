@@ -178,14 +178,12 @@ public abstract class DialogScreen<T extends Dialog> extends Screen {
             ClickEvent.RunCommand var10000 = var5;
 
             try {
-               var11 = var10000.command();
+               String command = var10000.command();
+               this.connectionAccess.runCommand(Commands.trimOptionalPrefix(command), activeScreen);
+               break;
             } catch (Throwable var9) {
                throw new MatchException(var9.toString(), var9);
             }
-
-            String var10 = var11;
-            this.connectionAccess.runCommand(Commands.trimOptionalPrefix(var10), activeScreen);
-            break;
          case ClickEvent.ShowDialog dialog:
             this.connectionAccess.openDialog(dialog.dialog(), activeScreen);
             break;

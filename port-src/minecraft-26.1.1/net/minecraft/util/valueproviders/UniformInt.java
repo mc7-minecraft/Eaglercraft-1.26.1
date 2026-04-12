@@ -8,7 +8,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 
 public record UniformInt(int minInclusive, int maxInclusive) implements IntProvider {
-   public static final MapCodec<UniformInt> MAP_CODEC = RecordCodecBuilder.mapCodec(
+   public static final MapCodec<UniformInt> MAP_CODEC = RecordCodecBuilder.<UniformInt>mapCodec(
          i -> i.group(
                   Codec.INT.fieldOf("min_inclusive").forGetter(UniformInt::minInclusive),
                   Codec.INT.fieldOf("max_inclusive").forGetter(UniformInt::maxInclusive)
@@ -16,9 +16,9 @@ public record UniformInt(int minInclusive, int maxInclusive) implements IntProvi
                .apply(i, UniformInt::new)
       )
       .validate(
-         u -> u.maxInclusive < u.minInclusive
-               ? DataResult.error(() -> "Max must be at least min, min_inclusive: " + u.minInclusive + ", max_inclusive: " + u.maxInclusive)
-               : DataResult.success(u)
+         (UniformInt u) -> u.maxInclusive < u.minInclusive
+               ? DataResult.<UniformInt>error(() -> "Max must be at least min, min_inclusive: " + u.minInclusive + ", max_inclusive: " + u.maxInclusive)
+               : DataResult.<UniformInt>success(u)
       );
 
    public static UniformInt of(final int minInclusive, final int maxInclusive) {

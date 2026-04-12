@@ -1010,7 +1010,9 @@ public class ServerGamePacketListenerImpl
       if (carried.has(DataComponents.WRITABLE_BOOK_CONTENT)) {
          ItemStack writtenBook = carried.transmuteCopy(Items.WRITTEN_BOOK);
          writtenBook.remove(DataComponents.WRITABLE_BOOK_CONTENT);
-         List<Filterable<Component>> pages = contents.stream().map(page -> this.filterableFromOutgoing(page).map(Component::literal)).toList();
+         List<Filterable<Component>> pages = contents.stream()
+            .map(page -> this.filterableFromOutgoing(page).map(component -> (Component)Component.literal(component)))
+            .toList();
          writtenBook.set(
             DataComponents.WRITTEN_BOOK_CONTENT, new WrittenBookContent(this.filterableFromOutgoing(title), this.player.getPlainTextName(), 0, pages, true)
          );

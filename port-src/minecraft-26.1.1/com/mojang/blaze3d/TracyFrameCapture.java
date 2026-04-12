@@ -1,6 +1,5 @@
 package com.mojang.blaze3d;
 
-import com.mojang.blaze3d.TracyFrameCapture.Status;
 import com.mojang.blaze3d.buffers.GpuBuffer;
 import com.mojang.blaze3d.buffers.GpuBuffer.MappedView;
 import com.mojang.blaze3d.pipeline.RenderTarget;

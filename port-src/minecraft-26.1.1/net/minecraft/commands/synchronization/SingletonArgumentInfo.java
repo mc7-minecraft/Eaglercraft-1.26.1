@@ -41,7 +41,6 @@ public class SingletonArgumentInfo<A extends ArgumentType<?>> implements Argumen
       private final Function<CommandBuildContext, A> constructor;
 
       public Template(final Function<CommandBuildContext, A> constructor) {
-         Objects.requireNonNull(SingletonArgumentInfo.this);
          super();
          this.constructor = constructor;
       }

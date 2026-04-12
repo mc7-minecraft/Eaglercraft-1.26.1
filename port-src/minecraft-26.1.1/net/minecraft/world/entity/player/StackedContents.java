@@ -128,8 +128,6 @@ public class StackedContents<T> {
       private final IntList path;
 
       public RecipePicker(final List<? extends StackedContents.IngredientInfo<T>> ingredients) {
-         Objects.requireNonNull(StackedContents.this);
-         super();
          this.path = new IntArrayList();
          this.ingredients = ingredients;
          this.ingredientCount = ingredients.size();

@@ -402,8 +402,8 @@ public class BlendingData {
 
    public static record Packed(int minSection, int maxSection, Optional<double[]> heights) {
       private static final Codec<double[]> DOUBLE_ARRAY_CODEC = Codec.DOUBLE.listOf().xmap(Doubles::toArray, Doubles::asList);
-      public static final Codec<BlendingData.Packed> CODEC = RecordCodecBuilder.create(
-            i -> i.group(
+      public static final Codec<BlendingData.Packed> CODEC = RecordCodecBuilder.<BlendingData.Packed>create(
+         (RecordCodecBuilder.Instance<BlendingData.Packed> i) -> i.group(
                      Codec.INT.fieldOf("min_section").forGetter(BlendingData.Packed::minSection),
                      Codec.INT.fieldOf("max_section").forGetter(BlendingData.Packed::maxSection),
                      DOUBLE_ARRAY_CODEC.lenientOptionalFieldOf("heights").forGetter(BlendingData.Packed::heights)

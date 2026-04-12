@@ -294,7 +294,6 @@ public class ArrayListDeque<T> extends AbstractList<T> implements ListAndDeque<T
       private int index;
 
       public DescendingIterator() {
-         Objects.requireNonNull(ArrayListDeque.this);
          super();
          this.index = ArrayListDeque.this.size() - 1;
       }
@@ -319,7 +318,6 @@ public class ArrayListDeque<T> extends AbstractList<T> implements ListAndDeque<T
       private final ArrayListDeque<T> source;
 
       public ReversedView(final ArrayListDeque<T> source) {
-         Objects.requireNonNull(ArrayListDeque.this);
          super();
          this.source = source;
       }

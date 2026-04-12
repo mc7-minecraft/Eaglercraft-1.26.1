@@ -195,7 +195,7 @@ public class BlockModelGenerators {
       .select(Direction.SOUTH, Y_ROT_180)
       .select(Direction.WEST, Y_ROT_270)
       .select(Direction.NORTH, NOP);
-   private static final Map<Block, TexturedModel> TEXTURED_MODELS = ImmutableMap.builder()
+   private static final Map<Block, TexturedModel> TEXTURED_MODELS = ImmutableMap.<Block, TexturedModel>builder()
       .put(Blocks.SANDSTONE, TexturedModel.TOP_BOTTOM_WITH_WALL.get(Blocks.SANDSTONE))
       .put(Blocks.RED_SANDSTONE, TexturedModel.TOP_BOTTOM_WITH_WALL.get(Blocks.RED_SANDSTONE))
       .put(Blocks.SMOOTH_SANDSTONE, TexturedModel.createAllSame(TextureMapping.getBlockTexture(Blocks.SANDSTONE, "_top")))
@@ -229,24 +229,24 @@ public class BlockModelGenerators {
       .put(Blocks.CHISELED_TUFF_BRICKS, TexturedModel.COLUMN_WITH_WALL.get(Blocks.CHISELED_TUFF_BRICKS))
       .put(Blocks.CHISELED_TUFF, TexturedModel.COLUMN_WITH_WALL.get(Blocks.CHISELED_TUFF))
       .build();
-   private static final Map<BlockFamily.Variant, BiConsumer<BlockModelGenerators.BlockFamilyProvider, Block>> SHAPE_CONSUMERS = ImmutableMap.builder()
-      .put(BlockFamily.Variant.BUTTON, BlockModelGenerators.BlockFamilyProvider::button)
-      .put(BlockFamily.Variant.DOOR, BlockModelGenerators.BlockFamilyProvider::door)
-      .put(BlockFamily.Variant.CHISELED, BlockModelGenerators.BlockFamilyProvider::fullBlockVariant)
-      .put(BlockFamily.Variant.CRACKED, BlockModelGenerators.BlockFamilyProvider::fullBlockVariant)
-      .put(BlockFamily.Variant.CUSTOM_FENCE, BlockModelGenerators.BlockFamilyProvider::customFence)
-      .put(BlockFamily.Variant.FENCE, BlockModelGenerators.BlockFamilyProvider::fence)
-      .put(BlockFamily.Variant.CUSTOM_FENCE_GATE, BlockModelGenerators.BlockFamilyProvider::customFenceGate)
-      .put(BlockFamily.Variant.FENCE_GATE, BlockModelGenerators.BlockFamilyProvider::fenceGate)
-      .put(BlockFamily.Variant.SIGN, BlockModelGenerators.BlockFamilyProvider::sign)
-      .put(BlockFamily.Variant.SLAB, BlockModelGenerators.BlockFamilyProvider::slab)
-      .put(BlockFamily.Variant.STAIRS, BlockModelGenerators.BlockFamilyProvider::stairs)
-      .put(BlockFamily.Variant.PRESSURE_PLATE, BlockModelGenerators.BlockFamilyProvider::pressurePlate)
-      .put(BlockFamily.Variant.TRAPDOOR, BlockModelGenerators.BlockFamilyProvider::trapdoor)
-      .put(BlockFamily.Variant.WALL, BlockModelGenerators.BlockFamilyProvider::wall)
-      .put(BlockFamily.Variant.BRICKS, BlockModelGenerators.BlockFamilyProvider::fullBlockVariant)
-      .put(BlockFamily.Variant.TILES, BlockModelGenerators.BlockFamilyProvider::fullBlockVariant)
-      .put(BlockFamily.Variant.COBBLED, BlockModelGenerators.BlockFamilyProvider::fullBlockVariant)
+   private static final Map<BlockFamily.Variant, BiConsumer<BlockModelGenerators.BlockFamilyProvider, Block>> SHAPE_CONSUMERS = ImmutableMap.<BlockFamily.Variant, BiConsumer<BlockModelGenerators.BlockFamilyProvider, Block>>builder()
+      .put(BlockFamily.Variant.BUTTON, (provider, block) -> provider.button(block))
+      .put(BlockFamily.Variant.DOOR, (provider, block) -> provider.door(block))
+      .put(BlockFamily.Variant.CHISELED, (provider, block) -> provider.fullBlockVariant(block))
+      .put(BlockFamily.Variant.CRACKED, (provider, block) -> provider.fullBlockVariant(block))
+      .put(BlockFamily.Variant.CUSTOM_FENCE, (provider, block) -> provider.customFence(block))
+      .put(BlockFamily.Variant.FENCE, (provider, block) -> provider.fence(block))
+      .put(BlockFamily.Variant.CUSTOM_FENCE_GATE, (provider, block) -> provider.customFenceGate(block))
+      .put(BlockFamily.Variant.FENCE_GATE, (provider, block) -> provider.fenceGate(block))
+      .put(BlockFamily.Variant.SIGN, (provider, block) -> provider.sign(block))
+      .put(BlockFamily.Variant.SLAB, (provider, block) -> provider.slab(block))
+      .put(BlockFamily.Variant.STAIRS, (provider, block) -> provider.stairs(block))
+      .put(BlockFamily.Variant.PRESSURE_PLATE, (provider, block) -> provider.pressurePlate(block))
+      .put(BlockFamily.Variant.TRAPDOOR, (provider, block) -> provider.trapdoor(block))
+      .put(BlockFamily.Variant.WALL, (provider, block) -> provider.wall(block))
+      .put(BlockFamily.Variant.BRICKS, (provider, block) -> provider.fullBlockVariant(block))
+      .put(BlockFamily.Variant.TILES, (provider, block) -> provider.fullBlockVariant(block))
+      .put(BlockFamily.Variant.COBBLED, (provider, block) -> provider.fullBlockVariant(block))
       .build();
    private static final Map<Direction, VariantMutator> MULTIFACE_GENERATOR = ImmutableMap.of(
       Direction.NORTH,
@@ -4228,7 +4228,6 @@ public class BlockModelGenerators {
       private final Set<Block> skipGeneratingModelsFor;
 
       public BlockFamilyProvider(final TextureMapping mapping) {
-         Objects.requireNonNull(BlockModelGenerators.this);
          super();
          this.models = new HashMap<>();
          this.skipGeneratingModelsFor = new HashSet<>();
@@ -4485,7 +4484,6 @@ public class BlockModelGenerators {
       private final TextureMapping logMapping;
 
       public WoodProvider(final TextureMapping logMapping) {
-         Objects.requireNonNull(BlockModelGenerators.this);
          super();
          this.logMapping = logMapping;
       }

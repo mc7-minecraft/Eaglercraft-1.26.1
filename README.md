@@ -21,6 +21,8 @@ This folder hosts the active in-repo conversion pipeline for turning Minecraft 2
 - Full non-inner class source recovery from `26.1.1 - Original` into `port-src/minecraft-26.1.1/`
 - Direct Eagler-style launch flow in both HTML entrypoints
 - WSS relay/server wiring aligned to Eaglercraft patterns
+- Local launcher HTML entrypoints wired to `build/javascript/classes.js` and `build/wasm/bootstrap.js`
+- Runtime sync scripts split between `runtime/eagler-base` and `runtime/eagler-lwjgl3`
 
 ## Run the process
 
@@ -48,9 +50,9 @@ Key workstreams:
 ## Current development state
 
 - The local Gradle and TeaVM project lives entirely inside this folder.
-- External `eaglercraftx-*` donor folders were removed from the workspace.
-- Java compile cleanup is in progress and paused for the day.
-- No new build should be started until the next session.
+- External `eaglercraftx-*` donor folders were removed from the workspace root and kept under `reference/` when needed.
+- Java compile cleanup is still in progress.
+- The launcher HTML files are the current browser entrypoints for JS and WASM builds.
 
 ## Source Recovery Notes
 

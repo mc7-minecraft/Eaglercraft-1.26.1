@@ -131,8 +131,6 @@ public class LevelChunkSection {
          public int tickingFluidCount;
 
          BlockCounter() {
-            Objects.requireNonNull(LevelChunkSection.this);
-            super();
          }
 
          public void accept(final BlockState state, final int count) {

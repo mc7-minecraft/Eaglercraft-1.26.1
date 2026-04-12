@@ -12,14 +12,15 @@ import net.minecraft.util.Mth;
 
 public class BabyDonkeyModel extends DonkeyModel {
    public BabyDonkeyModel(final ModelPart root) {
-      ModelPart body = root.getChild("body");
-      ModelPart rightHindLeg = body.getChild("right_hind_leg");
-      ModelPart leftHindLeg = body.getChild("left_hind_leg");
-      ModelPart rightFrontLeg = body.getChild("right_front_leg");
-      ModelPart leftFrontLeg = body.getChild("left_front_leg");
-      ModelPart headParts = body.getChild("head_parts");
-      ModelPart tail = body.getChild("tail");
-      super(root, headParts, rightHindLeg, rightFrontLeg, leftHindLeg, leftFrontLeg, tail);
+      super(
+         root,
+         root.getChild("body").getChild("head_parts"),
+         root.getChild("body").getChild("right_hind_leg"),
+         root.getChild("body").getChild("right_front_leg"),
+         root.getChild("body").getChild("left_hind_leg"),
+         root.getChild("body").getChild("left_front_leg"),
+         root.getChild("body").getChild("tail")
+      );
    }
 
    public static LayerDefinition createBabyLayer() {

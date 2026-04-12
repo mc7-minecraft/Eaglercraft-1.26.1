@@ -91,7 +91,6 @@ public class Octree {
       private final boolean cameraZDiffNegative;
 
       public Branch(final BoundingBox boundingBox) {
-         Objects.requireNonNull(Octree.this);
          super();
          this.nodes = new Octree.Node[8];
          this.boundingBox = boundingBox;
@@ -242,7 +241,6 @@ public class Octree {
       private final SectionRenderDispatcher.RenderSection section;
 
       private Leaf(final SectionRenderDispatcher.RenderSection section) {
-         Objects.requireNonNull(Octree.this);
          super();
          this.section = section;
       }

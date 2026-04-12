@@ -38,29 +38,33 @@ public record TracingExecutor(ExecutorService service) implements Executor {
                   thread.setName(oldName);
                }
             });
-      } else {
-         return (Executor)(TracyClient.isAvailable() ? command -> this.service.execute(() -> {
-               Zone ignored = TracyClient.beginZone(name, SharedConstants.IS_RUNNING_IN_IDE);
-
-               try {
-                  command.run();
-               } catch (Throwable var6) {
-                  if (ignored != null) {
-                     try {
-                        ignored.close();
-                     } catch (Throwable var5) {
-                        var6.addSuppressed(var5);
-                     }
-                  }
-
-                  throw var6;
-               }
-
-               if (ignored != null) {
-                  ignored.close();
-               }
-            }) : this.service);
       }
+
+      if (TracyClient.isAvailable()) {
+         return command -> this.service.execute(() -> {
+            Zone ignored = TracyClient.beginZone(name, SharedConstants.IS_RUNNING_IN_IDE);
+
+            try {
+               command.run();
+            } catch (Throwable var6) {
+               if (ignored != null) {
+                  try {
+                     ignored.close();
+                  } catch (Throwable var5) {
+                     var6.addSuppressed(var5);
+                  }
+               }
+
+               throw var6;
+            }
+
+            if (ignored != null) {
+               ignored.close();
+            }
+         });
+      }
+
+      return this.service;
    }
 
    @Override

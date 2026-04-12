@@ -16,9 +16,11 @@ import org.jspecify.annotations.Nullable;
 
 public final class EnvironmentAttributeMap {
    public static final EnvironmentAttributeMap EMPTY = new EnvironmentAttributeMap(Map.of());
+   private static final Codec<Map<EnvironmentAttribute<?>, EnvironmentAttributeMap.Entry<?, ?>>> SERIALIZED_CODEC = Codec.dispatchedMap(
+      EnvironmentAttributes.CODEC, Util.memoize(EnvironmentAttributeMap.Entry::createCodec)
+   );
    public static final Codec<EnvironmentAttributeMap> CODEC = Codec.lazyInitialized(
-      () -> Codec.dispatchedMap(EnvironmentAttributes.CODEC, Util.memoize(EnvironmentAttributeMap.Entry::createCodec))
-            .xmap(EnvironmentAttributeMap::new, v -> v.entries)
+      () -> SERIALIZED_CODEC.xmap(EnvironmentAttributeMap::fromSerializedEntries, EnvironmentAttributeMap::toSerializedEntries)
    );
    public static final Codec<EnvironmentAttributeMap> NETWORK_CODEC = CODEC.xmap(
       EnvironmentAttributeMap::filterSyncable, EnvironmentAttributeMap::filterSyncable
@@ -32,6 +34,14 @@ public final class EnvironmentAttributeMap {
       }
    );
    private final Map<EnvironmentAttribute<?>, EnvironmentAttributeMap.Entry<?, ?>> entries;
+
+   private static EnvironmentAttributeMap fromSerializedEntries(final Map<EnvironmentAttribute<?>, EnvironmentAttributeMap.Entry<?, ?>> entries) {
+      return new EnvironmentAttributeMap(entries);
+   }
+
+   private static Map<EnvironmentAttribute<?>, EnvironmentAttributeMap.Entry<?, ?>> toSerializedEntries(final EnvironmentAttributeMap attributes) {
+      return attributes.entries;
+   }
 
    private static EnvironmentAttributeMap filterSyncable(final EnvironmentAttributeMap attributes) {
       return new EnvironmentAttributeMap(Map.copyOf(Maps.filterKeys(attributes.entries, EnvironmentAttribute::isSyncable)));
@@ -115,14 +125,22 @@ public final class EnvironmentAttributeMap {
    }
 
    public static record Entry<Value, Argument>(Argument argument, AttributeModifier<Value, Argument> modifier) {
+      private static <Value> EnvironmentAttributeMap.Entry<Value, ?> createValueEntry(final Value value) {
+         return new EnvironmentAttributeMap.Entry<>(value, AttributeModifier.override());
+      }
+
       private static <Value> Codec<EnvironmentAttributeMap.Entry<Value, ?>> createCodec(final EnvironmentAttribute<Value> attribute) {
          Codec<EnvironmentAttributeMap.Entry<Value, ?>> fullCodec = attribute.type()
             .modifierCodec()
             .dispatch("modifier", EnvironmentAttributeMap.Entry::modifier, Util.memoize(modifier -> createFullCodec(attribute, modifier)));
          return Codec.either(attribute.valueCodec(), fullCodec)
             .xmap(
-               either -> (EnvironmentAttributeMap.Entry)either.map(value -> new EnvironmentAttributeMap.Entry<>(value, AttributeModifier.override()), e -> e),
-               entry -> entry.modifier == AttributeModifier.override() ? Either.left(entry.argument()) : Either.right(entry)
+               either -> (EnvironmentAttributeMap.Entry<Value, ?>)either.map(
+                  (Value value) -> createValueEntry(value), e -> e
+               ),
+               (EnvironmentAttributeMap.Entry<Value, ?> entry) -> entry.modifier == AttributeModifier.override()
+                  ? Either.<Value, EnvironmentAttributeMap.Entry<Value, ?>>left((Value)entry.argument())
+                  : Either.<Value, EnvironmentAttributeMap.Entry<Value, ?>>right(entry)
             );
       }
 

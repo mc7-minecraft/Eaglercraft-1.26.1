@@ -105,7 +105,6 @@ public class ScrollableLayout implements Layout {
       private final List<AbstractWidget> children;
 
       public Container(final Minecraft minecraft, final int width, final int height, final AbstractScrollArea.ScrollbarSettings scrollbarSettings) {
-         Objects.requireNonNull(ScrollableLayout.this);
          super(0, 0, width, height, CommonComponents.EMPTY, scrollbarSettings);
          this.children = new ArrayList<>();
          this.minecraft = minecraft;

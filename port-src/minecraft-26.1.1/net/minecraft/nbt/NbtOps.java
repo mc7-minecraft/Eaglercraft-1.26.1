@@ -509,7 +509,6 @@ public class NbtOps implements DynamicOps<Tag> {
 
    private class NbtRecordBuilder extends AbstractStringBuilder<Tag, CompoundTag> {
       protected NbtRecordBuilder() {
-         Objects.requireNonNull(NbtOps.this);
          super(NbtOps.this);
       }
 

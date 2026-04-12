@@ -81,7 +81,6 @@ public class PlaceholderLookupProvider implements HolderGetter.Provider {
 
    private class UniversalLookup implements HolderGetter<Object>, HolderOwner<Object> {
       private UniversalLookup() {
-         Objects.requireNonNull(PlaceholderLookupProvider.this);
          super();
       }
 

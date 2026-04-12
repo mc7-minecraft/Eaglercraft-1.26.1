@@ -171,13 +171,13 @@ public class Villager extends AbstractVillager implements VillagerDataHolder, Re
    );
    public static final Map<MemoryModuleType<GlobalPos>, BiPredicate<Villager, Holder<PoiType>>> POI_MEMORIES = ImmutableMap.of(
       MemoryModuleType.HOME,
-      (BiPredicate<Villager, Holder>)(villager, poiType) -> poiType.is(PoiTypes.HOME),
+      (villager, poiType) -> poiType.is(PoiTypes.HOME),
       MemoryModuleType.JOB_SITE,
-      (BiPredicate<Villager, Holder>)(villager, poiType) -> villager.getVillagerData().profession().value().heldJobSite().test(poiType),
+      (villager, poiType) -> villager.getVillagerData().profession().value().heldJobSite().test(poiType),
       MemoryModuleType.POTENTIAL_JOB_SITE,
-      (BiPredicate<Villager, Holder>)(villager, poiType) -> VillagerProfession.ALL_ACQUIRABLE_JOBS.test(poiType),
+      (villager, poiType) -> VillagerProfession.ALL_ACQUIRABLE_JOBS.test(poiType),
       MemoryModuleType.MEETING_POINT,
-      (BiPredicate<Villager, Holder>)(villager, poiType) -> poiType.is(PoiTypes.MEETING)
+      (villager, poiType) -> poiType.is(PoiTypes.MEETING)
    );
 
    public Villager(final EntityType<? extends Villager> type, final Level level) {
@@ -199,7 +199,7 @@ public class Villager extends AbstractVillager implements VillagerDataHolder, Re
 
    @Override
    public Brain<Villager> getBrain() {
-      return super.getBrain();
+      return (Brain<Villager>)super.getBrain();
    }
 
    @Override

@@ -33,7 +33,7 @@ public class BreezeAi {
    public static final float JUMP_CIRCLE_OUTER_RADIUS = 24.0F;
    private static final int TICKS_TO_REMEMBER_SEEN_TARGET = 100;
 
-   protected static List<ActivityData<Breeze>> getActivities(final Breeze breeze) {
+   public static List<ActivityData<Breeze>> getActivities(final Breeze breeze) {
       return List.of(initCoreActivity(), initIdleActivity(), initFightActivity(breeze));
    }
 

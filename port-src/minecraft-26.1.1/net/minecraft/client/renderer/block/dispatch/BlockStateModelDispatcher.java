@@ -27,7 +27,7 @@ public record BlockStateModelDispatcher(
    Optional<BlockStateModelDispatcher.SimpleModelSelectors> simpleModels, Optional<BlockStateModelDispatcher.MultiPartDefinition> multiPart
 ) {
    private static final Logger LOGGER = LogUtils.getLogger();
-   public static final Codec<BlockStateModelDispatcher> CODEC = RecordCodecBuilder.create(
+      public static final Codec<BlockStateModelDispatcher> CODEC = RecordCodecBuilder.<BlockStateModelDispatcher>create(
          i -> i.group(
                   BlockStateModelDispatcher.SimpleModelSelectors.CODEC.optionalFieldOf("variants").forGetter(BlockStateModelDispatcher::simpleModels),
                   BlockStateModelDispatcher.MultiPartDefinition.CODEC.optionalFieldOf("multipart").forGetter(BlockStateModelDispatcher::multiPart)
@@ -35,7 +35,7 @@ public record BlockStateModelDispatcher(
                .apply(i, BlockStateModelDispatcher::new)
       )
       .validate(
-         o -> o.simpleModels().isEmpty() && o.multiPart().isEmpty()
+         (BlockStateModelDispatcher o) -> o.simpleModels().isEmpty() && o.multiPart().isEmpty()
                ? DataResult.error(() -> "Neither 'variants' nor 'multipart' found")
                : DataResult.success(o)
       );

@@ -112,7 +112,6 @@ public class ResourceSelectorArgument<T> implements ArgumentType<Collection<Hold
          private final ResourceKey<? extends Registry<T>> registryKey;
 
          private Template(final ResourceKey<? extends Registry<T>> registryKey) {
-            Objects.requireNonNull(Info.this);
             super();
             this.registryKey = registryKey;
          }

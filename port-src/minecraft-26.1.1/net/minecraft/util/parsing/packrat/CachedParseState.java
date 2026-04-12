@@ -163,7 +163,6 @@ public abstract class CachedParseState<S> implements ParseState<S> {
       private final ErrorCollector<S> silentCollector;
 
       private Silent() {
-         Objects.requireNonNull(CachedParseState.this);
          super();
          this.silentCollector = new ErrorCollector.Nop<>();
       }

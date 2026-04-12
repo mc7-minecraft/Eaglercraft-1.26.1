@@ -188,7 +188,6 @@ public abstract class AbstractReportScreen<B extends Report.Builder<?>> extends 
       private static final Component DISCARD = Component.translatable("gui.abuseReport.discard.discard");
 
       protected DiscardReportWarningScreen() {
-         Objects.requireNonNull(AbstractReportScreen.this);
          super(TITLE, MESSAGE, MESSAGE);
       }
 

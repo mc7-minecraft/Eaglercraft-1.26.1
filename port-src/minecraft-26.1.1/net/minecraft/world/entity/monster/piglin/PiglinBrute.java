@@ -76,7 +76,7 @@ public class PiglinBrute extends AbstractPiglin {
 
    @Override
    public Brain<PiglinBrute> getBrain() {
-      return super.getBrain();
+      return (Brain<PiglinBrute>)super.getBrain();
    }
 
    @Override
@@ -144,3 +144,4 @@ public class PiglinBrute extends AbstractPiglin {
       this.makeSound(SoundEvents.PIGLIN_BRUTE_CONVERTED_TO_ZOMBIFIED);
    }
 }
+

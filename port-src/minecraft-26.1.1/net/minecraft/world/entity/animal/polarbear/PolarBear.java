@@ -250,7 +250,6 @@ public class PolarBear extends Animal implements NeutralMob {
 
    private class PolarBearAttackPlayersGoal extends NearestAttackableTargetGoal<Player> {
       public PolarBearAttackPlayersGoal() {
-         Objects.requireNonNull(PolarBear.this);
          super(PolarBear.this, Player.class, 20, true, true, null);
       }
 
@@ -279,7 +278,6 @@ public class PolarBear extends Animal implements NeutralMob {
 
    private class PolarBearHurtByTargetGoal extends HurtByTargetGoal {
       public PolarBearHurtByTargetGoal() {
-         Objects.requireNonNull(PolarBear.this);
          super(PolarBear.this);
       }
 
@@ -302,7 +300,6 @@ public class PolarBear extends Animal implements NeutralMob {
 
    private class PolarBearMeleeAttackGoal extends MeleeAttackGoal {
       public PolarBearMeleeAttackGoal() {
-         Objects.requireNonNull(PolarBear.this);
          super(PolarBear.this, 1.25, true);
       }
 

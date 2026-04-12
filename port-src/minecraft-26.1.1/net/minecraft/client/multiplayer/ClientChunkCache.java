@@ -196,7 +196,6 @@ public class ClientChunkCache extends ChunkSource {
       private int chunkCount;
 
       private Storage(final int chunkRadius) {
-         Objects.requireNonNull(ClientChunkCache.this);
          super();
          this.loadedEmptySections = new LongOpenHashSet();
          this.chunkRadius = chunkRadius;

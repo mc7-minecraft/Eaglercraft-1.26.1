@@ -28,7 +28,7 @@ public class AdventureModePredicate {
       )
       .xmap(AdventureModePredicate::new, p -> p.predicates);
    public static final StreamCodec<RegistryFriendlyByteBuf, AdventureModePredicate> STREAM_CODEC = StreamCodec.composite(
-      BlockPredicate.STREAM_CODEC.apply(ByteBufCodecs.list()), predicate -> predicate.predicates, AdventureModePredicate::new
+      BlockPredicate.STREAM_CODEC.apply(ByteBufCodecs.<RegistryFriendlyByteBuf, BlockPredicate>list()), predicate -> predicate.predicates, AdventureModePredicate::new
    );
    public static final Component CAN_BREAK_HEADER = Component.translatable("item.canBreak").withStyle(ChatFormatting.GRAY);
    public static final Component CAN_PLACE_HEADER = Component.translatable("item.canPlace").withStyle(ChatFormatting.GRAY);
@@ -115,7 +115,7 @@ public class AdventureModePredicate {
       return predicates.stream()
          .flatMap(predicatex -> predicatex.blocks().orElseThrow().stream())
          .distinct()
-         .map(block -> block.value().getName().withStyle(ChatFormatting.DARK_GRAY))
+         .map(block -> (Component)block.value().getName().withStyle(ChatFormatting.DARK_GRAY))
          .toList();
    }
 

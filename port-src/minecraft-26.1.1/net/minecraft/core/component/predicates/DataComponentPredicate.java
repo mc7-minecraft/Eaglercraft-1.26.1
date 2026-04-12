@@ -4,9 +4,10 @@ import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.stream.Collectors;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -19,15 +20,82 @@ public interface DataComponentPredicate {
    Codec<Map<DataComponentPredicate.Type<?>, DataComponentPredicate>> CODEC = Codec.dispatchedMap(
       DataComponentPredicate.Type.CODEC, DataComponentPredicate.Type::codec
    );
-   StreamCodec<RegistryFriendlyByteBuf, DataComponentPredicate.Single<?>> SINGLE_STREAM_CODEC = DataComponentPredicate.Type.STREAM_CODEC
-      .dispatch(DataComponentPredicate.Single::type, DataComponentPredicate.Type::singleStreamCodec);
-   StreamCodec<RegistryFriendlyByteBuf, Map<DataComponentPredicate.Type<?>, DataComponentPredicate>> STREAM_CODEC = SINGLE_STREAM_CODEC.apply(
-         ByteBufCodecs.list(64)
-      )
-      .map(
-         singles -> singles.stream().collect(Collectors.toMap(DataComponentPredicate.Single::type, DataComponentPredicate.Single::predicate)),
-         map -> map.entrySet().stream().map(DataComponentPredicate.Single::fromEntry).toList()
-      );
+   StreamCodec<RegistryFriendlyByteBuf, DataComponentPredicate.Single<?>> SINGLE_STREAM_CODEC = new StreamCodec<RegistryFriendlyByteBuf, DataComponentPredicate.Single<?>>() {
+      @Override
+      public DataComponentPredicate.Single<?> decode(final RegistryFriendlyByteBuf input) {
+         DataComponentPredicate.Type<?> type = DataComponentPredicate.Type.STREAM_CODEC.decode(input);
+         return (DataComponentPredicate.Single<?>)((StreamCodec)type.singleStreamCodec()).decode(input);
+      }
+
+      @Override
+      public void encode(final RegistryFriendlyByteBuf output, final DataComponentPredicate.Single<?> value) {
+         DataComponentPredicate.Type<?> type = value.type();
+         DataComponentPredicate.Type.STREAM_CODEC.encode(output, type);
+         ((StreamCodec)type.singleStreamCodec()).encode(output, value);
+      }
+   };
+   StreamCodec<RegistryFriendlyByteBuf, List<DataComponentPredicate.Single<?>>> SINGLE_LIST_STREAM_CODEC = new StreamCodec<RegistryFriendlyByteBuf, List<DataComponentPredicate.Single<?>>>() {
+      @Override
+      public List<DataComponentPredicate.Single<?>> decode(final RegistryFriendlyByteBuf input) {
+         int size = ByteBufCodecs.VAR_INT.decode(input);
+         List<DataComponentPredicate.Single<?>> singles = new java.util.ArrayList<>(size);
+
+         for (int i = 0; i < size; i++) {
+            singles.add(SINGLE_STREAM_CODEC.decode(input));
+         }
+
+         return singles;
+      }
+
+      @Override
+      public void encode(final RegistryFriendlyByteBuf output, final List<DataComponentPredicate.Single<?>> value) {
+         ByteBufCodecs.VAR_INT.encode(output, value.size());
+
+         for (DataComponentPredicate.Single<?> single : value) {
+            SINGLE_STREAM_CODEC.encode(output, single);
+         }
+      }
+   };
+   StreamCodec<RegistryFriendlyByteBuf, Map<DataComponentPredicate.Type<?>, DataComponentPredicate>> STREAM_CODEC = new StreamCodec<RegistryFriendlyByteBuf, Map<DataComponentPredicate.Type<?>, DataComponentPredicate>>() {
+      @Override
+      public Map<DataComponentPredicate.Type<?>, DataComponentPredicate> decode(final RegistryFriendlyByteBuf input) {
+         return DataComponentPredicate.toMap(SINGLE_LIST_STREAM_CODEC.decode(input));
+      }
+
+      @Override
+      public void encode(final RegistryFriendlyByteBuf output, final Map<DataComponentPredicate.Type<?>, DataComponentPredicate> value) {
+         SINGLE_LIST_STREAM_CODEC.encode(output, DataComponentPredicate.toSingles(value));
+      }
+   };
+
+   private static Map<DataComponentPredicate.Type<?>, DataComponentPredicate> toMap(
+      final List<DataComponentPredicate.Single<?>> singles
+   ) {
+      Map<DataComponentPredicate.Type<?>, DataComponentPredicate> result = new java.util.HashMap<>();
+
+      for (DataComponentPredicate.Single<?> single : singles) {
+         result.put(single.type(), single.predicate());
+      }
+
+      return result;
+   }
+
+   private static List<DataComponentPredicate.Single<?>> toSingles(
+      final Map<DataComponentPredicate.Type<?>, DataComponentPredicate> map
+   ) {
+      List<DataComponentPredicate.Single<?>> result = new ArrayList<>(map.size());
+
+      for (Entry<DataComponentPredicate.Type<?>, DataComponentPredicate> entry : map.entrySet()) {
+         result.add(DataComponentPredicate.toSingle(entry));
+      }
+
+      return result;
+   }
+
+   @SuppressWarnings("unchecked")
+   private static DataComponentPredicate.Single<?> toSingle(final Entry<DataComponentPredicate.Type<?>, DataComponentPredicate> e) {
+      return new DataComponentPredicate.Single<>((DataComponentPredicate.Type<DataComponentPredicate>)e.getKey(), e.getValue());
+   }
 
    static MapCodec<DataComponentPredicate.Single<?>> singleCodec(final String name) {
       return DataComponentPredicate.Type.CODEC.dispatchMap(name, DataComponentPredicate.Single::type, DataComponentPredicate.Type::wrappedCodec);
@@ -63,17 +131,13 @@ public interface DataComponentPredicate {
    }
 
    public static record Single<T extends DataComponentPredicate>(DataComponentPredicate.Type<T> type, T predicate) {
+      @SuppressWarnings("unchecked")
       private static <T extends DataComponentPredicate> MapCodec<DataComponentPredicate.Single<T>> wrapCodec(
          final DataComponentPredicate.Type<T> type, final Codec<T> codec
       ) {
          return RecordCodecBuilder.mapCodec(
-            i -> i.group(codec.fieldOf("value").forGetter(DataComponentPredicate.Single::predicate))
-                  .apply(i, predicate -> new DataComponentPredicate.Single<>(type, (T)predicate))
+            instance -> instance.group(codec.fieldOf("value").forGetter(DataComponentPredicate.Single::predicate)).apply(instance, predicate -> new DataComponentPredicate.Single<>(type, predicate))
          );
-      }
-
-      private static <T extends DataComponentPredicate> DataComponentPredicate.Single<T> fromEntry(final Entry<DataComponentPredicate.Type<?>, T> e) {
-         return new DataComponentPredicate.Single<>((DataComponentPredicate.Type<T>)e.getKey(), e.getValue());
       }
    }
 
@@ -102,6 +166,7 @@ public interface DataComponentPredicate {
       StreamCodec<RegistryFriendlyByteBuf, DataComponentPredicate.Single<T>> singleStreamCodec();
    }
 
+   @SuppressWarnings("unchecked")
    public abstract static class TypeBase<T extends DataComponentPredicate> implements DataComponentPredicate.Type<T> {
       private final Codec<T> codec;
       private final MapCodec<DataComponentPredicate.Single<T>> wrappedCodec;
@@ -110,7 +175,7 @@ public interface DataComponentPredicate {
       public TypeBase(final Codec<T> codec) {
          this.codec = codec;
          this.wrappedCodec = DataComponentPredicate.Single.wrapCodec(this, codec);
-         this.singleStreamCodec = ByteBufCodecs.<DataComponentPredicate>fromCodecWithRegistries(codec)
+         this.singleStreamCodec = ByteBufCodecs.<T>fromCodecWithRegistries(codec)
             .map(v -> new DataComponentPredicate.Single<>(this, (T)v), DataComponentPredicate.Single::predicate);
       }
 

@@ -55,7 +55,7 @@ public class ArmadilloAi {
             })
    );
 
-   protected static List<ActivityData<Armadillo>> getActivities() {
+   public static List<ActivityData<Armadillo>> getActivities() {
       return List.of(initCoreActivity(), initIdleActivity(), initScaredActivity());
    }
 

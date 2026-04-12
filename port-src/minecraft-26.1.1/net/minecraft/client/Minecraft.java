@@ -770,7 +770,7 @@ implements WindowEventHandler {
             GameProfile profile = profileResult.profile();
             Set actions = profileResult.actions();
             if (actions.contains(ProfileActionType.FORCED_NAME_CHANGE)) {
-                screens.add(onClose -> BanNoticeScreens.createNameBan(profile.getName(), onClose));
+                  screens.add(onClose -> BanNoticeScreens.createNameBan(profile.name(), onClose));
             }
             if (actions.contains(ProfileActionType.USING_BANNED_SKIN)) {
                 screens.add(BanNoticeScreens::createSkinBan);

@@ -449,7 +449,7 @@ public abstract class AbstractContainerMenu {
                      Optional<ItemStack> newCarried = slotx.tryRemove(amount, Integer.MAX_VALUE, player);
                      newCarried.ifPresent(itemsTaken -> {
                         this.setCarried(itemsTaken);
-                        slot.onTake(player, itemsTaken);
+                        slotx.onTake(player, itemsTaken);
                      });
                   } else if (slotx.mayPlace(carried)) {
                      if (ItemStack.isSameItemSameComponents(clicked, carried)) {
@@ -463,7 +463,7 @@ public abstract class AbstractContainerMenu {
                      Optional<ItemStack> newCarried = slotx.tryRemove(clicked.getCount(), carried.getMaxStackSize() - carried.getCount(), player);
                      newCarried.ifPresent(itemsTaken -> {
                         carried.grow(itemsTaken.getCount());
-                        slot.onTake(player, itemsTaken);
+                        slotx.onTake(player, itemsTaken);
                      });
                   }
                }

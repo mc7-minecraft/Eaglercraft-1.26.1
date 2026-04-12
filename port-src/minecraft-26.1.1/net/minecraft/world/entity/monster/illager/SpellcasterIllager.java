@@ -144,7 +144,6 @@ public abstract class SpellcasterIllager extends AbstractIllager {
 
    protected class SpellcasterCastingSpellGoal extends Goal {
       public SpellcasterCastingSpellGoal() {
-         Objects.requireNonNull(SpellcasterIllager.this);
          super();
          this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
       }
@@ -180,7 +179,6 @@ public abstract class SpellcasterIllager extends AbstractIllager {
       protected int nextAttackTickCount;
 
       protected SpellcasterUseSpellGoal() {
-         Objects.requireNonNull(SpellcasterIllager.this);
          super();
       }
 

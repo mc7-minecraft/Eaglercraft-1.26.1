@@ -287,7 +287,7 @@ public class PoiManager extends SectionStorage<PoiSection, PoiSection.Packed> {
             ChunkPos.containing(center), Math.floorDiv(radius, 16), this.levelHeightAccessor.getMinSectionY(), this.levelHeightAccessor.getMaxSectionY()
          )
          .map(pos -> Pair.of(pos, this.getOrLoad(pos.asLong())))
-         .filter(poiSection -> !((Optional)poiSection.getSecond()).map(PoiSection::isValid).orElse(false))
+         .filter(poiSection -> !((Optional<PoiSection>)poiSection.getSecond()).map(section -> section.isValid()).orElse(false))
          .map(p -> ((SectionPos)p.getFirst()).chunk())
          .filter(pos -> this.loadedChunks.add(pos.pack()))
          .forEach(pos -> reader.getChunk(pos.x(), pos.z(), ChunkStatus.EMPTY));
@@ -297,7 +297,6 @@ public class PoiManager extends SectionStorage<PoiSection, PoiSection.Packed> {
       private final Long2ByteMap levels;
 
       protected DistanceTracker() {
-         Objects.requireNonNull(PoiManager.this);
          super(7, 16, 256);
          this.levels = new Long2ByteOpenHashMap();
          this.levels.defaultReturnValue((byte)7);

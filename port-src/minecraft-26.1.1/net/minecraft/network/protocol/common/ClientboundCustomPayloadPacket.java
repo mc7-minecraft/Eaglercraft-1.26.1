@@ -16,17 +16,14 @@ public record ClientboundCustomPayloadPacket(CustomPacketPayload payload) implem
    private static final int MAX_PAYLOAD_SIZE = 1048576;
    public static final StreamCodec<RegistryFriendlyByteBuf, ClientboundCustomPayloadPacket> GAMEPLAY_STREAM_CODEC = CustomPacketPayload.<RegistryFriendlyByteBuf>codec(
          id -> DiscardedPayload.codec(id, 1048576),
-         Util.make(
-            Lists.newArrayList(new CustomPacketPayload.TypeAndCodec[]{new CustomPacketPayload.TypeAndCodec<>(BrandPayload.TYPE, BrandPayload.STREAM_CODEC)}),
-            types -> {
-            }
-         )
+         Util.make(Lists.newArrayList(new CustomPacketPayload.TypeAndCodec<FriendlyByteBuf, BrandPayload>(BrandPayload.TYPE, BrandPayload.STREAM_CODEC)), types -> {
+         })
       )
-      .map(ClientboundCustomPayloadPacket::new, ClientboundCustomPayloadPacket::payload);
+      .map(payload -> new ClientboundCustomPayloadPacket(payload), packet -> packet.payload());
    public static final StreamCodec<FriendlyByteBuf, ClientboundCustomPayloadPacket> CONFIG_STREAM_CODEC = CustomPacketPayload.<FriendlyByteBuf>codec(
-         id -> DiscardedPayload.codec(id, 1048576), List.of(new CustomPacketPayload.TypeAndCodec<>(BrandPayload.TYPE, BrandPayload.STREAM_CODEC))
+         id -> DiscardedPayload.codec(id, 1048576), List.of(new CustomPacketPayload.TypeAndCodec<FriendlyByteBuf, BrandPayload>(BrandPayload.TYPE, BrandPayload.STREAM_CODEC))
       )
-      .map(ClientboundCustomPayloadPacket::new, ClientboundCustomPayloadPacket::payload);
+      .map(payload -> new ClientboundCustomPayloadPacket(payload), packet -> packet.payload());
 
    @Override
    public PacketType<ClientboundCustomPayloadPacket> type() {

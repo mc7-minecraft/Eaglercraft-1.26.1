@@ -103,7 +103,6 @@ public class PlayerSkinRenderCache {
       private GlyphRenderTypes glyphRenderTypes;
 
       public RenderInfo(final GameProfile gameProfile, final PlayerSkin playerSkin, final PlayerSkin.Patch patch) {
-         Objects.requireNonNull(PlayerSkinRenderCache.this);
          super();
          this.gameProfile = gameProfile;
          this.playerSkin = playerSkin.with(patch);

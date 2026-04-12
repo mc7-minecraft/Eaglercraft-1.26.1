@@ -114,7 +114,6 @@ public class PackSelectionModel {
       private final Pack pack;
 
       public EntryBase(final Pack pack) {
-         Objects.requireNonNull(PackSelectionModel.this);
          super();
          this.pack = pack;
       }
@@ -213,7 +212,6 @@ public class PackSelectionModel {
 
    private class SelectedPackEntry extends PackSelectionModel.EntryBase {
       public SelectedPackEntry(final Pack pack) {
-         Objects.requireNonNull(PackSelectionModel.this);
          super(pack);
       }
 
@@ -244,7 +242,6 @@ public class PackSelectionModel {
 
    private class UnselectedPackEntry extends PackSelectionModel.EntryBase {
       public UnselectedPackEntry(final Pack pack) {
-         Objects.requireNonNull(PackSelectionModel.this);
          super(pack);
       }
 

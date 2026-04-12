@@ -103,7 +103,6 @@ public class TimeArgument implements ArgumentType<Integer> {
          private final int min;
 
          private Template(final int min) {
-            Objects.requireNonNull(Info.this);
             super();
             this.min = min;
          }

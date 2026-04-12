@@ -127,7 +127,6 @@ public class ChatSelectionScreen extends Screen {
       private ChatSelectionScreen.ChatSelectionList.Heading previousHeading;
 
       public ChatSelectionList(final Minecraft minecraft, final int upperMargin) {
-         Objects.requireNonNull(ChatSelectionScreen.this);
          super(minecraft, ChatSelectionScreen.this.width, ChatSelectionScreen.this.height - upperMargin - 80, 40, 16);
       }
 
@@ -232,7 +231,6 @@ public class ChatSelectionScreen extends Screen {
          private final Component text;
 
          public DividerEntry(final Component text) {
-            Objects.requireNonNull(ChatSelectionList.this);
             super();
             this.text = text;
          }
@@ -308,7 +306,6 @@ public class ChatSelectionScreen extends Screen {
             final boolean canReport,
             final boolean playerMessage
          ) {
-            Objects.requireNonNull(ChatSelectionList.this);
             super();
             this.chatId = chatId;
             this.tagIcon = Optionull.map(tag, GuiMessageTag::icon);
@@ -427,7 +424,6 @@ public class ChatSelectionScreen extends Screen {
          private final boolean canReport;
 
          public MessageHeadingEntry(final GameProfile profile, final Component heading, final boolean canReport) {
-            Objects.requireNonNull(ChatSelectionList.this);
             super();
             this.heading = heading;
             this.canReport = canReport;

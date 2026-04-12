@@ -87,7 +87,6 @@ public class TransientEntitySectionManager<T extends EntityAccess> {
       private EntitySection<T> currentSection;
 
       private Callback(final T entity, final long currentSectionKey, final EntitySection<T> currentSection) {
-         Objects.requireNonNull(TransientEntitySectionManager.this);
          super();
          this.entity = entity;
          this.currentSectionKey = currentSectionKey;

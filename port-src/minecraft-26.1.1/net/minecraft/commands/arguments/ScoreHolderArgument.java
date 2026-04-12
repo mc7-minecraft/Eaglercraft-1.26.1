@@ -201,7 +201,6 @@ public class ScoreHolderArgument implements ArgumentType<ScoreHolderArgument.Res
          private final boolean multiple;
 
          private Template(final boolean multiple) {
-            Objects.requireNonNull(Info.this);
             super();
             this.multiple = multiple;
          }

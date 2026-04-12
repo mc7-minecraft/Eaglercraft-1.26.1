@@ -14,9 +14,9 @@ public interface AddressCheck {
 
    static AddressCheck createFromService() {
       final ImmutableList<Predicate<String>> blockLists = Streams.stream(ServiceLoader.load(BlockListSupplier.class))
-         .<Predicate>map(BlockListSupplier::createBlockList)
+         .map((BlockListSupplier supplier) -> supplier.createBlockList())
          .filter(Objects::nonNull)
-         .collect(ImmutableList.toImmutableList());
+         .toList();
       return new AddressCheck() {
          @Override
          public boolean isAllowed(final ResolvedServerAddress address) {

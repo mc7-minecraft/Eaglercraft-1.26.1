@@ -125,7 +125,6 @@ public class CreateFlatWorldScreen extends Screen {
       private static final Component HEIGHT_TITLE = Component.translatable("createWorld.customize.flat.height").withStyle(ChatFormatting.UNDERLINE);
 
       public DetailsList() {
-         Objects.requireNonNull(CreateFlatWorldScreen.this);
          super(CreateFlatWorldScreen.this.minecraft, CreateFlatWorldScreen.this.width, CreateFlatWorldScreen.this.height - 103, 43, 24);
          this.populateList();
       }
@@ -198,7 +197,6 @@ public class CreateFlatWorldScreen extends Screen {
          private final int index;
 
          public LayerEntry(final FlatLayerInfo layerInfo, final int index) {
-            Objects.requireNonNull(DetailsList.this);
             super();
             this.layerInfo = layerInfo;
             this.index = index;

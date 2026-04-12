@@ -79,7 +79,9 @@ import org.slf4j.Logger;
 
 public class RegistryDataLoader {
    private static final Logger LOGGER = LogUtils.getLogger();
-   private static final Comparator<ResourceKey<?>> ERROR_KEY_COMPARATOR = Comparator.comparing(ResourceKey::registry).thenComparing(ResourceKey::identifier);
+   private static final Comparator<ResourceKey<?>> ERROR_KEY_COMPARATOR = Comparator
+      .comparing((ResourceKey<?> key) -> key.registry())
+      .thenComparing(key -> key.identifier());
    public static final List<RegistryDataLoader.RegistryData<?>> WORLDGEN_REGISTRIES = List.of(
       new RegistryDataLoader.RegistryData<>(Registries.DIMENSION_TYPE, DimensionType.DIRECT_CODEC),
       new RegistryDataLoader.RegistryData<>(Registries.BIOME, Biome.DIRECT_CODEC),

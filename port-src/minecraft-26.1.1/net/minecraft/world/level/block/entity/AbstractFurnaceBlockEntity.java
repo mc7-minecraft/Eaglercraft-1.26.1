@@ -127,7 +127,7 @@ public abstract class AbstractFurnaceBlockEntity extends BaseContainerBlockEntit
       this.litTimeRemaining = input.getShortOr("lit_time_remaining", (short)0);
       this.litTotalTime = input.getShortOr("lit_total_time", (short)0);
       this.recipesUsed.clear();
-      this.recipesUsed.putAll(input.<Map>read("RecipesUsed", RECIPES_USED_CODEC).orElse(Map.of()));
+      this.recipesUsed.putAll(input.read("RecipesUsed", RECIPES_USED_CODEC).orElse(Map.of()));
    }
 
    @Override

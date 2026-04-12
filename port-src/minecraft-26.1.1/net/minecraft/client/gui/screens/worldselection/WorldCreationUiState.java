@@ -308,7 +308,7 @@ public class WorldCreationUiState {
          return Optional.ofNullable(this.preset)
             .flatMap(Holder::unwrapKey)
             .map(key -> Component.translatable(key.identifier().toLanguageKey("generator")))
-            .orElse(CUSTOM_WORLD_DESCRIPTION);
+         .orElse(CUSTOM_WORLD_DESCRIPTION.copy());
       }
 
       public boolean isAmplified() {

@@ -17,17 +17,18 @@ public class ModifyContent implements FileFixOperation {
 
    @Override
    public void fix(final Path baseDirectory, final UpgradeProgress upgradeProgress) throws IOException {
+      this.fileAccessProvider.baseDirectory().set(baseDirectory);
+
       try {
-         ScopedValue.where(this.fileAccessProvider.baseDirectory(), baseDirectory).run(() -> {
-            try {
-               this.fixFunction.run(upgradeProgress);
-            } catch (IOException var3) {
-               throw new UncheckedIOException(var3);
-            }
-         });
+         try {
+            this.fixFunction.run(upgradeProgress);
+         } catch (IOException var3) {
+            throw new UncheckedIOException(var3);
+         }
       } catch (UncheckedIOException var7) {
          throw var7.getCause();
       } finally {
+         this.fileAccessProvider.baseDirectory().remove();
          this.fileAccessProvider.close();
       }
    }

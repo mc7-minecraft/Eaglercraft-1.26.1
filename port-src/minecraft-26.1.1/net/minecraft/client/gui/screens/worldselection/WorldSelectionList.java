@@ -419,7 +419,6 @@ public class WorldSelectionList extends ObjectSelectionList<WorldSelectionList.E
       private Path iconFile;
 
       public WorldListEntry(final WorldSelectionList list, final LevelSummary summary) {
-         Objects.requireNonNull(WorldSelectionList.this);
          super();
          this.list = list;
          this.minecraft = list.minecraft;

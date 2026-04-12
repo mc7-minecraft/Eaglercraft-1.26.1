@@ -185,7 +185,6 @@ public class GridLayout extends AbstractLayout {
       private int index;
 
       private RowHelper(final int columns) {
-         Objects.requireNonNull(GridLayout.this);
          super();
          this.columns = columns;
       }

@@ -221,7 +221,7 @@ public class Cat extends TamableAnimal {
    protected void readAdditionalSaveData(final ValueInput input) {
       super.readAdditionalSaveData(input);
       VariantUtils.readVariant(input, Registries.CAT_VARIANT).ifPresent(this::setVariant);
-      input.<ResourceKey>read("sound_variant", ResourceKey.codec(Registries.CAT_SOUND_VARIANT))
+      input.<ResourceKey<CatSoundVariant>>read("sound_variant", ResourceKey.codec(Registries.CAT_SOUND_VARIANT))
          .flatMap(soundVariant -> this.registryAccess().lookupOrThrow(Registries.CAT_SOUND_VARIANT).get((ResourceKey<CatSoundVariant>)soundVariant))
          .ifPresent(this::setSoundVariant);
       this.setCollarColor(input.<DyeColor>read("CollarColor", DyeColor.LEGACY_ID_CODEC).orElse(DEFAULT_COLLAR_COLOR));

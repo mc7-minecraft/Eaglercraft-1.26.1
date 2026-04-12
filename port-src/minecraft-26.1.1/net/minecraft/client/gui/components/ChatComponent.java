@@ -460,7 +460,7 @@ public class ChatComponent {
    }
 
    public void openScreen(final ChatComponent.ChatMethod chatMethod, final ChatScreen.ChatConstructor<?> chat) {
-      this.minecraft.setScreen(this.createScreen(chatMethod, (ChatScreen.ChatConstructor<Screen>)chat));
+      this.minecraft.setScreen(this.createScreen(chatMethod, (ChatScreen.ChatConstructor<ChatScreen>)chat));
    }
 
    public void preserveCurrentChatScreen() {

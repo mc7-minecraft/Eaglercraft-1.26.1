@@ -114,7 +114,6 @@ public class MinecartCommandBlock extends AbstractMinecart {
 
    private class MinecartCommandBase extends BaseCommandBlock {
       private MinecartCommandBase() {
-         Objects.requireNonNull(MinecartCommandBlock.this);
          super();
       }
 

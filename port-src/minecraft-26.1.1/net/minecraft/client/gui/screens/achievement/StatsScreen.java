@@ -186,7 +186,6 @@ public class StatsScreen extends Screen {
 
    private class GeneralStatisticsList extends ObjectSelectionList<StatsScreen.GeneralStatisticsList.Entry> {
       public GeneralStatisticsList(final Minecraft minecraft) {
-         Objects.requireNonNull(StatsScreen.this);
          super(minecraft, StatsScreen.this.width, StatsScreen.this.layout.getContentHeight(), 33, 14);
          ObjectArrayList<Stat<Identifier>> stats = new ObjectArrayList(Stats.CUSTOM.iterator());
          stats.sort(Comparator.comparing(k -> I18n.get(StatsScreen.getTranslationKey((Stat<Identifier>)k))));
@@ -216,7 +215,6 @@ public class StatsScreen extends Screen {
          private final Component statDisplay;
 
          private Entry(final Stat<Identifier> stat) {
-            Objects.requireNonNull(GeneralStatisticsList.this);
             super();
             this.stat = stat;
             this.statDisplay = Component.translatable(StatsScreen.getTranslationKey(stat));
@@ -260,7 +258,6 @@ public class StatsScreen extends Screen {
       protected int sortOrder;
 
       public ItemStatisticsList(final Minecraft minecraft) {
-         Objects.requireNonNull(StatsScreen.this);
          super(minecraft, StatsScreen.this.width, StatsScreen.this.layout.getContentHeight(), 33, 22);
          this.itemStatSorter = new StatsScreen.ItemStatisticsList.ItemRowComparator();
          this.blockColumns = Lists.newArrayList();
@@ -390,7 +387,6 @@ public class StatsScreen extends Screen {
          private final List<AbstractWidget> children;
 
          private HeaderEntry() {
-            Objects.requireNonNull(ItemStatisticsList.this);
             super();
             this.children = new ArrayList<>();
             this.blockMined = new StatsScreen.ItemStatisticsList.HeaderEntry.StatSortButton(0, BLOCK_MINED_SPRITE);
@@ -462,7 +458,6 @@ public class StatsScreen extends Screen {
          private final StatsScreen.ItemStatisticsList.ItemRow.ItemRowWidget itemRowWidget;
 
          private ItemRow(final Item item) {
-            Objects.requireNonNull(ItemStatisticsList.this);
             super();
             this.item = item;
             this.itemRowWidget = new StatsScreen.ItemStatisticsList.ItemRow.ItemRowWidget(item.getDefaultInstance());
@@ -518,7 +513,6 @@ public class StatsScreen extends Screen {
 
          private class ItemRowWidget extends ItemDisplayWidget {
             private ItemRowWidget(final ItemStack itemStack) {
-               Objects.requireNonNull(ItemRow.this);
                super(ItemStatisticsList.this.minecraft, 1, 1, 18, 18, itemStack.getHoverName(), itemStack, false, true);
             }
 
@@ -537,7 +531,6 @@ public class StatsScreen extends Screen {
 
       private class ItemRowComparator implements Comparator<StatsScreen.ItemStatisticsList.ItemRow> {
          private ItemRowComparator() {
-            Objects.requireNonNull(ItemStatisticsList.this);
             super();
          }
 
@@ -568,7 +561,6 @@ public class StatsScreen extends Screen {
 
    private class MobsStatisticsList extends ObjectSelectionList<StatsScreen.MobsStatisticsList.MobRow> {
       public MobsStatisticsList(final Minecraft minecraft) {
-         Objects.requireNonNull(StatsScreen.this);
          super(minecraft, StatsScreen.this.width, StatsScreen.this.layout.getContentHeight(), 33, 9 * 4);
 
          for (EntityType<?> type : BuiltInRegistries.ENTITY_TYPE) {
@@ -599,7 +591,6 @@ public class StatsScreen extends Screen {
          private final boolean wasKilledBy;
 
          public MobRow(final EntityType<?> type) {
-            Objects.requireNonNull(MobsStatisticsList.this);
             super();
             this.mobName = type.getDescription();
             int kills = StatsScreen.this.stats.getValue(Stats.ENTITY_KILLED.get(type));
@@ -641,7 +632,6 @@ public class StatsScreen extends Screen {
       protected final AbstractSelectionList<?> list;
 
       public StatisticsTab(final Component title, final AbstractSelectionList<?> list) {
-         Objects.requireNonNull(StatsScreen.this);
          super(title);
          this.layout.addChild(list, 1, 1);
          this.list = list;

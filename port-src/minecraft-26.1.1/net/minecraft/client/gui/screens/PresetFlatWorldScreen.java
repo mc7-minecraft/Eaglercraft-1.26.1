@@ -237,7 +237,6 @@ public class PresetFlatWorldScreen extends Screen {
 
    private class PresetsList extends ObjectSelectionList<PresetFlatWorldScreen.PresetsList.Entry> {
       public PresetsList(final RegistryAccess access, final FeatureFlagSet enabledFeatures) {
-         Objects.requireNonNull(PresetFlatWorldScreen.this);
          super(PresetFlatWorldScreen.this.minecraft, PresetFlatWorldScreen.this.width, PresetFlatWorldScreen.this.height - 117, 80, 24);
 
          for (Holder<FlatLevelGeneratorPreset> preset : access.lookupOrThrow(Registries.FLAT_LEVEL_GENERATOR_PRESET)
@@ -285,11 +284,10 @@ public class PresetFlatWorldScreen extends Screen {
          private final Component name;
 
          public Entry(final Holder<FlatLevelGeneratorPreset> preset) {
-            Objects.requireNonNull(PresetsList.this);
             super();
             this.preset = preset.value();
             this.name = preset.unwrapKey()
-               .map(key -> Component.translatable(key.identifier().toLanguageKey("flat_world_preset")))
+               .map(key -> (Component)Component.translatable(key.identifier().toLanguageKey("flat_world_preset")))
                .orElse(PresetFlatWorldScreen.UNKNOWN_PRESET);
          }
 

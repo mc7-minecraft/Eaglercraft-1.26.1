@@ -227,7 +227,9 @@ public final class OptionInstance<T> {
       default Function<OptionInstance<T>, AbstractWidget> createButton(
          final OptionInstance.TooltipSupplier<T> tooltip, final Options options, final int x, final int y, final int width, final Consumer<T> onValueChanged
       ) {
-         return instance -> CycleButton.builder(instance.toString, instance::get)
+         return instance -> {
+            java.util.function.Supplier<T> defaultValueSupplier = instance::get;
+            return CycleButton.<T>builder(instance.toString, defaultValueSupplier)
                .withValues(this.valueListSupplier())
                .withTooltip(tooltip)
                .create(x, y, width, 20, instance.caption, (button, value) -> {
@@ -235,6 +237,7 @@ public final class OptionInstance<T> {
                   options.save();
                   onValueChanged.accept(value);
                });
+         };
       }
 
       public interface ValueSetter<T> {

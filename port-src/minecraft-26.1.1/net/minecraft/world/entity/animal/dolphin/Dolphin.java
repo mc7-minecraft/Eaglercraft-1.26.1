@@ -518,7 +518,6 @@ public class Dolphin extends AgeableWaterCreature {
       private int cooldown;
 
       PlayWithItemsGoal() {
-         Objects.requireNonNull(Dolphin.this);
          super();
          this.setFlags(EnumSet.of(Goal.Flag.MOVE));
       }

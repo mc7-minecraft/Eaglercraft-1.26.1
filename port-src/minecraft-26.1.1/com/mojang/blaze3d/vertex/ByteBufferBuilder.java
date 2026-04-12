@@ -150,7 +150,6 @@ public class ByteBufferBuilder implements AutoCloseable {
       private boolean closed;
 
       private Result(final long offset, final int capacity, final int generation) {
-         Objects.requireNonNull(ByteBufferBuilder.this);
          super();
          this.offset = offset;
          this.capacity = capacity;

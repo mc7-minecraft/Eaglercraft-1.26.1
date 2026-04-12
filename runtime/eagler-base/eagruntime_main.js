@@ -275,8 +275,8 @@ async function initializeContext() {
 				mobilePressAnyKeyScreen.classList.add("_eaglercraftX_mobile_press_any_key");
 				mobilePressAnyKeyScreen.setAttribute("style", "position:absolute;background-color:white;font-family:sans-serif;top:10%;left:10%;right:10%;bottom:10%;border:5px double black;padding:calc(5px + 7vh) 15px;text-align:center;font-size:20px;user-select:none;z-index:10;");
 				mobilePressAnyKeyScreen.innerHTML = "<h3 style=\"margin-block-start:0px;margin-block-end:0px;margin:20px 5px;\">Mobile Browser Detected</h3>"
-						+ "<p style=\"margin-block-start:0px;margin-block-end:0px;margin:20px 5px;\">Warning: EaglercraftX WASM-GC requires a lot of memory and may not be stable on most mobile devices!</p>"
-						+ "<p style=\"margin-block-start:0px;margin-block-end:0px;margin:20px 2px;\"><button style=\"font: 24px sans-serif;font-weight:bold;\" class=\"_eaglercraftX_mobile_launch_client\">Launch EaglercraftX</button></p>"
+						+ "<p style=\"margin-block-start:0px;margin-block-end:0px;margin:20px 5px;\">Warning: Eaglercraft 26.1.1 WASM-GC requires a lot of memory and may not be stable on most mobile devices!</p>"
+						+ "<p style=\"margin-block-start:0px;margin-block-end:0px;margin:20px 2px;\"><button style=\"font: 24px sans-serif;font-weight:bold;\" class=\"_eaglercraftX_mobile_launch_client\">Launch Eaglercraft 26.1.1</button></p>"
 						/*+ (allowBootMenu ? "<p style=\"margin-block-start:0px;margin-block-end:0px;margin:20px 2px;\"><button style=\"font: 24px sans-serif;\" class=\"_eaglercraftX_mobile_enter_boot_menu\">Enter Boot Menu</button></p>" : "")*/
 						+ "<p style=\"margin-block-start:0px;margin-block-end:0px;margin:25px 5px;\">(Tablets and phones with large screens work best)</p>";
 				mobilePressAnyKeyScreen.querySelector("._eaglercraftX_mobile_launch_client").addEventListener("click", /** @type {function(Event)} */ (createAudioContextHandler));
@@ -391,7 +391,7 @@ async function initializeContext() {
 	}
 	
 	if(experimental) {
-		alert("WARNING: Detected \"experimental\" WebGL 1.0 support, certain graphics API features may be missing, and therefore EaglercraftX may malfunction and crash!");
+		alert("WARNING: Detected \"experimental\" WebGL 1.0 support, certain graphics API features may be missing, and therefore Eaglercraft 26.1.1 may malfunction and crash!");
 	}
 	
 	webglGLESVer = glesVer;

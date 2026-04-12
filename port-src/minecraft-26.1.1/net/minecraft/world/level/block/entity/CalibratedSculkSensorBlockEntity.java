@@ -24,7 +24,6 @@ public class CalibratedSculkSensorBlockEntity extends SculkSensorBlockEntity {
 
    protected class VibrationUser extends SculkSensorBlockEntity.VibrationUser {
       public VibrationUser(final BlockPos blockPos) {
-         Objects.requireNonNull(CalibratedSculkSensorBlockEntity.this);
          super(blockPos);
       }
 

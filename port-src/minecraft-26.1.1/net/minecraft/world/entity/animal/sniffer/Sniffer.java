@@ -446,7 +446,7 @@ public class Sniffer extends Animal {
 
    @Override
    public Brain<Sniffer> getBrain() {
-      return super.getBrain();
+      return (Brain<Sniffer>)super.getBrain();
    }
 
    @Override
@@ -482,3 +482,4 @@ public class Sniffer extends Animal {
       }
    }
 }
+

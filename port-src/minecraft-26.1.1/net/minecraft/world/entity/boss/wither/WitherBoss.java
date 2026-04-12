@@ -560,7 +560,6 @@ public class WitherBoss extends Monster implements RangedAttackMob {
 
    private class WitherDoNothingGoal extends Goal {
       public WitherDoNothingGoal() {
-         Objects.requireNonNull(WitherBoss.this);
          super();
          this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
       }

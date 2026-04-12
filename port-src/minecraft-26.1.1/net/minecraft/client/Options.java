@@ -1634,7 +1634,7 @@ public class Options {
                      StringTag var10000 = var3;
 
                      try {
-                        var7 = var10000.value();
+                        String var7 = var10000.value();
                      } catch (Throwable var6) {
                         throw new MatchException(var6.toString(), var6);
                      }

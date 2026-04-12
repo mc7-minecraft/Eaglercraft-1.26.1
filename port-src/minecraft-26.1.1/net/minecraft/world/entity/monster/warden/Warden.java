@@ -377,7 +377,7 @@ public class Warden extends Monster implements VibrationSystem {
 
    @Override
    public Brain<Warden> getBrain() {
-      return super.getBrain();
+      return (Brain<Warden>)super.getBrain();
    }
 
    @Override
@@ -578,7 +578,6 @@ public class Warden extends Monster implements VibrationSystem {
       private final PositionSource positionSource;
 
       private VibrationUser() {
-         Objects.requireNonNull(Warden.this);
          super();
          this.positionSource = new EntityPositionSource(Warden.this, Warden.this.getEyeHeight());
       }

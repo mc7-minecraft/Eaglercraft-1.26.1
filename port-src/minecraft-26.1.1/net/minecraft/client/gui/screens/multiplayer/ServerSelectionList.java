@@ -266,7 +266,6 @@ public class ServerSelectionList extends ObjectSelectionList<ServerSelectionList
       private Component statusIconTooltip;
 
       protected OnlineServerEntry(final JoinMultiplayerScreen screen, final ServerData serverData) {
-         Objects.requireNonNull(ServerSelectionList.this);
          super();
          this.screen = screen;
          this.serverData = serverData;

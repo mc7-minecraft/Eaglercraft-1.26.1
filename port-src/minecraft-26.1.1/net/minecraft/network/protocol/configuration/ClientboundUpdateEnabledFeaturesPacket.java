@@ -14,7 +14,7 @@ public record ClientboundUpdateEnabledFeaturesPacket(Set<Identifier> features) i
    );
 
    private ClientboundUpdateEnabledFeaturesPacket(final FriendlyByteBuf input) {
-      this(input.readCollection(HashSet::new, FriendlyByteBuf::readIdentifier));
+      this(readFeatures(input));
    }
 
    private void write(final FriendlyByteBuf output) {
@@ -28,5 +28,9 @@ public record ClientboundUpdateEnabledFeaturesPacket(Set<Identifier> features) i
 
    public void handle(final ClientConfigurationPacketListener listener) {
       listener.handleEnabledFeatures(this);
+   }
+
+   private static Set<Identifier> readFeatures(final FriendlyByteBuf input) {
+      return input.readCollection(HashSet::new, FriendlyByteBuf::readIdentifier);
    }
 }

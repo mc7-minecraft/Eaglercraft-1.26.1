@@ -85,7 +85,6 @@ public class RealmsBackupInfoScreen extends RealmsScreen {
 
    private class BackupInfoList extends ObjectSelectionList<RealmsBackupInfoScreen.BackupInfoListEntry> {
       public BackupInfoList(final Minecraft minecraft) {
-         Objects.requireNonNull(RealmsBackupInfoScreen.this);
          super(
             minecraft,
             RealmsBackupInfoScreen.this.width,
@@ -119,7 +118,6 @@ public class RealmsBackupInfoScreen extends RealmsScreen {
       private final Component valueComponent;
 
       public BackupInfoListEntry(final String key, final String value) {
-         Objects.requireNonNull(RealmsBackupInfoScreen.this);
          super();
          this.key = key;
          this.value = value;

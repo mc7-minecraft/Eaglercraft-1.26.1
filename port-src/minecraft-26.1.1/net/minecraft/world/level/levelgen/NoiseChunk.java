@@ -59,10 +59,6 @@ public class NoiseChunk implements DensityFunction.FunctionContext, DensityFunct
    private long arrayInterpolationCounter;
    private int arrayIndex;
    private final DensityFunction.ContextProvider sliceFillingContextProvider = new DensityFunction.ContextProvider() {
-      {
-         Objects.requireNonNull(NoiseChunk.this);
-      }
-
       @Override
       public DensityFunction.FunctionContext forIndex(final int cellYIndex) {
          NoiseChunk.this.cellStartBlockY = (cellYIndex + NoiseChunk.this.cellNoiseMinY) * NoiseChunk.this.cellHeight;
@@ -415,7 +411,6 @@ public class NoiseChunk implements DensityFunction.FunctionContext, DensityFunct
 
    private class BlendAlpha implements NoiseChunk.NoiseChunkDensityFunction {
       private BlendAlpha() {
-         Objects.requireNonNull(NoiseChunk.this);
          super();
       }
 
@@ -457,7 +452,6 @@ public class NoiseChunk implements DensityFunction.FunctionContext, DensityFunct
 
    private class BlendOffset implements NoiseChunk.NoiseChunkDensityFunction {
       private BlendOffset() {
-         Objects.requireNonNull(NoiseChunk.this);
          super();
       }
 
@@ -548,7 +542,6 @@ public class NoiseChunk implements DensityFunction.FunctionContext, DensityFunct
       private final double[] values;
 
       private CacheAllInCell(final DensityFunction noiseFiller) {
-         Objects.requireNonNull(NoiseChunk.this);
          super();
          this.noiseFiller = noiseFiller;
          this.values = new double[NoiseChunk.this.cellWidth * NoiseChunk.this.cellWidth * NoiseChunk.this.cellHeight];
@@ -596,7 +589,6 @@ public class NoiseChunk implements DensityFunction.FunctionContext, DensityFunct
       private double[] lastArray;
 
       private CacheOnce(final DensityFunction function) {
-         Objects.requireNonNull(NoiseChunk.this);
          super();
          this.function = function;
       }
@@ -650,7 +642,6 @@ public class NoiseChunk implements DensityFunction.FunctionContext, DensityFunct
       private final int sizeXZ;
 
       private FlatCache(final DensityFunction noiseFiller, final boolean fill) {
-         Objects.requireNonNull(NoiseChunk.this);
          super();
          this.noiseFiller = noiseFiller;
          this.sizeXZ = NoiseChunk.this.noiseSizeXZ + 1;
@@ -729,7 +720,6 @@ public class NoiseChunk implements DensityFunction.FunctionContext, DensityFunct
       private double value;
 
       private NoiseInterpolator(final DensityFunction noiseFiller) {
-         Objects.requireNonNull(NoiseChunk.this);
          super();
          this.noiseFiller = noiseFiller;
          this.slice0 = this.allocateSlice(NoiseChunk.this.cellCountY, NoiseChunk.this.cellCountXZ);

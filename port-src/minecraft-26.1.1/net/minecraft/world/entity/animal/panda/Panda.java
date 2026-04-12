@@ -1053,7 +1053,6 @@ public class Panda extends Animal {
       private int cooldown;
 
       public PandaSitGoal() {
-         Objects.requireNonNull(Panda.this);
          super();
          this.setFlags(EnumSet.of(Goal.Flag.MOVE));
       }

@@ -80,10 +80,9 @@ public record PiercingWeapon(boolean dealsKnockback, boolean dismounts, Optional
       AttackRange attackRange = attacker.getAttackRangeWith(weaponItem);
       boolean hitSomething = false;
 
-      for (EntityHitResult hitResult : (Collection)ProjectileUtil.getHitEntitiesAlong(
-            attacker, attackRange, e1 -> canHitEntity(attacker, e1), ClipContext.Block.COLLIDER
-         )
-         .map(a -> List.of(), e -> e)) {
+      Collection<EntityHitResult> hitResults = ProjectileUtil.getHitEntitiesAlong(attacker, attackRange, entity -> canHitEntity(attacker, entity), ClipContext.Block.COLLIDER)
+         .map(blockHitResult -> List.<EntityHitResult>of(), entityHitResults -> entityHitResults);
+      for (EntityHitResult hitResult : hitResults) {
          hitSomething |= attacker.stabAttack(hand, hitResult.getEntity(), damage, true, this.dealsKnockback, this.dismounts);
       }
 

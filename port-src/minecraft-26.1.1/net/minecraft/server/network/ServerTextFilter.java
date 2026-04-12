@@ -249,7 +249,6 @@ public abstract class ServerTextFilter implements AutoCloseable {
       protected final Executor streamExecutor;
 
       protected PlayerContext(final GameProfile profile) {
-         Objects.requireNonNull(ServerTextFilter.this);
          super();
          this.profile = profile;
          ConsecutiveExecutor streamProcessor = new ConsecutiveExecutor(ServerTextFilter.this.workerPool, "chat stream for " + profile.name());

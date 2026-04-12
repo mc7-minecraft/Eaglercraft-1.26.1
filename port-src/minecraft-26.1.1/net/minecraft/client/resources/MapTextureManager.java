@@ -64,7 +64,6 @@ public class MapTextureManager implements AutoCloseable {
       private final Identifier location;
 
       private MapInstance(final int id, final MapItemSavedData data) {
-         Objects.requireNonNull(MapTextureManager.this);
          super();
          this.requiresUpload = true;
          this.data = data;

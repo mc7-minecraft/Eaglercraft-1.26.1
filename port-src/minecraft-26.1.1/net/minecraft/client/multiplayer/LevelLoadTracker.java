@@ -52,16 +52,8 @@ public class LevelLoadTracker implements LevelLoadListener {
 
    public boolean isLevelReady() {
       if (this.clientState instanceof LevelLoadTracker.ClientLevelReady var3) {
-         LevelLoadTracker.ClientLevelReady var10000 = var3;
-
-         try {
-            var10 = var10000.readyAt();
-         } catch (Throwable var9) {
-            throw new MatchException(var9.toString(), var9);
-         }
-
-         long var5 = var10;
-         if (true && Util.getMillis() >= var5 + this.closeDelayMs) {
+         long readyAt = var3.readyAt();
+         if (Util.getMillis() >= readyAt + this.closeDelayMs) {
             return true;
          }
       }

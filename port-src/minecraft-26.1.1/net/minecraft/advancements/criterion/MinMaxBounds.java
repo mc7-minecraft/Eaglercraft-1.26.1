@@ -76,7 +76,7 @@ public interface MinMaxBounds<T extends Number & Comparable<T>> {
       }
 
       public static <T extends Number & Comparable<T>> MinMaxBounds.Bounds<T> any() {
-         return new MinMaxBounds.Bounds<>(Optional.empty(), Optional.empty());
+         return new MinMaxBounds.Bounds<>(Optional.<T>empty(), Optional.<T>empty());
       }
 
       public static <T extends Number & Comparable<T>> MinMaxBounds.Bounds<T> exactly(final T value) {

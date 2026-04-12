@@ -543,7 +543,6 @@ public abstract class AbstractSelectionList<E extends AbstractSelectionList.Entr
       private final List<E> delegate;
 
       private TrackedList() {
-         Objects.requireNonNull(AbstractSelectionList.this);
          super();
          this.delegate = Lists.newArrayList();
       }

@@ -35,7 +35,7 @@ public class DataComponentInitializers {
       final Map<ResourceKey<? extends Registry<?>>, DataComponentInitializers.PendingComponentBuilders<?>> buildersByRegistry,
       final ResourceKey<? extends Registry<? extends T>> registryKey
    ) {
-      buildersByRegistry.put(registryKey, new DataComponentInitializers.PendingComponentBuilders<>(registryKey, new HashMap<>()));
+      buildersByRegistry.put(registryKey, new DataComponentInitializers.PendingComponentBuilders<T>((ResourceKey<? extends Registry<T>>)registryKey, new HashMap<>()));
    }
 
    private static <T> void addBuilder(

@@ -1137,7 +1137,6 @@ public class GameTestHelper {
       public TestBlockPlaceContext(
          final Level level, final InteractionHand hand, final ItemStack itemStackInHand, final BlockHitResult hitResult, final Direction placeDirection
       ) {
-         Objects.requireNonNull(GameTestHelper.this);
          super(level, null, hand, itemStackInHand, hitResult);
          this.placeDirection = placeDirection;
       }

@@ -73,7 +73,7 @@ public interface AttributeModifier<Subject, Argument> {
    );
 
    static <Value> AttributeModifier<Value, Value> override() {
-      return AttributeModifier.OverrideModifier.INSTANCE;
+      return (AttributeModifier<Value, Value>)AttributeModifier.OverrideModifier.INSTANCE;
    }
 
    Subject apply(Subject subject, Argument argument);

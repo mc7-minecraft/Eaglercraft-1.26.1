@@ -81,7 +81,6 @@ public class ConfirmExperimentalFeaturesScreen extends Screen {
       private ConfirmExperimentalFeaturesScreen.DetailsScreen.PackList list;
 
       private DetailsScreen() {
-         Objects.requireNonNull(ConfirmExperimentalFeaturesScreen.this);
          super(TITLE);
          this.layout = new HeaderAndFooterLayout(this);
       }
@@ -112,7 +111,6 @@ public class ConfirmExperimentalFeaturesScreen extends Screen {
 
       private class PackList extends ObjectSelectionList<ConfirmExperimentalFeaturesScreen.DetailsScreen.PackListEntry> {
          public PackList(final Minecraft minecraft, final Collection<Pack> selectedPacks) {
-            Objects.requireNonNull(DetailsScreen.this);
             super(minecraft, DetailsScreen.this.width, DetailsScreen.this.layout.getContentHeight(), DetailsScreen.this.layout.getHeaderHeight(), (9 + 2) * 3);
 
             for (Pack pack : selectedPacks) {
@@ -139,7 +137,6 @@ public class ConfirmExperimentalFeaturesScreen extends Screen {
          private final MultiLineLabel splitMessage;
 
          private PackListEntry(final Component packId, final Component message, final MultiLineLabel splitMessage) {
-            Objects.requireNonNull(DetailsScreen.this);
             super();
             this.packId = packId;
             this.message = message;

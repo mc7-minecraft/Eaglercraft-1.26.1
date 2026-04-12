@@ -1288,62 +1288,23 @@ public class GuiGraphicsExtractor {
    // $VF: Inserted dummy exception handlers to handle obfuscated exceptions
    private void componentHoverEffect(final Font font, final Style hoveredStyle, final int xMouse, final int yMouse) {
       if (hoveredStyle.getHoverEvent() != null) {
-         HoverEvent var10000 = hoveredStyle.getHoverEvent();
-         Objects.requireNonNull(var10000);
-         Object var5 = var10000;
-         Throwable var21;
-         switch (var5) {
+         switch (hoveredStyle.getHoverEvent()) {
             case HoverEvent.ShowItem var7:
-               HoverEvent.ShowItem var25 = var7;
-
-               try {
-                  var26 = var25.item();
-               } catch (Throwable var16) {
-                  var21 = var16;
-                  boolean var28 = false;
-                  break;
-               }
-
-               ItemStackTemplate var18 = var26;
-               this.setTooltipForNextFrame(font, var18.create(), xMouse, yMouse);
+               this.setTooltipForNextFrame(font, var7.item().create(), xMouse, yMouse);
                return;
             case HoverEvent.ShowEntity var9:
-               HoverEvent.ShowEntity var23 = var9;
-
-               try {
-                  var24 = var23.entity();
-               } catch (Throwable var15) {
-                  var21 = var15;
-                  boolean var27 = false;
-                  break;
-               }
-
-               HoverEvent.EntityTooltipInfo var19 = var24;
+               HoverEvent.EntityTooltipInfo var19 = var9.entity();
                if (this.minecraft.options.advancedItemTooltips) {
                   this.setComponentTooltipForNextFrame(font, var19.getTooltipLines(), xMouse, yMouse);
                }
 
                return;
             case HoverEvent.ShowText var11:
-               HoverEvent.ShowText var20 = var11;
-
-               try {
-                  var22 = var20.value();
-               } catch (Throwable var14) {
-                  var21 = var14;
-                  boolean var10001 = false;
-                  break;
-               }
-
-               Component var13 = var22;
-               this.setTooltipForNextFrame(font, font.split(var13, Math.max(this.guiWidth() / 2, 200)), xMouse, yMouse);
+               this.setTooltipForNextFrame(font, font.split(var11.value(), Math.max(this.guiWidth() / 2, 200)), xMouse, yMouse);
                return;
             default:
                return;
          }
-
-         Throwable var17 = var21;
-         throw new MatchException(var17.toString(), var17);
       }
    }
 
@@ -1402,7 +1363,6 @@ public class GuiGraphicsExtractor {
          final GuiGraphicsExtractor.HoveredTextEffects hoveredTextEffects,
          @Nullable final Consumer<Style> additonalConsumer
       ) {
-         Objects.requireNonNull(GuiGraphicsExtractor.this);
          super();
          this.defaultParameters = initialParameters;
          this.hoveredTextEffects = hoveredTextEffects;

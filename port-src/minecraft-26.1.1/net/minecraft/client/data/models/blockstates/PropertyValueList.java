@@ -16,7 +16,7 @@ public record PropertyValueList(List<Property.Value<?>> values) {
    }
 
    public PropertyValueList extend(final PropertyValueList other) {
-      return new PropertyValueList(ImmutableList.builder().addAll(this.values).addAll(other.values).build());
+      return new PropertyValueList(ImmutableList.<Property.Value<?>>builder().addAll(this.values).addAll(other.values).build());
    }
 
    public static PropertyValueList of(final Property.Value<?>... values) {

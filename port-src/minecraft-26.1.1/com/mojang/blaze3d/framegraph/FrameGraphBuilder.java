@@ -269,7 +269,6 @@ public class FrameGraphBuilder {
       private boolean disableCulling;
 
       public Pass(final int id, final String name) {
-         Objects.requireNonNull(FrameGraphBuilder.this);
          super();
          this.writesFrom = new ArrayList<>();
          this.requiredResourceIds = new BitSet();

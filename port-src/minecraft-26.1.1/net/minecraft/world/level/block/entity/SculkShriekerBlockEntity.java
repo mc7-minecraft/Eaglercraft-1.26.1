@@ -197,7 +197,6 @@ public class SculkShriekerBlockEntity extends BlockEntity implements GameEventLi
       private final PositionSource positionSource;
 
       public VibrationUser() {
-         Objects.requireNonNull(SculkShriekerBlockEntity.this);
          super();
          this.positionSource = new BlockPositionSource(SculkShriekerBlockEntity.this.worldPosition);
       }

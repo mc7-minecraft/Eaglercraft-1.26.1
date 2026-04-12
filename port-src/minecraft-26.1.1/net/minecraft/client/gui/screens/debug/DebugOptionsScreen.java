@@ -126,7 +126,6 @@ public class DebugOptionsScreen extends Screen {
       private final Component category;
 
       public CategoryEntry(final Component category) {
-         Objects.requireNonNull(DebugOptionsScreen.this);
          super();
          this.category = category;
       }
@@ -178,7 +177,6 @@ public class DebugOptionsScreen extends Screen {
       private final boolean isAllowed;
 
       public OptionEntry(final Identifier location) {
-         Objects.requireNonNull(DebugOptionsScreen.this);
          super();
          this.children = Lists.newArrayList();
          this.location = location;
@@ -282,7 +280,6 @@ public class DebugOptionsScreen extends Screen {
       private static final int ITEM_HEIGHT = 20;
 
       public OptionList() {
-         Objects.requireNonNull(DebugOptionsScreen.this);
          super(
             Minecraft.getInstance(),
             DebugOptionsScreen.this.width,

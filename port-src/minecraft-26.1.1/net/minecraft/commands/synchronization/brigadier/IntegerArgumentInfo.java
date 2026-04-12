@@ -48,7 +48,6 @@ public class IntegerArgumentInfo implements ArgumentTypeInfo<IntegerArgumentType
       private final int max;
 
       private Template(final int min, final int max) {
-         Objects.requireNonNull(IntegerArgumentInfo.this);
          super();
          this.min = min;
          this.max = max;

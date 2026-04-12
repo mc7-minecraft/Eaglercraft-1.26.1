@@ -182,7 +182,6 @@ public class FontSet implements AutoCloseable {
       private BakedGlyph baked;
 
       private DelayedBake(final UnbakedGlyph unbaked) {
-         Objects.requireNonNull(FontSet.this);
          super();
          this.unbaked = unbaked;
       }
@@ -206,7 +205,6 @@ public class FontSet implements AutoCloseable {
       private final boolean filterFishyGlyphs;
 
       public Source(final boolean filterFishyGlyphs) {
-         Objects.requireNonNull(FontSet.this);
          super();
          this.filterFishyGlyphs = filterFishyGlyphs;
       }

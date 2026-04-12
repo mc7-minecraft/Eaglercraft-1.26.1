@@ -1075,7 +1075,6 @@ public abstract class AbstractHorse extends Animal implements PlayerRideableJump
 
    private class MountPanicGoal extends PanicGoal {
       public MountPanicGoal(final double speedModifier) {
-         Objects.requireNonNull(AbstractHorse.this);
          super(AbstractHorse.this, speedModifier);
       }
 

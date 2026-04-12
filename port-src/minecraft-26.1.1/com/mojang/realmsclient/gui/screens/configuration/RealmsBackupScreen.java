@@ -165,7 +165,6 @@ public class RealmsBackupScreen extends RealmsScreen {
       private static final int ITEM_HEIGHT = 36;
 
       public BackupObjectSelectionList() {
-         Objects.requireNonNull(RealmsBackupScreen.this);
          super(
             Minecraft.getInstance(),
             RealmsBackupScreen.this.width,
@@ -191,7 +190,6 @@ public class RealmsBackupScreen extends RealmsScreen {
       private final List<AbstractWidget> children;
 
       public Entry(final Backup backup) {
-         Objects.requireNonNull(RealmsBackupScreen.this);
          super();
          this.children = new ArrayList<>();
          this.backup = backup;

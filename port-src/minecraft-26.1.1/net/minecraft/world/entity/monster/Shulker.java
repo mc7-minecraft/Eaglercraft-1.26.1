@@ -593,7 +593,6 @@ public class Shulker extends AbstractGolem implements Enemy {
       private int attackTime;
 
       public ShulkerAttackGoal() {
-         Objects.requireNonNull(Shulker.this);
          super();
          this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
       }
@@ -679,7 +678,6 @@ public class Shulker extends AbstractGolem implements Enemy {
 
    private class ShulkerLookControl extends LookControl {
       public ShulkerLookControl(final Mob mob) {
-         Objects.requireNonNull(Shulker.this);
          super(mob);
       }
 
@@ -713,7 +711,6 @@ public class Shulker extends AbstractGolem implements Enemy {
 
    private class ShulkerNearestAttackGoal extends NearestAttackableTargetGoal<Player> {
       public ShulkerNearestAttackGoal(final Shulker mob) {
-         Objects.requireNonNull(Shulker.this);
          super(mob, Player.class, true);
       }
 
@@ -739,7 +736,6 @@ public class Shulker extends AbstractGolem implements Enemy {
       private int peekTime;
 
       private ShulkerPeekGoal() {
-         Objects.requireNonNull(Shulker.this);
          super();
       }
 

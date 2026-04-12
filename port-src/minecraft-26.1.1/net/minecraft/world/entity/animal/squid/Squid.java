@@ -245,7 +245,6 @@ public class Squid extends AgeableWaterCreature {
       private int fleeTicks;
 
       private SquidFleeGoal() {
-         Objects.requireNonNull(Squid.this);
          super();
       }
 

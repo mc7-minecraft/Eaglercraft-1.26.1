@@ -77,7 +77,7 @@ public class PathFinder {
       this.openSet.clear();
       this.openSet.insert(from);
       boolean captureDebug = this.captureDebug.getAsBoolean();
-      Set<Node> closedSet = (Set<Node>)(captureDebug ? new HashSet<>() : Set.of());
+      Set<Node> closedSet = captureDebug ? new HashSet<>() : Set.<Node>of();
       int count = 0;
       Set<Target> reachedTargets = Sets.newHashSetWithExpectedSize(targets.size());
       int maxVisitedNodesAdjusted = (int)((float)this.maxVisitedNodes * maxVisitedNodesMultiplier);

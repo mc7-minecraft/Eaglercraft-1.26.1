@@ -48,7 +48,6 @@ public class LongArgumentInfo implements ArgumentTypeInfo<LongArgumentType, Long
       private final long max;
 
       private Template(final long min, final long max) {
-         Objects.requireNonNull(LongArgumentInfo.this);
          super();
          this.min = min;
          this.max = max;

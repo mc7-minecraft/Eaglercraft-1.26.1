@@ -210,7 +210,7 @@ public class Chicken extends Animal {
       this.isChickenJockey = input.getBooleanOr("IsChickenJockey", false);
       input.getInt("EggLayTime").ifPresent(time -> this.eggTime = time);
       VariantUtils.readVariant(input, Registries.CHICKEN_VARIANT).ifPresent(this::setVariant);
-      input.<ResourceKey>read("sound_variant", ResourceKey.codec(Registries.CHICKEN_SOUND_VARIANT))
+      input.<ResourceKey<ChickenSoundVariant>>read("sound_variant", ResourceKey.codec(Registries.CHICKEN_SOUND_VARIANT))
          .flatMap(soundVariant -> this.registryAccess().lookupOrThrow(Registries.CHICKEN_SOUND_VARIANT).get((ResourceKey<ChickenSoundVariant>)soundVariant))
          .ifPresent(this::setSoundVariant);
    }

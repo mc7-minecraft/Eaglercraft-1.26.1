@@ -10,13 +10,13 @@ import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.StringRepresentable;
 
 public interface GuiSpriteScaling {
-   Codec<GuiSpriteScaling> CODEC = GuiSpriteScaling.Type.CODEC.dispatch(GuiSpriteScaling::type, GuiSpriteScaling.Type::codec);
+   Codec<GuiSpriteScaling> CODEC = GuiSpriteScaling.Type.CODEC.dispatch(scaling -> scaling.type(), type -> type.codec());
    GuiSpriteScaling DEFAULT = new GuiSpriteScaling.Stretch();
 
    GuiSpriteScaling.Type type();
 
    public static record NineSlice(int width, int height, GuiSpriteScaling.NineSlice.Border border, boolean stretchInner) implements GuiSpriteScaling {
-      public static final MapCodec<GuiSpriteScaling.NineSlice> CODEC = RecordCodecBuilder.mapCodec(
+      public static final MapCodec<GuiSpriteScaling.NineSlice> CODEC = RecordCodecBuilder.<GuiSpriteScaling.NineSlice>mapCodec(
             i -> i.group(
                      ExtraCodecs.POSITIVE_INT.fieldOf("width").forGetter(GuiSpriteScaling.NineSlice::width),
                      ExtraCodecs.POSITIVE_INT.fieldOf("height").forGetter(GuiSpriteScaling.NineSlice::height),
@@ -25,7 +25,7 @@ public interface GuiSpriteScaling {
                   )
                   .apply(i, GuiSpriteScaling.NineSlice::new)
          )
-         .validate(GuiSpriteScaling.NineSlice::validate);
+         .validate((GuiSpriteScaling.NineSlice nineSlice) -> (DataResult<GuiSpriteScaling.NineSlice>)GuiSpriteScaling.NineSlice.validate(nineSlice));
 
       private static DataResult<GuiSpriteScaling.NineSlice> validate(final GuiSpriteScaling.NineSlice nineSlice) {
          GuiSpriteScaling.NineSlice.Border border = nineSlice.border();
@@ -63,7 +63,7 @@ public interface GuiSpriteScaling {
                   .apply(i, GuiSpriteScaling.NineSlice.Border::new)
          );
          private static final Codec<GuiSpriteScaling.NineSlice.Border> CODEC = Codec.either(VALUE_CODEC, RECORD_CODEC)
-            .xmap(Either::unwrap, border -> border.unpackValue().isPresent() ? Either.left(border) : Either.right(border));
+            .xmap(either -> either.map(value -> value, value -> value), border -> border.unpackValue().isPresent() ? Either.left(border) : Either.right(border));
 
          private OptionalInt unpackValue() {
             return this.left() == this.top() && this.top() == this.right() && this.right() == this.bottom() ? OptionalInt.of(this.left()) : OptionalInt.empty();

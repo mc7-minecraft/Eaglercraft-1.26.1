@@ -89,13 +89,13 @@ public class Zoglin extends Monster implements HoglinBase {
    }
 
    private static ActivityData<Zoglin> initIdleActivity() {
-      return ActivityData.create(
+      return ActivityData.<Zoglin>create(
          Activity.IDLE,
          10,
          ImmutableList.of(
             StartAttacking.create(Zoglin::findNearestValidAttackTarget),
             SetEntityLookTargetSometimes.create(8.0F, UniformInt.of(30, 60)),
-            new RunOne(
+            new RunOne<Zoglin>(
                ImmutableList.of(
                   Pair.of(RandomStroll.stroll(0.4F), 2), Pair.of(SetWalkTargetFromLookTarget.create(0.4F, 3), 2), Pair.of(new DoNothing(30, 60), 1)
                )
@@ -105,7 +105,7 @@ public class Zoglin extends Monster implements HoglinBase {
    }
 
    private static ActivityData<Zoglin> initFightActivity() {
-      return ActivityData.create(
+      return ActivityData.<Zoglin>create(
          Activity.FIGHT,
          10,
          ImmutableList.of(
@@ -209,7 +209,7 @@ public class Zoglin extends Monster implements HoglinBase {
 
    @Override
    public Brain<Zoglin> getBrain() {
-      return super.getBrain();
+      return (Brain<Zoglin>)super.getBrain();
    }
 
    protected void updateActivity() {
@@ -315,3 +315,4 @@ public class Zoglin extends Monster implements HoglinBase {
       this.setBaby(input.getBooleanOr("IsBaby", false));
    }
 }
+

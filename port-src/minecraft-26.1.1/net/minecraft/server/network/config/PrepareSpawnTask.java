@@ -122,7 +122,6 @@ public class PrepareSpawnTask implements ConfigurationTask {
       private final ChunkLoadCounter chunkLoadCounter;
 
       private Preparing(final ServerLevel spawnLevel, final CompletableFuture<Vec3> spawnPosition, final Vec2 spawnAngle) {
-         Objects.requireNonNull(PrepareSpawnTask.this);
          super();
          this.chunkLoadCounter = new ChunkLoadCounter();
          this.spawnLevel = spawnLevel;
@@ -168,7 +167,6 @@ public class PrepareSpawnTask implements ConfigurationTask {
       private final Vec2 spawnAngle;
 
       private Ready(final ServerLevel spawnLevel, final Vec3 spawnPosition, final Vec2 spawnAngle) {
-         Objects.requireNonNull(PrepareSpawnTask.this);
          super();
          this.spawnLevel = spawnLevel;
          this.spawnPosition = spawnPosition;

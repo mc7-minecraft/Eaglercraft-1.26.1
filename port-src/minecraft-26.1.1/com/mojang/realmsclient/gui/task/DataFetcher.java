@@ -49,7 +49,6 @@ public class DataFetcher {
       private long lastCheckTime;
 
       private SubscribedTask(final DataFetcher.Task<T> task, final Consumer<T> output) {
-         Objects.requireNonNull(DataFetcher.this);
          super();
          this.lastCheckTime = -1L;
          this.task = task;
@@ -87,7 +86,6 @@ public class DataFetcher {
       private final List<DataFetcher.SubscribedTask<?>> subscriptions;
 
       public Subscription() {
-         Objects.requireNonNull(DataFetcher.this);
          super();
          this.subscriptions = new ArrayList<>();
       }
@@ -132,7 +130,6 @@ public class DataFetcher {
       private long nextUpdate;
 
       private Task(final String id, final Callable<T> updater, final long period, final RepeatedDelayStrategy repeatStrategy) {
-         Objects.requireNonNull(DataFetcher.this);
          super();
          this.nextUpdate = -1L;
          this.id = id;

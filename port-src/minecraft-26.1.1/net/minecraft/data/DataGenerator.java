@@ -79,7 +79,6 @@ public abstract class DataGenerator {
       private final PackOutput output;
 
       private PackGenerator(final boolean toRun, final String providerPrefix, final PackOutput output) {
-         Objects.requireNonNull(DataGenerator.this);
          super();
          this.toRun = toRun;
          this.providerPrefix = providerPrefix;

@@ -36,7 +36,7 @@ public class RegistryOps<T> extends DelegatingOps<T> {
    }
 
    public <U> RegistryOps<U> withParent(final DynamicOps<U> parent) {
-      return (RegistryOps<U>)(parent == this.delegate ? this : new RegistryOps((DynamicOps<T>)parent, this.lookupProvider));
+      return parent == this.delegate ? (RegistryOps<U>)this : new RegistryOps<U>(parent, this.lookupProvider);
    }
 
    public <E> Optional<HolderOwner<E>> owner(final ResourceKey<? extends Registry<? extends E>> registryKey) {
@@ -72,8 +72,7 @@ public class RegistryOps<T> extends DelegatingOps<T> {
                      .map(r -> DataResult.success(r.getter(), r.elementsLifecycle()))
                      .orElseGet(() -> DataResult.error(() -> "Unknown registry: " + registryKey))
                   : DataResult.error(() -> "Not a registry ops")
-         )
-         .forGetter(e -> null);
+         ).forGetter((O unused) -> (HolderGetter<E>)null);
    }
 
    public static <E, O> RecordCodecBuilder<O, Holder.Reference<E>> retrieveElement(final ResourceKey<E> key) {
@@ -83,11 +82,10 @@ public class RegistryOps<T> extends DelegatingOps<T> {
                   ? registryOps.lookupProvider
                      .lookup(registryKey)
                      .flatMap(r -> r.getter().get(key))
-                     .<DataResult<E>>map(DataResult::success)
+               .map(ref -> DataResult.success((Holder.Reference<E>)ref))
                      .orElseGet(() -> DataResult.error(() -> "Can't find value: " + key))
                   : DataResult.error(() -> "Not a registry ops")
-         )
-         .forGetter(e -> null);
+         ).forGetter((O unused) -> (Holder.Reference<E>)null);
    }
 
    private static final class HolderLookupAdapter implements RegistryOps.RegistryInfoLookup {

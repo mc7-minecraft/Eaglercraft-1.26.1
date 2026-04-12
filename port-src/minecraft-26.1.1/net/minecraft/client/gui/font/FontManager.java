@@ -292,7 +292,7 @@ public class FontManager implements AutoCloseable, PreparableReloadListener {
       public Optional<List<GlyphProvider.Conditional>> resolve(final Function<Identifier, List<GlyphProvider.Conditional>> resolver) {
          return (Optional<List<GlyphProvider.Conditional>>)this.result
             .map(
-               provider -> ((Optional)provider.join()).map(p -> List.of(new GlyphProvider.Conditional(p, this.filter))),
+               provider -> ((Optional<GlyphProvider>)provider.join()).map(p -> List.of(new GlyphProvider.Conditional(p, this.filter))),
                reference -> {
                   List<GlyphProvider.Conditional> resolvedReferences = resolver.apply(reference);
                   if (resolvedReferences == null) {
@@ -323,7 +323,6 @@ public class FontManager implements AutoCloseable, PreparableReloadListener {
       private volatile EffectGlyph whiteGlyph;
 
       private CachedFontProvider(final boolean nonFishyOnly) {
-         Objects.requireNonNull(FontManager.this);
          super();
          this.nonFishyOnly = nonFishyOnly;
       }

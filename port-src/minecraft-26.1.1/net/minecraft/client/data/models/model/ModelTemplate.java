@@ -72,7 +72,7 @@ public class ModelTemplate {
    }
 
    private Map<TextureSlot, Material> createMap(final TextureMapping mapping) {
-      return Streams.concat(new Stream[]{this.requiredSlots.stream(), mapping.getForced()})
-         .collect(ImmutableMap.toImmutableMap(Function.identity(), mapping::get));
+      return Streams.concat(this.requiredSlots.stream(), mapping.getForced())
+         .collect(ImmutableMap.toImmutableMap((TextureSlot slot) -> slot, (TextureSlot slot) -> mapping.get(slot)));
    }
 }

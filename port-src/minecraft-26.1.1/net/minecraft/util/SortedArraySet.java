@@ -195,7 +195,6 @@ public class SortedArraySet<T> extends AbstractSet<T> {
       private int last;
 
       private ArrayIterator() {
-         Objects.requireNonNull(SortedArraySet.this);
          super();
          this.last = -1;
       }

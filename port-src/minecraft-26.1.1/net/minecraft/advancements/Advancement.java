@@ -36,21 +36,21 @@ public record Advancement(
 ) {
    private static final Codec<Map<String, Criterion<?>>> CRITERIA_CODEC = Codec.unboundedMap(Codec.STRING, Criterion.CODEC)
       .validate(criteria -> criteria.isEmpty() ? DataResult.error(() -> "Advancement criteria cannot be empty") : DataResult.success(criteria));
-   public static final Codec<Advancement> CODEC = RecordCodecBuilder.create(
+   public static final Codec<Advancement> CODEC = RecordCodecBuilder.<Advancement>create(
          i -> i.group(
-                  Identifier.CODEC.optionalFieldOf("parent").forGetter(Advancement::parent),
-                  DisplayInfo.CODEC.optionalFieldOf("display").forGetter(Advancement::display),
-                  AdvancementRewards.CODEC.optionalFieldOf("rewards", AdvancementRewards.EMPTY).forGetter(Advancement::rewards),
-                  CRITERIA_CODEC.fieldOf("criteria").forGetter(Advancement::criteria),
-                  AdvancementRequirements.CODEC.optionalFieldOf("requirements").forGetter(a -> Optional.of(a.requirements())),
-                  Codec.BOOL.optionalFieldOf("sends_telemetry_event", false).forGetter(Advancement::sendsTelemetryEvent)
+                  Identifier.CODEC.optionalFieldOf("parent").forGetter((Advancement advancement) -> advancement.parent),
+                  DisplayInfo.CODEC.optionalFieldOf("display").forGetter((Advancement advancement) -> advancement.display),
+                  AdvancementRewards.CODEC.optionalFieldOf("rewards", AdvancementRewards.EMPTY).forGetter((Advancement advancement) -> advancement.rewards),
+                  CRITERIA_CODEC.fieldOf("criteria").forGetter((Advancement advancement) -> advancement.criteria),
+                  AdvancementRequirements.CODEC.optionalFieldOf("requirements").forGetter((Advancement advancement) -> Optional.of(advancement.requirements())),
+                  Codec.BOOL.optionalFieldOf("sends_telemetry_event", false).forGetter((Advancement advancement) -> advancement.sendsTelemetryEvent)
                )
                .apply(i, (parent, display, rewards, criteria, requirementsOpt, sendsTelemetryEvent) -> {
                   AdvancementRequirements requirements = requirementsOpt.orElseGet(() -> AdvancementRequirements.allOf(criteria.keySet()));
                   return new Advancement(parent, display, rewards, criteria, requirements, sendsTelemetryEvent);
                })
       )
-      .validate(Advancement::validate);
+      .validate(advancement -> validate(advancement));
    public static final StreamCodec<RegistryFriendlyByteBuf, Advancement> STREAM_CODEC = StreamCodec.ofMember(Advancement::write, Advancement::read);
 
    public Advancement(

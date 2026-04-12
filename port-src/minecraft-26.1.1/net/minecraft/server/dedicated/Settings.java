@@ -197,7 +197,6 @@ public abstract class Settings<T extends Settings<T>> {
       private final Function<V, String> serializer;
 
       private MutableValue(final String key, final V value, final Function<V, String> serializer) {
-         Objects.requireNonNull(Settings.this);
          super();
          this.key = key;
          this.value = value;

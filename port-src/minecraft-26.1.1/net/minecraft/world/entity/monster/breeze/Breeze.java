@@ -22,6 +22,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -46,9 +47,10 @@ public class Breeze extends Monster {
    private static final float FALL_DISTANCE_SOUND_TRIGGER_THRESHOLD = 3.0F;
    private static final int WHIRL_SOUND_FREQUENCY_MIN = 1;
    private static final int WHIRL_SOUND_FREQUENCY_MAX = 80;
+   @SuppressWarnings({"rawtypes", "unchecked"})
    private static final Brain.Provider<Breeze> BRAIN_PROVIDER = Brain.provider(
-      List.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY, SensorType.NEAREST_PLAYERS, SensorType.BREEZE_ATTACK_ENTITY_SENSOR),
-      BreezeAi::getActivities
+      (java.util.Collection)List.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY, SensorType.NEAREST_PLAYERS, SensorType.BREEZE_ATTACK_ENTITY_SENSOR),
+      (Brain.ActivitySupplier)(var0 -> BreezeAi.getActivities(var0))
    );
    public final AnimationState idle = new AnimationState();
    public final AnimationState slide = new AnimationState();
@@ -79,8 +81,9 @@ public class Breeze extends Monster {
    }
 
    @Override
+   @SuppressWarnings("unchecked")
    public Brain<Breeze> getBrain() {
-      return super.getBrain();
+      return (Brain<Breeze>)super.getBrain();
    }
 
    @Override
@@ -105,6 +108,9 @@ public class Breeze extends Monster {
                break;
             case SLIDING:
                this.slide.startIfStopped(this.tickCount);
+               break;
+            default:
+               break;
          }
       }
 
@@ -133,6 +139,9 @@ public class Breeze extends Monster {
          case LONG_JUMPING:
             this.longJump.startIfStopped(this.tickCount);
             this.emitJumpTrailParticles();
+            break;
+         default:
+            break;
       }
 
       this.idle.startIfStopped(this.tickCount);

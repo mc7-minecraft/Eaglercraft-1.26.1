@@ -37,6 +37,6 @@ public abstract class BaseEntityBlock extends Block implements EntityBlock {
    protected static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> createTickerHelper(
       final BlockEntityType<A> actual, final BlockEntityType<E> expected, final BlockEntityTicker<? super E> ticker
    ) {
-      return expected == actual ? ticker : null;
+      return expected == actual ? (BlockEntityTicker<A>)ticker : null;
    }
 }

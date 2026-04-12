@@ -205,7 +205,6 @@ public class Illusioner extends SpellcasterIllager implements RangedAttackMob {
       private int lastTargetId;
 
       private IllusionerBlindnessSpellGoal() {
-         Objects.requireNonNull(Illusioner.this);
          super();
       }
 
@@ -259,7 +258,6 @@ public class Illusioner extends SpellcasterIllager implements RangedAttackMob {
 
    private class IllusionerMirrorSpellGoal extends SpellcasterIllager.SpellcasterUseSpellGoal {
       private IllusionerMirrorSpellGoal() {
-         Objects.requireNonNull(Illusioner.this);
          super();
       }
 

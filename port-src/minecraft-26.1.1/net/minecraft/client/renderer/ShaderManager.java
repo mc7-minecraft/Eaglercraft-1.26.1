@@ -218,7 +218,6 @@ public class ShaderManager extends SimplePreparableReloadListener<ShaderManager.
       private boolean triggeredRecovery;
 
       private CompilationCache(final ShaderManager.Configs configs) {
-         Objects.requireNonNull(ShaderManager.this);
          super();
          this.postChains = new HashMap<>();
          this.configs = configs;

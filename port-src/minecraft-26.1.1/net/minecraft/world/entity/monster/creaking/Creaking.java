@@ -199,7 +199,7 @@ public class Creaking extends Monster {
 
    @Override
    public Brain<Creaking> getBrain() {
-      return super.getBrain();
+      return (Brain<Creaking>)super.getBrain();
    }
 
    @Override
@@ -532,7 +532,6 @@ public class Creaking extends Monster {
 
    private class CreakingBodyRotationControl extends BodyRotationControl {
       public CreakingBodyRotationControl(final Creaking creaking) {
-         Objects.requireNonNull(Creaking.this);
          super(creaking);
       }
 
@@ -546,7 +545,6 @@ public class Creaking extends Monster {
 
    private class CreakingJumpControl extends JumpControl {
       public CreakingJumpControl(final Creaking creaking) {
-         Objects.requireNonNull(Creaking.this);
          super(creaking);
       }
 
@@ -562,7 +560,6 @@ public class Creaking extends Monster {
 
    private class CreakingLookControl extends LookControl {
       public CreakingLookControl(final Creaking creaking) {
-         Objects.requireNonNull(Creaking.this);
          super(creaking);
       }
 
@@ -576,7 +573,6 @@ public class Creaking extends Monster {
 
    private class CreakingMoveControl extends MoveControl {
       public CreakingMoveControl(final Creaking creaking) {
-         Objects.requireNonNull(Creaking.this);
          super(creaking);
       }
 
@@ -590,7 +586,6 @@ public class Creaking extends Monster {
 
    private class CreakingPathNavigation extends GroundPathNavigation {
       CreakingPathNavigation(final Creaking mob, final Level level) {
-         Objects.requireNonNull(Creaking.this);
          super(mob, level);
       }
 
@@ -613,7 +608,6 @@ public class Creaking extends Monster {
       private static final int MAX_DISTANCE_TO_HOME_SQ = 1024;
 
       private HomeNodeEvaluator() {
-         Objects.requireNonNull(Creaking.this);
          super();
       }
 
@@ -629,3 +623,4 @@ public class Creaking extends Monster {
       }
    }
 }
+

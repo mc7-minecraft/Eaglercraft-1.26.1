@@ -281,17 +281,23 @@ public class ExtraCodecs {
             P max = (P)l.get(1);
             return makeInterval.apply(min, max);
          }), p -> ImmutableList.of(getMin.apply((I)p), getMax.apply((I)p)));
-      Codec<I> objectCodec = RecordCodecBuilder.create(
-            i -> i.group(pointCodec.fieldOf(lowerBoundName).forGetter(Pair::getFirst), pointCodec.fieldOf(upperBoundName).forGetter(Pair::getSecond))
-                  .apply(i, Pair::of)
+      Codec<I> objectCodec = RecordCodecBuilder.<Pair<P, P>>create(
+            i -> i.group(
+                  pointCodec.fieldOf(lowerBoundName).forGetter((Pair<P, P> pair) -> pair.getFirst()),
+                  pointCodec.fieldOf(upperBoundName).forGetter((Pair<P, P> pair) -> pair.getSecond())
+               )
+               .apply(i, Pair::of)
          )
-         .comapFlatMap(p -> makeInterval.apply((P)p.getFirst(), (P)p.getSecond()), i -> Pair.of(getMin.apply((I)i), getMax.apply((I)i)));
+         .comapFlatMap(
+            (Pair<P, P> pair) -> makeInterval.apply((P)pair.getFirst(), (P)pair.getSecond()),
+            interval -> Pair.of(getMin.apply((I)interval), getMax.apply((I)interval))
+         );
       Codec<I> arrayOrObjectCodec = Codec.withAlternative(arrayCodec, objectCodec);
       return Codec.either(pointCodec, arrayOrObjectCodec)
-         .comapFlatMap(either -> (DataResult)either.map(min -> makeInterval.apply((P)min, (P)min), DataResult::success), p -> {
-            P min = getMin.apply((I)p);
-            P max = getMax.apply((I)p);
-            return Objects.equals(min, max) ? Either.left(min) : Either.right(p);
+         .comapFlatMap((Either<P, I> either) -> either.map(min -> makeInterval.apply(min, min), DataResult::success), interval -> {
+            P min = getMin.apply((I)interval);
+            P max = getMax.apply((I)interval);
+            return Objects.equals(min, max) ? Either.left(min) : Either.right(interval);
          });
    }
 
@@ -594,7 +600,7 @@ public class ExtraCodecs {
          }
 
          private <T, V2 extends V> DataResult<T> encode(final Codec<V2> codec, final V input, final DynamicOps<T> ops) {
-            return codec.encodeStart(ops, input);
+            return codec.encodeStart(ops, (V2)input);
          }
       };
    }

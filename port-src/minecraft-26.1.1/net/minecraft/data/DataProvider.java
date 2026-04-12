@@ -46,7 +46,7 @@ public interface DataProvider {
    }
 
    static <T, E> CompletableFuture<?> saveAll(final CachedOutput cache, final Codec<E> codec, final Function<T, Path> pathGetter, final Map<T, E> contents) {
-      return saveAll(cache, (Function<Object, JsonElement>)(e -> (JsonElement)codec.encodeStart(JsonOps.INSTANCE, e).getOrThrow()), pathGetter, contents);
+      return saveAll(cache, e -> (JsonElement)codec.encodeStart(JsonOps.INSTANCE, e).getOrThrow(), pathGetter, contents);
    }
 
    static <T, E> CompletableFuture<?> saveAll(

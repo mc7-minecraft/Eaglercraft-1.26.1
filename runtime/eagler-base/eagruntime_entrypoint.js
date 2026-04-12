@@ -41,7 +41,7 @@ async function entryPoint() {
 			await initializeContextWorker();
 		}
 
-		eagInfo("Loading EaglercraftX WASM GC binary...");
+		eagInfo("Loading Eaglercraft 26.1.1 WASM GC binary...");
 
 		const teavm = await wasmGC.load(classesWASM, {
 			stackDeobfuscator: {

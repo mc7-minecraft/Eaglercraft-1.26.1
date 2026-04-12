@@ -703,7 +703,6 @@ public class RealmsMainScreen extends RealmsScreen {
       private final RealmsServer parent;
 
       public AvailableSnapshotEntry(final RealmsServer parent) {
-         Objects.requireNonNull(RealmsMainScreen.this);
          super();
          this.tooltip = new WidgetTooltipHolder();
          this.parent = parent;
@@ -793,7 +792,6 @@ public class RealmsMainScreen extends RealmsScreen {
       protected static final int PADDING_Y = 2;
 
       private Entry() {
-         Objects.requireNonNull(RealmsMainScreen.this);
          super();
       }
 
@@ -1011,7 +1009,6 @@ public class RealmsMainScreen extends RealmsScreen {
       public NotificationMessageEntry(
          final RealmsMainScreen realmsMainScreen, final int messageHeight, final Component text, final RealmsNotification.VisitUrl notification
       ) {
-         Objects.requireNonNull(RealmsMainScreen.this);
          super();
          this.children = new ArrayList<>();
          this.lastEntryWidth = -1;
@@ -1105,7 +1102,6 @@ public class RealmsMainScreen extends RealmsScreen {
       private final WidgetTooltipHolder tooltip;
 
       public ParentEntry(final RealmsServer server) {
-         Objects.requireNonNull(RealmsMainScreen.this);
          super();
          this.tooltip = new WidgetTooltipHolder();
          this.server = server;
@@ -1140,7 +1136,6 @@ public class RealmsMainScreen extends RealmsScreen {
 
    private class RealmSelectionList extends ObjectSelectionList<RealmsMainScreen.Entry> {
       public RealmSelectionList() {
-         Objects.requireNonNull(RealmsMainScreen.this);
          super(Minecraft.getInstance(), RealmsMainScreen.this.width, RealmsMainScreen.this.height, 0, 36);
       }
 
@@ -1222,7 +1217,6 @@ public class RealmsMainScreen extends RealmsScreen {
       private final WidgetTooltipHolder tooltip;
 
       public ServerEntry(final RealmsServer serverData) {
-         Objects.requireNonNull(RealmsMainScreen.this);
          super();
          this.tooltip = new WidgetTooltipHolder();
          this.serverData = serverData;

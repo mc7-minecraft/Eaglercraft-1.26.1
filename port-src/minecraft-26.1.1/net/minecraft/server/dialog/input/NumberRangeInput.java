@@ -12,14 +12,18 @@ import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.Mth;
 
 public record NumberRangeInput(int width, Component label, String labelFormat, NumberRangeInput.RangeInfo rangeInfo) implements InputControl {
-   public static final MapCodec<NumberRangeInput> MAP_CODEC = RecordCodecBuilder.mapCodec(
+   public static final MapCodec<NumberRangeInput> MAP_CODEC = RecordCodecBuilder.<NumberRangeInput>mapCodec(
       i -> i.group(
                Dialog.WIDTH_CODEC.optionalFieldOf("width", 200).forGetter(NumberRangeInput::width),
                ComponentSerialization.CODEC.fieldOf("label").forGetter(NumberRangeInput::label),
                Codec.STRING.optionalFieldOf("label_format", "options.generic_value").forGetter(NumberRangeInput::labelFormat),
                NumberRangeInput.RangeInfo.MAP_CODEC.forGetter(NumberRangeInput::rangeInfo)
             )
-            .apply(i, NumberRangeInput::new)
+            .apply(
+               i,
+               (Integer width, Component label, String labelFormat, NumberRangeInput.RangeInfo rangeInfo) ->
+                  new NumberRangeInput(width.intValue(), label, labelFormat, rangeInfo)
+            )
    );
 
    @Override
@@ -32,16 +36,20 @@ public record NumberRangeInput(int width, Component label, String labelFormat, N
    }
 
    public static record RangeInfo(float start, float end, Optional<Float> initial, Optional<Float> step) {
-      public static final MapCodec<NumberRangeInput.RangeInfo> MAP_CODEC = RecordCodecBuilder.mapCodec(
+      public static final MapCodec<NumberRangeInput.RangeInfo> MAP_CODEC = RecordCodecBuilder.<NumberRangeInput.RangeInfo>mapCodec(
             i -> i.group(
                      Codec.FLOAT.fieldOf("start").forGetter(NumberRangeInput.RangeInfo::start),
                      Codec.FLOAT.fieldOf("end").forGetter(NumberRangeInput.RangeInfo::end),
                      Codec.FLOAT.optionalFieldOf("initial").forGetter(NumberRangeInput.RangeInfo::initial),
                      ExtraCodecs.POSITIVE_FLOAT.optionalFieldOf("step").forGetter(NumberRangeInput.RangeInfo::step)
                   )
-                  .apply(i, NumberRangeInput.RangeInfo::new)
+                  .apply(
+                     i,
+                     (Float start, Float end, Optional<Float> initial, Optional<Float> step) ->
+                        new NumberRangeInput.RangeInfo(start.floatValue(), end.floatValue(), initial, step)
+                  )
          )
-         .validate(range -> {
+         .validate((NumberRangeInput.RangeInfo range) -> {
             if (range.initial.isPresent()) {
                double initial = (double)range.initial.get().floatValue();
                double min = (double)Math.min(range.start, range.end);

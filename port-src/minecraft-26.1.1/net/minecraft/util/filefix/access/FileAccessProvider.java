@@ -6,7 +6,7 @@ import java.util.List;
 
 public class FileAccessProvider implements AutoCloseable {
    private final List<FileAccess<?>> accessedFiles = new ArrayList<>();
-   private final ScopedValue<Path> baseDirectory = ScopedValue.newInstance();
+   private final ThreadLocal<Path> baseDirectory = new ThreadLocal<>();
    private final int dataVersion;
    private boolean frozen = false;
 
@@ -28,7 +28,7 @@ public class FileAccessProvider implements AutoCloseable {
       this.frozen = true;
    }
 
-   public ScopedValue<Path> baseDirectory() {
+   public ThreadLocal<Path> baseDirectory() {
       return this.baseDirectory;
    }
 

@@ -154,13 +154,13 @@ public class Climate {
       private final Climate.RTree<T> index;
 
       public static <T> Codec<Climate.ParameterList<T>> codec(final MapCodec<T> valueCodec) {
-         return ExtraCodecs.nonEmptyList(
-               RecordCodecBuilder.create(
-                     i -> i.group(Climate.ParameterPoint.CODEC.fieldOf("parameters").forGetter(Pair::getFirst), valueCodec.forGetter(Pair::getSecond))
-                           .apply(i, Pair::of)
-                  )
-                  .listOf()
-            )
+         Codec<Pair<Climate.ParameterPoint, T>> parameterCodec = RecordCodecBuilder.<Pair<Climate.ParameterPoint, T>>create(
+            i -> i.group(
+               Climate.ParameterPoint.CODEC.fieldOf("parameters").forGetter((Pair<Climate.ParameterPoint, T> pair) -> pair.getFirst()),
+               valueCodec.forGetter((Pair<Climate.ParameterPoint, T> pair) -> pair.getSecond())
+            ).apply(i, Pair::of)
+         );
+         return ExtraCodecs.nonEmptyList(parameterCodec.listOf())
             .xmap(Climate.ParameterList::new, Climate.ParameterList::values);
       }
 

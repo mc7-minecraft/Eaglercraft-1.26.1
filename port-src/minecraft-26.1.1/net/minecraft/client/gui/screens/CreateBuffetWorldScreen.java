@@ -85,7 +85,6 @@ public class CreateBuffetWorldScreen extends Screen {
 
    private class BiomeList extends ObjectSelectionList<CreateBuffetWorldScreen.BiomeList.Entry> {
       private BiomeList() {
-         Objects.requireNonNull(CreateBuffetWorldScreen.this);
          super(
             CreateBuffetWorldScreen.this.minecraft,
             CreateBuffetWorldScreen.this.width,
@@ -123,7 +122,6 @@ public class CreateBuffetWorldScreen extends Screen {
          private final Component name;
 
          public Entry(final Holder.Reference<Biome> biome) {
-            Objects.requireNonNull(BiomeList.this);
             super();
             this.biome = biome;
             Identifier id = biome.key().identifier();

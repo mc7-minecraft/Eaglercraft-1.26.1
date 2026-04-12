@@ -142,7 +142,6 @@ public class SkinManager {
       private final Map<String, CompletableFuture<ClientAsset.Texture>> textures;
 
       private TextureCache(final Path root, final Type type) {
-         Objects.requireNonNull(SkinManager.this);
          super();
          this.textures = new Object2ObjectOpenHashMap();
          this.root = root;

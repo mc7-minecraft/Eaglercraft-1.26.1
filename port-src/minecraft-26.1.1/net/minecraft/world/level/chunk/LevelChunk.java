@@ -755,8 +755,6 @@ public class LevelChunk extends ChunkAccess implements DebugValueSource {
       private boolean loggedInvalidBlockState;
 
       private BoundTickingBlockEntity(final T blockEntity, final BlockEntityTicker<T> ticker) {
-         Objects.requireNonNull(LevelChunk.this);
-         super();
          this.blockEntity = blockEntity;
          this.ticker = ticker;
       }

@@ -163,7 +163,6 @@ public class ItemStackRenderState {
       private Supplier<Vector3fc[]> extents;
 
       public LayerRenderState() {
-         Objects.requireNonNull(ItemStackRenderState.this);
          super();
          this.quads = new ArrayList<>();
          this.itemTransform = ItemTransform.NO_TRANSFORM;

@@ -271,7 +271,9 @@ public class BookViewScreen extends Screen {
             return new BookViewScreen.BookAccess(writtenContent.getPages(filterEnabled));
          } else {
             WritableBookContent writableContent = itemStack.get(DataComponents.WRITABLE_BOOK_CONTENT);
-            return writableContent != null ? new BookViewScreen.BookAccess(writableContent.getPages(filterEnabled).map(Component::literal).toList()) : null;
+            return writableContent != null
+               ? new BookViewScreen.BookAccess(writableContent.getPages(filterEnabled).map(page -> (Component)Component.literal(page)).toList())
+               : null;
          }
       }
    }

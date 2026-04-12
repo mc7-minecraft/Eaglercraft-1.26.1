@@ -219,7 +219,7 @@ public class Piglin extends AbstractPiglin implements CrossbowAttackMob, Invento
 
    @Override
    public Brain<Piglin> getBrain() {
-      return super.getBrain();
+      return (Brain<Piglin>)super.getBrain();
    }
 
    @Override
@@ -443,3 +443,4 @@ public class Piglin extends AbstractPiglin implements CrossbowAttackMob, Invento
       this.makeSound(SoundEvents.PIGLIN_CONVERTED_TO_ZOMBIFIED);
    }
 }
+

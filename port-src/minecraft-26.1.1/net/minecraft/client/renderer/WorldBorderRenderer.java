@@ -176,7 +176,7 @@ public class WorldBorderRenderer {
             for (WorldBorderRenderState.DistancePerDirection distancePerDirection : state.closestBorder(cameraX, cameraZ)) {
                if (distancePerDirection.distance() < renderDistance) {
                   int sideIndex = distancePerDirection.direction().get2DDataValue();
-                  draws.add(new RenderPass.Draw<>(0, this.worldBorderBuffer, indexBuffer, this.indices.type(), 6 * sideIndex, 6, 0));
+                  draws.add(new RenderPass.Draw<WorldBorderRenderer>(0, this.worldBorderBuffer, indexBuffer, this.indices.type(), 6 * sideIndex, 6, 0, null));
                }
             }
 

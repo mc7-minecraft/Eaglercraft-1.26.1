@@ -178,7 +178,6 @@ public class OverlayRecipeComponent implements GuiEventListener, Renderable {
       public OverlayCraftingRecipeButton(
          final int x, final int y, final RecipeDisplayId id, final RecipeDisplay recipe, final ContextMap context, final boolean isCraftable
       ) {
-         Objects.requireNonNull(OverlayRecipeComponent.this);
          super(x, y, id, isCraftable, calculateIngredientsPositions(recipe, context));
       }
 
@@ -229,7 +228,6 @@ public class OverlayRecipeComponent implements GuiEventListener, Renderable {
       public OverlayRecipeButton(
          final int x, final int y, final RecipeDisplayId recipe, final boolean isCraftable, final List<OverlayRecipeComponent.OverlayRecipeButton.Pos> slots
       ) {
-         Objects.requireNonNull(OverlayRecipeComponent.this);
          super(x, y, 24, 24, CommonComponents.EMPTY);
          this.slots = slots;
          this.recipe = recipe;
@@ -289,7 +287,6 @@ public class OverlayRecipeComponent implements GuiEventListener, Renderable {
       public OverlaySmeltingRecipeButton(
          final int x, final int y, final RecipeDisplayId id, final RecipeDisplay recipe, final ContextMap context, final boolean isCraftable
       ) {
-         Objects.requireNonNull(OverlayRecipeComponent.this);
          super(x, y, id, isCraftable, calculateIngredientsPositions(recipe, context));
       }
 

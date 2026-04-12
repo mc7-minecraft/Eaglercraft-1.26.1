@@ -209,7 +209,6 @@ public class ModelBakery {
       private final Function<ModelBaker.SharedOperationKey<Object>, Object> cacheComputeFunction;
 
       private ModelBakerImpl(final MaterialBaker materials, final ModelBaker.Interner interner, final ModelBakery.MissingModels missingModels) {
-         Objects.requireNonNull(ModelBakery.this);
          super();
          this.operationCache = new ConcurrentHashMap<>();
          this.cacheComputeFunction = k -> k.compute(this);
@@ -246,7 +245,7 @@ public class ModelBakery {
 
       @Override
       public <T> T compute(final ModelBaker.SharedOperationKey<T> key) {
-         return (T)this.operationCache.computeIfAbsent(key, this.cacheComputeFunction);
+         return (T)this.operationCache.computeIfAbsent((ModelBaker.SharedOperationKey<Object>)key, this.cacheComputeFunction);
       }
    }
 }

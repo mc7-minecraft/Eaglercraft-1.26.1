@@ -150,7 +150,7 @@ public class Camel extends AbstractHorse {
 
    @Override
    public Brain<Camel> getBrain() {
-      return super.getBrain();
+      return (Brain<Camel>)super.getBrain();
    }
 
    @Override
@@ -668,7 +668,6 @@ public class Camel extends AbstractHorse {
 
    private class CamelBodyRotationControl extends BodyRotationControl {
       public CamelBodyRotationControl(final Camel camel) {
-         Objects.requireNonNull(Camel.this);
          super(camel);
       }
 
@@ -682,7 +681,6 @@ public class Camel extends AbstractHorse {
 
    private class CamelLookControl extends LookControl {
       private CamelLookControl() {
-         Objects.requireNonNull(Camel.this);
          super(Camel.this);
       }
 
@@ -696,7 +694,6 @@ public class Camel extends AbstractHorse {
 
    private class CamelMoveControl extends MoveControl {
       public CamelMoveControl() {
-         Objects.requireNonNull(Camel.this);
          super(Camel.this);
       }
 
@@ -714,3 +711,4 @@ public class Camel extends AbstractHorse {
       }
    }
 }
+

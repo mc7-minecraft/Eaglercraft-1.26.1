@@ -639,7 +639,6 @@ public class CreateWorldScreen extends Screen {
       private final EditBox nameEdit;
 
       private GameTab() {
-         Objects.requireNonNull(CreateWorldScreen.this);
          super(TITLE);
          GridLayout.RowHelper helper = this.layout.rowSpacing(8).createRowHelper(1);
          LayoutSettings buttonLayoutSettings = helper.newCellSettings();
@@ -716,7 +715,6 @@ public class CreateWorldScreen extends Screen {
       private static final Component DATA_PACKS_LABEL = Component.translatable("selectWorld.dataPacks");
 
       private MoreTab() {
-         Objects.requireNonNull(CreateWorldScreen.this);
          super(TITLE);
          GridLayout.RowHelper helper = this.layout.rowSpacing(8).createRowHelper(1);
          helper.addChild(Button.builder(GAME_RULES_LABEL, b -> this.openGameRulesScreen()).width(210).build());
@@ -764,7 +762,6 @@ public class CreateWorldScreen extends Screen {
       private final Button customizeTypeButton;
 
       private WorldTab() {
-         Objects.requireNonNull(CreateWorldScreen.this);
          super(TITLE);
          GridLayout.RowHelper helper = this.layout.columnSpacing(10).rowSpacing(8).createRowHelper(2);
          CycleButton<WorldCreationUiState.WorldTypeEntry> typeButton = helper.addChild(

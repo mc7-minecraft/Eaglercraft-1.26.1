@@ -146,7 +146,6 @@ public class BeaconScreen extends AbstractContainerScreen<BeaconMenu> {
 
    private class BeaconCancelButton extends BeaconScreen.BeaconSpriteScreenButton {
       public BeaconCancelButton(final int x, final int y) {
-         Objects.requireNonNull(BeaconScreen.this);
          super(x, y, BeaconScreen.CANCEL_SPRITE, CommonComponents.GUI_CANCEL);
       }
 
@@ -162,7 +161,6 @@ public class BeaconScreen extends AbstractContainerScreen<BeaconMenu> {
 
    private class BeaconConfirmButton extends BeaconScreen.BeaconSpriteScreenButton {
       public BeaconConfirmButton(final int x, final int y) {
-         Objects.requireNonNull(BeaconScreen.this);
          super(x, y, BeaconScreen.CONFIRM_SPRITE, CommonComponents.GUI_DONE);
       }
 
@@ -187,7 +185,6 @@ public class BeaconScreen extends AbstractContainerScreen<BeaconMenu> {
       private Identifier sprite;
 
       public BeaconPowerButton(final int x, final int y, final Holder<MobEffect> effect, final boolean isPrimary, final int tier) {
-         Objects.requireNonNull(BeaconScreen.this);
          super(x, y);
          this.isPrimary = isPrimary;
          this.tier = tier;
@@ -295,7 +292,6 @@ public class BeaconScreen extends AbstractContainerScreen<BeaconMenu> {
 
    private class BeaconUpgradePowerButton extends BeaconScreen.BeaconPowerButton {
       public BeaconUpgradePowerButton(final int x, final int y, final Holder<MobEffect> effect) {
-         Objects.requireNonNull(BeaconScreen.this);
          super(x, y, effect, false, 3);
       }
 

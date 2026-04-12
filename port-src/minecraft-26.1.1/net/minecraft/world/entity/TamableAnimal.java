@@ -301,12 +301,10 @@ public abstract class TamableAnimal extends Animal implements OwnableEntity {
 
    public class TamableAnimalPanicGoal extends PanicGoal {
       public TamableAnimalPanicGoal(final double speedModifier, final TagKey<DamageType> panicCausingDamageTypes) {
-         Objects.requireNonNull(TamableAnimal.this);
          super(TamableAnimal.this, speedModifier, panicCausingDamageTypes);
       }
 
       public TamableAnimalPanicGoal(final double speedModifier) {
-         Objects.requireNonNull(TamableAnimal.this);
          super(TamableAnimal.this, speedModifier);
       }
 

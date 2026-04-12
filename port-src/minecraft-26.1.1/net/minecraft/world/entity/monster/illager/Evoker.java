@@ -129,7 +129,6 @@ public class Evoker extends SpellcasterIllager {
 
    private class EvokerAttackSpellGoal extends SpellcasterIllager.SpellcasterUseSpellGoal {
       private EvokerAttackSpellGoal() {
-         Objects.requireNonNull(Evoker.this);
          super();
       }
 
@@ -222,7 +221,6 @@ public class Evoker extends SpellcasterIllager {
 
    private class EvokerCastingSpellGoal extends SpellcasterIllager.SpellcasterCastingSpellGoal {
       private EvokerCastingSpellGoal() {
-         Objects.requireNonNull(Evoker.this);
          super();
       }
 
@@ -240,7 +238,6 @@ public class Evoker extends SpellcasterIllager {
       private final TargetingConditions vexCountTargeting;
 
       private EvokerSummonSpellGoal() {
-         Objects.requireNonNull(Evoker.this);
          super();
          this.vexCountTargeting = TargetingConditions.forNonCombat().range(16.0).ignoreLineOfSight().ignoreInvisibilityTesting();
       }
@@ -306,7 +303,6 @@ public class Evoker extends SpellcasterIllager {
       private final TargetingConditions wololoTargeting;
 
       public EvokerWololoSpellGoal() {
-         Objects.requireNonNull(Evoker.this);
          super();
          this.wololoTargeting = TargetingConditions.forNonCombat().range(16.0).selector((target, level) -> ((Sheep)target).getColor() == DyeColor.BLUE);
       }

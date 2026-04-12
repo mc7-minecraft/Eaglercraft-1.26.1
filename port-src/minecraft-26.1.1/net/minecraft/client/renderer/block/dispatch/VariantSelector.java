@@ -26,7 +26,7 @@ public class VariantSelector {
             Property<?> property = stateDefinition.getProperty(propertyName);
             if (property != null && iterator.hasNext()) {
                String propertyValue = iterator.next();
-               Comparable<?> value = getValueHelper((Property<Comparable<?>>)property, propertyValue);
+               Comparable<?> value = (Comparable<?>)getValueHelper((Property)property, propertyValue);
                if (value == null) {
                   throw new RuntimeException(
                      "Unknown value: '" + propertyValue + "' for blockstate property: '" + propertyName + "' " + property.getPossibleValues()

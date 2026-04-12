@@ -390,18 +390,15 @@ class GlCommandEncoder implements CommandEncoderBackend {
             if (uniformUploaderConsumer != null) {
                uniformUploaderConsumer.accept(uniformArgument, (name, buffer) -> {
                   if (renderPass.pipeline.program().getUniform(name) instanceof Uniform.Ubo $b$0) {
-                     Uniform.Ubo var10000 = $b$0;
+                     int blockBinding;
 
                      try {
-                        var9x = var10000.blockBinding();
+                        blockBinding = $b$0.blockBinding();
                      } catch (Throwable var8x) {
                         throw new MatchException(var8x.toString(), var8x);
                      }
 
-                     int patt2$temp = var9x;
-                     if (true) {
-                        GL32.glBindBufferRange(35345, patt2$temp, ((GlBuffer)buffer.buffer()).handle, buffer.offset(), buffer.length());
-                     }
+                     GL32.glBindBufferRange(35345, blockBinding, ((GlBuffer)buffer.buffer()).handle, buffer.offset(), buffer.length());
                   }
                });
             }

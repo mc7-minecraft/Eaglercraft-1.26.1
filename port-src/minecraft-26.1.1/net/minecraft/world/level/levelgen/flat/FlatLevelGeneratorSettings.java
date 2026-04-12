@@ -33,7 +33,7 @@ import org.slf4j.Logger;
 
 public class FlatLevelGeneratorSettings {
    private static final Logger LOGGER = LogUtils.getLogger();
-   public static final Codec<FlatLevelGeneratorSettings> CODEC = RecordCodecBuilder.create(
+   public static final Codec<FlatLevelGeneratorSettings> CODEC = RecordCodecBuilder.<FlatLevelGeneratorSettings>create(
          i -> i.group(
                   RegistryCodecs.homogeneousList(Registries.STRUCTURE_SET).lenientOptionalFieldOf("structure_overrides").forGetter(c -> c.structureOverrides),
                   FlatLayerInfo.CODEC.listOf().fieldOf("layers").forGetter(FlatLevelGeneratorSettings::getLayersInfo),
@@ -44,7 +44,12 @@ public class FlatLevelGeneratorSettings {
                   RegistryOps.retrieveElement(MiscOverworldPlacements.LAKE_LAVA_UNDERGROUND),
                   RegistryOps.retrieveElement(MiscOverworldPlacements.LAKE_LAVA_SURFACE)
                )
-               .apply(i, FlatLevelGeneratorSettings::new)
+               .apply(
+                  i,
+                  (structureOverrides, layers, lakes, features, biome, fallbackBiome, lavaUnderground, lavaSurface) -> new FlatLevelGeneratorSettings(
+                     structureOverrides, layers, lakes, features, biome, fallbackBiome, lavaUnderground, lavaSurface
+                  )
+               )
       )
       .comapFlatMap(FlatLevelGeneratorSettings::validateHeight, Function.identity())
       .stable();

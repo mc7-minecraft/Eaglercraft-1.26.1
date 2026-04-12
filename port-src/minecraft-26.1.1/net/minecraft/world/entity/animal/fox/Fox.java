@@ -129,7 +129,7 @@ public class Fox extends Animal {
    private static final Predicate<Entity> AVOID_PLAYERS = entity -> !entity.isDiscrete() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(entity);
    private static final int MIN_TICKS_BEFORE_EAT = 600;
    private static final EntityDimensions BABY_DIMENSIONS = EntityType.FOX.getDimensions().scale(0.6F).withEyeHeight(0.2975F);
-   private static final Codec<List<EntityReference<LivingEntity>>> TRUSTED_LIST_CODEC = EntityReference.codec().listOf();
+   private static final Codec<List<EntityReference<LivingEntity>>> TRUSTED_LIST_CODEC = EntityReference.<LivingEntity>codec().listOf();
    private static final boolean DEFAULT_SLEEPING = false;
    private static final boolean DEFAULT_SITTING = false;
    private static final boolean DEFAULT_CROUCHING = false;
@@ -441,7 +441,7 @@ public class Fox extends Animal {
    protected void readAdditionalSaveData(final ValueInput input) {
       super.readAdditionalSaveData(input);
       this.clearTrusted();
-      input.<List>read("Trusted", TRUSTED_LIST_CODEC).orElse(List.of()).forEach(this::addTrustedEntity);
+      input.<List<EntityReference<LivingEntity>>>read("Trusted", TRUSTED_LIST_CODEC).orElse(List.of()).forEach(this::addTrustedEntity);
       this.setSleeping(input.getBooleanOr("Sleeping", false));
       this.setVariant(input.<Fox.Variant>read("Type", Fox.Variant.CODEC).orElse(Fox.Variant.DEFAULT));
       this.setSitting(input.getBooleanOr("Sitting", false));
@@ -749,7 +749,6 @@ public class Fox extends Animal {
       public DefendTrustedTargetGoal(
          final Class<LivingEntity> targetType, final boolean mustSee, final boolean mustReach, @Nullable final TargetingConditions.Selector subselector
       ) {
-         Objects.requireNonNull(Fox.this);
          super(Fox.this, targetType, 10, mustSee, mustReach, subselector);
       }
 
@@ -793,7 +792,6 @@ public class Fox extends Animal {
       int countdown;
 
       public FaceplantGoal() {
-         Objects.requireNonNull(Fox.this);
          super();
          this.setFlags(EnumSet.of(Goal.Flag.LOOK, Goal.Flag.JUMP, Goal.Flag.MOVE));
       }
@@ -826,7 +824,6 @@ public class Fox extends Animal {
 
    public class FoxAlertableEntitiesSelector implements TargetingConditions.Selector {
       public FoxAlertableEntitiesSelector() {
-         Objects.requireNonNull(Fox.this);
          super();
       }
 
@@ -852,7 +849,6 @@ public class Fox extends Animal {
       private final TargetingConditions alertableTargeting;
 
       private FoxBehaviorGoal() {
-         Objects.requireNonNull(Fox.this);
          super();
          this.alertableTargeting = TargetingConditions.forCombat().range(12.0).ignoreLineOfSight().selector(Fox.this.new FoxAlertableEntitiesSelector());
       }
@@ -871,7 +867,6 @@ public class Fox extends Animal {
 
    private class FoxBreedGoal extends BreedGoal {
       public FoxBreedGoal(final double speedModifier) {
-         Objects.requireNonNull(Fox.this);
          super(Fox.this, speedModifier);
       }
 
@@ -927,7 +922,6 @@ public class Fox extends Animal {
       protected int ticksWaited;
 
       public FoxEatBerriesGoal(final double speedModifier, final int searchRange, final int verticalSearchRange) {
-         Objects.requireNonNull(Fox.this);
          super(Fox.this, speedModifier, searchRange, verticalSearchRange);
       }
 
@@ -1011,7 +1005,6 @@ public class Fox extends Animal {
 
    private class FoxFloatGoal extends FloatGoal {
       public FoxFloatGoal() {
-         Objects.requireNonNull(Fox.this);
          super(Fox.this);
       }
 
@@ -1063,7 +1056,6 @@ public class Fox extends Animal {
 
    private class FoxLookAtPlayerGoal extends LookAtPlayerGoal {
       public FoxLookAtPlayerGoal(final Mob mob, final Class<? extends LivingEntity> lookAtType, final float lookDistance) {
-         Objects.requireNonNull(Fox.this);
          super(mob, lookAtType, lookDistance);
       }
 
@@ -1080,7 +1072,6 @@ public class Fox extends Animal {
 
    public class FoxLookControl extends LookControl {
       public FoxLookControl() {
-         Objects.requireNonNull(Fox.this);
          super(Fox.this);
       }
 
@@ -1099,7 +1090,6 @@ public class Fox extends Animal {
 
    private class FoxMeleeAttackGoal extends MeleeAttackGoal {
       public FoxMeleeAttackGoal(final double speedModifier, final boolean trackTarget) {
-         Objects.requireNonNull(Fox.this);
          super(Fox.this, speedModifier, trackTarget);
       }
 
@@ -1126,7 +1116,6 @@ public class Fox extends Animal {
 
    private class FoxMoveControl extends MoveControl {
       public FoxMoveControl() {
-         Objects.requireNonNull(Fox.this);
          super(Fox.this);
       }
 
@@ -1140,7 +1129,6 @@ public class Fox extends Animal {
 
    private class FoxPanicGoal extends PanicGoal {
       public FoxPanicGoal(final double speedModifier) {
-         Objects.requireNonNull(Fox.this);
          super(Fox.this, speedModifier);
       }
 
@@ -1152,7 +1140,6 @@ public class Fox extends Animal {
 
    public class FoxPounceGoal extends JumpGoal {
       public FoxPounceGoal() {
-         Objects.requireNonNull(Fox.this);
          super();
       }
 
@@ -1259,7 +1246,6 @@ public class Fox extends Animal {
 
    private class FoxSearchForItemsGoal extends Goal {
       public FoxSearchForItemsGoal() {
-         Objects.requireNonNull(Fox.this);
          super();
          this.setFlags(EnumSet.of(Goal.Flag.MOVE));
       }
@@ -1300,7 +1286,6 @@ public class Fox extends Animal {
 
    private class FoxStrollThroughVillageGoal extends StrollThroughVillageGoal {
       public FoxStrollThroughVillageGoal(final int searchRadius, final int interval) {
-         Objects.requireNonNull(Fox.this);
          super(Fox.this, interval);
       }
 
@@ -1332,7 +1317,6 @@ public class Fox extends Animal {
       private int looksRemaining;
 
       public PerchAndSearchGoal() {
-         Objects.requireNonNull(Fox.this);
          super();
          this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
       }
@@ -1393,7 +1377,6 @@ public class Fox extends Animal {
       private int interval;
 
       public SeekShelterGoal(final double speedModifier) {
-         Objects.requireNonNull(Fox.this);
          super(Fox.this, speedModifier);
          this.interval = reducedTickDelay(100);
       }
@@ -1431,7 +1414,6 @@ public class Fox extends Animal {
       private int countdown;
 
       public SleepGoal() {
-         Objects.requireNonNull(Fox.this);
          super();
          this.countdown = Fox.this.random.nextInt(WAIT_TIME_BEFORE_SLEEP);
          this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK, Goal.Flag.JUMP));
@@ -1476,7 +1458,6 @@ public class Fox extends Animal {
 
    private class StalkPreyGoal extends Goal {
       public StalkPreyGoal() {
-         Objects.requireNonNull(Fox.this);
          super();
          this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
       }

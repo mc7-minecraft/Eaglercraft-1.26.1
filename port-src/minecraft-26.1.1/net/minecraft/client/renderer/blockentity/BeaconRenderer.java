@@ -112,11 +112,15 @@ public class BeaconRenderer<T extends BlockEntity & BeaconBeamOwner> implements 
       float uu2 = 1.0F;
       float vv2 = -1.0F + texVOff;
       float vv1 = (float)height * scale * (0.5F / solidBeamRadius) + vv2;
+      final float solidWsx = wsx;
+      final float solidEsz = esz;
+      final float solidVv1 = vv1;
+      final float solidVv2 = vv2;
       submitNodeCollector.submitCustomGeometry(
          poseStack,
          RenderTypes.beaconBeam(beamLocation, false),
          (pose, buffer) -> renderPart(
-               pose, buffer, color, beamStart, beamEnd, 0.0F, solidBeamRadius, solidBeamRadius, 0.0F, wsx, 0.0F, 0.0F, esz, 0.0F, 1.0F, vv1, vv2
+            pose, buffer, color, beamStart, beamEnd, 0.0F, solidBeamRadius, solidBeamRadius, 0.0F, solidWsx, 0.0F, 0.0F, solidEsz, 0.0F, 1.0F, solidVv1, solidVv2
             )
       );
       poseStack.popPose();
@@ -128,6 +132,12 @@ public class BeaconRenderer<T extends BlockEntity & BeaconBeamOwner> implements 
       uu2 = 1.0F;
       vv2 = -1.0F + texVOff;
       vv1 = (float)height * scale + vv2;
+      final float glowWnx = wnx;
+      final float glowWnz = wnz;
+      final float glowEnz = enz;
+      final float glowWsx = wsx;
+      final float glowVv1 = vv1;
+      final float glowVv2 = vv2;
       submitNodeCollector.submitCustomGeometry(
          poseStack,
          RenderTypes.beaconBeam(beamLocation, true),
@@ -137,18 +147,18 @@ public class BeaconRenderer<T extends BlockEntity & BeaconBeamOwner> implements 
                ARGB.color(32, color),
                beamStart,
                beamEnd,
-               wnx,
-               wnz,
+            glowWnx,
+            glowWnz,
                beamGlowRadius,
-               enz,
-               wsx,
+            glowEnz,
+            glowWsx,
                beamGlowRadius,
                beamGlowRadius,
                beamGlowRadius,
                0.0F,
                1.0F,
-               vv1,
-               vv2
+            glowVv1,
+            glowVv2
             )
       );
       poseStack.popPose();

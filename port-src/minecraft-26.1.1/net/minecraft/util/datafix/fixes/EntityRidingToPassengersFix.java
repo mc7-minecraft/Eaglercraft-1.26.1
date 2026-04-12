@@ -84,12 +84,12 @@ public class EntityRidingToPassengersFix extends DataFix {
                         );
                         Optional<OldEntityTree> riding = ((Either)((Pair)updating.getSecond()).getFirst()).left();
                         if (riding.isEmpty()) {
-                           return passenger.orElseThrow(() -> new IllegalStateException("Should always have an entity tree here"));
+                           return passenger.orElseThrow();
                         }
 
                         updating = (Pair<String, Pair<Either<OldEntityTree, Unit>, Entity>>)new Typed(oldEntityTreeType, ops, riding.get())
                            .getOptional(entityTreeFinder)
-                           .orElseThrow(() -> new IllegalStateException("Should always have an entity here"));
+                           .orElseThrow();
                      }
                   }
             ),

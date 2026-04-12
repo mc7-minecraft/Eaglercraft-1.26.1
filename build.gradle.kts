@@ -119,6 +119,12 @@ teavm.wasm {
     targetFileName = "classes.wasm"
 }
 
+teavm.wasmGC {
+    mainClass = "net.minecraft.client.main.Main"
+    outputDir = file("build/wasm")
+    targetFileName = "classes.wasm"
+}
+
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
     options.release.set(21)

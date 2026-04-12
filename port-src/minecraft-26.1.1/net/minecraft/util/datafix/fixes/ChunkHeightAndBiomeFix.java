@@ -231,7 +231,8 @@ public class ChunkHeightAndBiomeFix extends DataFix {
       } else if (oldBiomes != null && oldBiomes.length == 1024) {
          for (int sectionY = 0; sectionY < 16; sectionY++) {
             int sectionYIndex = sectionY - minSection;
-            biomeContainers[sectionYIndex] = makeBiomeContainer(tag, ix -> getOldBiome(oldBiomes, sectionY * 64 + ix));
+            int finalSectionY = sectionY;
+            biomeContainers[sectionYIndex] = makeBiomeContainer(tag, ix -> getOldBiome(oldBiomes, finalSectionY * 64 + ix));
          }
 
          if (increaseHeight) {

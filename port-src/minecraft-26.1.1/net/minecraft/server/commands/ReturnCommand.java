@@ -19,11 +19,11 @@ import net.minecraft.commands.execution.tasks.FallthroughTask;
 public class ReturnCommand {
    public static <T extends ExecutionCommandSource<T>> void register(final CommandDispatcher<T> dispatcher) {
       dispatcher.register(
-         (LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)((LiteralArgumentBuilder)LiteralArgumentBuilder.literal("return")
-                     .requires(source -> Commands.hasPermission(Commands.LEVEL_GAMEMASTERS).test(source)))
-                  .then(RequiredArgumentBuilder.argument("value", IntegerArgumentType.integer()).executes(new ReturnCommand.ReturnValueCustomExecutor())))
-               .then(LiteralArgumentBuilder.literal("fail").executes(new ReturnCommand.ReturnFailCustomExecutor())))
-            .then(LiteralArgumentBuilder.literal("run").forward((com.mojang.brigadier.tree.CommandNode<T>)dispatcher.getRoot(), new ReturnCommand.ReturnFromCommandCustomModifier(), false))
+         LiteralArgumentBuilder.<T>literal("return")
+            .requires(source -> Commands.hasPermission(Commands.LEVEL_GAMEMASTERS).test(source))
+            .then(RequiredArgumentBuilder.<T, Integer>argument("value", IntegerArgumentType.integer()).executes(new ReturnCommand.ReturnValueCustomExecutor<>()))
+            .then(LiteralArgumentBuilder.<T>literal("fail").executes(new ReturnCommand.ReturnFailCustomExecutor<>()))
+            .then(LiteralArgumentBuilder.<T>literal("run").forward(dispatcher.getRoot(), new ReturnCommand.ReturnFromCommandCustomModifier<>(), false))
       );
    }
 

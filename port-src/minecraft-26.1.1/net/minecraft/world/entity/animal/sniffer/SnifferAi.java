@@ -92,7 +92,7 @@ public class SnifferAi {
    private static ActivityData<Sniffer> initIdleActivity() {
       return ActivityData.create(
          Activity.IDLE,
-         ImmutableList.<BehaviorControl<? super Sniffer>>of(
+         ImmutableList.<Pair<Integer, ? extends BehaviorControl<? super Sniffer>>>of(
             Pair.of(0, new AnimalMakeLove(EntityType.SNIFFER) {
                @Override
                protected void start(final ServerLevel level, final Animal body, final long timestamp) {
@@ -111,7 +111,7 @@ public class SnifferAi {
             Pair.of(3, new SnifferAi.FeelingHappy(40, 100)),
             Pair.of(
                4,
-               new RunOne(
+               (BehaviorControl<? super Sniffer>)new RunOne(
                   ImmutableList.of(
                      Pair.of(SetWalkTargetFromLookTarget.create(1.0F, 3), 2),
                      Pair.of(new SnifferAi.Scenting(40, 80), 1),

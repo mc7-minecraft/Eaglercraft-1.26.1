@@ -16,6 +16,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.behavior.AnimalPanic;
+import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.CountDownCooldownTicks;
 import net.minecraft.world.entity.ai.behavior.DoNothing;
 import net.minecraft.world.entity.ai.behavior.InteractWithDoor;
@@ -86,7 +87,7 @@ public class CopperGolemAi {
             Pair.of(1, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(40, 80))),
             Pair.of(
                2,
-               new RunOne(
+               (BehaviorControl<? super CopperGolem>)new RunOne(
                   ImmutableMap.of(
                      MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT, MemoryModuleType.TRANSPORT_ITEMS_COOLDOWN_TICKS, MemoryStatus.VALUE_PRESENT
                   ),

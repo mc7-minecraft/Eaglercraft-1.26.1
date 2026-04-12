@@ -67,8 +67,8 @@ public class TextComponentHoverAndClickEventFix extends DataFix {
                      return hasHover || hasClick;
                   });
                   return !hasHoverOrClick
-                     ? textComponent
-                     : Util.writeAndReadTypedOrThrow(
+                     ? (C2)textComponent
+                     : (C2)Util.writeAndReadTypedOrThrow(
                            ExtraDataFixUtils.cast(patchedInputType, textComponent, ops),
                            newTextComponentType,
                            TextComponentHoverAndClickEventFix::fixTextComponent

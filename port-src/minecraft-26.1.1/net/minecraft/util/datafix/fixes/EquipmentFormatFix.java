@@ -86,7 +86,7 @@ public class EquipmentFormatFix extends DataFix {
                   Either<ItemStackOld, Unit> head = getItemFromList(3, armorItems, isPlaceholder);
                   Either<ItemStackOld, Unit> mainhand = getItemFromList(0, handItems, isPlaceholder);
                   Either<ItemStackOld, Unit> offhand = getItemFromList(1, handItems, isPlaceholder);
-                  return areAllEmpty(body, saddle, feet, legs, chest, head, mainhand, offhand)
+                  Object transformed = areAllEmpty(body, saddle, feet, legs, chest, head, mainhand, offhand)
                      ? Pair.of(typeName, Either.right(Unit.INSTANCE))
                      : Pair.of(
                         typeName,
@@ -97,6 +97,7 @@ public class EquipmentFormatFix extends DataFix {
                            )
                         )
                      );
+                  return (Pair<String, Either<Pair<Either<ItemStackNew, Unit>, Pair<Either<ItemStackNew, Unit>, Pair<Either<ItemStackNew, Unit>, Pair<Either<ItemStackNew, Unit>, Pair<Either<ItemStackNew, Unit>, Pair<Either<ItemStackNew, Unit>, Pair<Either<ItemStackNew, Unit>, Pair<Either<ItemStackNew, Unit>, Dynamic<?>>>>>>>>>, Unit>>)transformed;
                };
             }
          );

@@ -18,6 +18,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.behavior.AnimalMakeLove;
 import net.minecraft.world.entity.ai.behavior.AnimalPanic;
+import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
 import net.minecraft.world.entity.ai.behavior.CountDownCooldownTicks;
 import net.minecraft.world.entity.ai.behavior.Croak;
@@ -93,7 +94,7 @@ public class FrogAi {
             Pair.of(3, TryFindLand.create(6, 1.0F)),
             Pair.of(
                4,
-               new RunOne(
+               (BehaviorControl<? super Frog>)new RunOne(
                   ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
                   ImmutableList.of(
                      Pair.of(RandomStroll.stroll(1.0F), 1),
@@ -120,7 +121,7 @@ public class FrogAi {
             Pair.of(3, TryFindLand.create(8, 1.5F)),
             Pair.of(
                5,
-               new GateBehavior(
+               (BehaviorControl<? super Frog>)new GateBehavior(
                   ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
                   ImmutableSet.of(),
                   GateBehavior.OrderPolicy.ORDERED,
@@ -150,7 +151,7 @@ public class FrogAi {
             Pair.of(3, TryLaySpawnOnFluidNearLand.create(Blocks.FROGSPAWN)),
             Pair.of(
                4,
-               new RunOne(
+               (BehaviorControl<? super Frog>)new RunOne(
                   ImmutableList.of(
                      Pair.of(RandomStroll.stroll(1.0F), 2),
                      Pair.of(SetWalkTargetFromLookTarget.create(1.0F, 3), 1),

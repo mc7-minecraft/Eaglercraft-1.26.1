@@ -13,6 +13,7 @@ import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.behavior.AnimalMakeLove;
 import net.minecraft.world.entity.ai.behavior.AnimalPanic;
 import net.minecraft.world.entity.ai.behavior.BabyFollowAdult;
+import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.behavior.CountDownCooldownTicks;
 import net.minecraft.world.entity.ai.behavior.DoNothing;
@@ -64,21 +65,21 @@ public class CamelAi {
       return ActivityData.create(
          Activity.IDLE,
          ImmutableList.<Pair<Integer, ? extends net.minecraft.world.entity.ai.behavior.BehaviorControl<? super Camel>>>of(
-            Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
-            Pair.of(1, new AnimalMakeLove(EntityType.CAMEL)),
+            Pair.of(0, (BehaviorControl<? super Camel>)SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
+            Pair.of(1, (BehaviorControl<? super Camel>)new AnimalMakeLove(EntityType.CAMEL)),
             Pair.of(
                2,
-               new RunOne(
+               (BehaviorControl<? super Camel>)new RunOne(
                   ImmutableList.of(
                      Pair.of(new FollowTemptation(camel -> 2.5F, camel -> camel.isBaby() ? 2.5 : 3.5), 1),
                      Pair.of(BehaviorBuilder.triggerIf(Predicate.not(Camel::refuseToMove), BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 2.5F)), 1)
                   )
                )
             ),
-            Pair.of(3, new RandomLookAround(UniformInt.of(150, 250), 30.0F, 0.0F, 0.0F)),
+            Pair.of(3, (BehaviorControl<? super Camel>)new RandomLookAround(UniformInt.of(150, 250), 30.0F, 0.0F, 0.0F)),
             Pair.of(
                4,
-               new RunOne(
+               (BehaviorControl<? super Camel>)new RunOne(
                   ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
                   ImmutableList.of(
                      Pair.of(BehaviorBuilder.triggerIf(Predicate.not(Camel::refuseToMove), RandomStroll.stroll(2.0F)), 1),

@@ -44,16 +44,7 @@ public class BundleItem extends Item {
    }
 
    private static Fraction getWeightSafe(final BundleContents contents) {
-      Object var10000;
-      Objects.requireNonNull(var10000);
-      Object var1 = var10000;
-
-      contents.weight();
-      return switch (var1) {
-         case Success success -> (Fraction)success.value();
-         case Error error -> Fraction.ONE;
-         default -> throw new MatchException(null, null);
-      };
+      return (Fraction)contents.weight().result().orElse(Fraction.ONE);
    }
 
    public static float getFullnessDisplay(final ItemStack itemStack) {

@@ -658,8 +658,7 @@ public class DataFixers {
                Type<?> entityType = this.getInputSchema().getType(References.ENTITY);
                OpticFinder<String> idFinder = DSL.fieldFinder("id", NamespacedSchema.namespacedString());
                OpticFinder<?> customNameFinder = entityType.findField("CustomName");
-               OpticFinder<Pair<String, String>> componentFinder = DSL.typeFinder(this.getInputSchema().getType(References.TEXT_COMPONENT));
-                              OpticFinder<Pair<String, String>> componentFinder = DSL.typeFinder((Type<Pair<String, String>>)this.getInputSchema().getType(References.TEXT_COMPONENT));
+               OpticFinder<Pair<String, String>> componentFinder = DSL.typeFinder((Type<Pair<String, String>>)this.getInputSchema().getType(References.TEXT_COMPONENT));
                return this.fixTypeEverywhereTyped(
                   "Command block minecart custom name fix",
                   entityType,

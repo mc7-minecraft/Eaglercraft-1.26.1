@@ -205,6 +205,8 @@ public class OverlayRecipeComponent implements GuiEventListener, Renderable {
                   }
                   break label19;
                }
+            default:
+               break;
          }
 
          return result;

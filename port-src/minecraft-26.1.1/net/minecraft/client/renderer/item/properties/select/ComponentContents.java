@@ -24,7 +24,7 @@ public record ComponentContents<T>(DataComponentType<T> componentType) implement
          (SelectItemModel.UnbakedSwitch<ComponentContents<T>, T> switchObject) -> switchObject.property().componentType,
          componentType -> SelectItemModelProperty.Type.createCasesFieldCodec(componentType.codecOrThrow())
                .xmap(
-                  cases -> new SelectItemModel.UnbakedSwitch<ComponentContents<T>, T>(new ComponentContents<>(componentType), (java.util.List)cases),
+                  cases -> new SelectItemModel.UnbakedSwitch<ComponentContents<T>, T>(new ComponentContents<T>((DataComponentType<T>)componentType), (java.util.List)cases),
                   switchValue -> (java.util.List)switchValue.cases()
                )
       );

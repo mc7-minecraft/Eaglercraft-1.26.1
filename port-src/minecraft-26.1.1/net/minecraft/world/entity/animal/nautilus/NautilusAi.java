@@ -18,6 +18,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.behavior.AnimalMakeLove;
 import net.minecraft.world.entity.ai.behavior.AnimalPanic;
+import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
 import net.minecraft.world.entity.ai.behavior.ChargeAttack;
 import net.minecraft.world.entity.ai.behavior.CountDownCooldownTicks;
@@ -87,7 +88,7 @@ public class NautilusAi {
             Pair.of(3, StartAttacking.create(NautilusAi::findNearestValidAttackTarget)),
             Pair.of(
                4,
-               new GateBehavior(
+               (BehaviorControl<? super Nautilus>)new GateBehavior(
                   ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
                   ImmutableSet.of(),
                   GateBehavior.OrderPolicy.ORDERED,

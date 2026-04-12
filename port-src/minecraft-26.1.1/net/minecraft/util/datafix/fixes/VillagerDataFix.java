@@ -6,6 +6,8 @@ import com.mojang.datafixers.DataFixUtils;
 import com.mojang.datafixers.Typed;
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Dynamic;
+import java.util.HashMap;
+import java.util.Map;
 
 public class VillagerDataFix extends NamedEntityFix {
    public VillagerDataFix(final Schema schema, final String entityType) {
@@ -22,18 +24,17 @@ public class VillagerDataFix extends NamedEntityFix {
             .remove("CareerLevel")
             .set(
                "VillagerData",
-               remainder.createMap(
-                  ImmutableMap.of(
-                     remainder.createString("type"),
-                     remainder.createString("minecraft:plains"),
-                     remainder.createString("profession"),
-                     remainder.createString(upgradeData(remainder.get("Profession").asInt(0), remainder.get("Career").asInt(0))),
-                     remainder.createString("level"),
-                     (Dynamic)DataFixUtils.orElse(remainder.get("CareerLevel").result(), remainder.createInt(1))
-                  )
-               )
+               remainder.createMap(createVillagerDataMap(remainder))
             )
       );
+   }
+
+   private static Map<Dynamic<?>, Dynamic<?>> createVillagerDataMap(final Dynamic<?> remainder) {
+      Map<Dynamic<?>, Dynamic<?>> map = new HashMap<>();
+      map.put(remainder.createString("type"), remainder.createString("minecraft:plains"));
+      map.put(remainder.createString("profession"), remainder.createString(upgradeData(remainder.get("Profession").asInt(0), remainder.get("Career").asInt(0))));
+      map.put(remainder.createString("level"), (Dynamic<?>)DataFixUtils.orElse(remainder.get("CareerLevel").result(), remainder.createInt(1)));
+      return map;
    }
 
    private static String upgradeData(final int profession, final int career) {

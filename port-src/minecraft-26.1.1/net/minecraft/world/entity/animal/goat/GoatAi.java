@@ -12,6 +12,7 @@ import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.behavior.AnimalMakeLove;
 import net.minecraft.world.entity.ai.behavior.AnimalPanic;
 import net.minecraft.world.entity.ai.behavior.BabyFollowAdult;
+import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.CountDownCooldownTicks;
 import net.minecraft.world.entity.ai.behavior.DoNothing;
 import net.minecraft.world.entity.ai.behavior.FollowTemptation;
@@ -93,7 +94,7 @@ public class GoatAi {
             Pair.of(2, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 1.25F)),
             Pair.of(
                3,
-               new RunOne(
+               (BehaviorControl<? super Goat>)new RunOne(
                   ImmutableList.of(
                      Pair.of(RandomStroll.stroll(1.0F), 2), Pair.of(SetWalkTargetFromLookTarget.create(1.0F, 3), 2), Pair.of(new DoNothing(30, 60), 1)
                   )

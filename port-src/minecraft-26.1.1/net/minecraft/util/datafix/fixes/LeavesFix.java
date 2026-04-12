@@ -357,7 +357,10 @@ public class LeavesFix extends DataFix {
          return this.isSkippable()
             ? section
             : section.update(DSL.remainderFinder(), tag -> tag.set("BlockStates", tag.createLongList(Arrays.stream(this.storage.getRaw()))))
-               .set(this.paletteFinder, this.palette.stream().map(b -> Pair.of(References.BLOCK_STATE.typeName(), b)).collect(Collectors.toList()));
+               .set(
+                  this.paletteFinder,
+                  (List<Pair<String, Dynamic<?>>>)this.palette.stream().map(b -> Pair.of(References.BLOCK_STATE.typeName(), (Dynamic<?>)b)).collect(Collectors.toList())
+               );
       }
 
       public boolean isSkippable() {

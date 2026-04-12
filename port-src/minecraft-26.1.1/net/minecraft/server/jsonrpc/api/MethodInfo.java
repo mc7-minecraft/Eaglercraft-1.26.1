@@ -3,6 +3,7 @@ package net.minecraft.server.jsonrpc.api;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.mojang.datafixers.util.Function3;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.resources.Identifier;
@@ -26,6 +27,10 @@ public record MethodInfo<Params, Result>(String description, Optional<ParamInfo<
       return codec.xmap(MethodInfo::toOptional, MethodInfo::toList);
    }
 
+   private static <Params, Result> MethodInfo<Params, Result> create(final String description, final Optional<ParamInfo<Params>> params, final Optional<ResultInfo<Result>> result) {
+      return new MethodInfo<>(description, params, result);
+   }
+
    private static <Params, Result> MapCodec<MethodInfo<Params, Result>> typedCodec() {
       return RecordCodecBuilder.mapCodec(
          i -> i.group(
@@ -33,7 +38,7 @@ public record MethodInfo<Params, Result>(String description, Optional<ParamInfo<
                   paramsTypedCodec().fieldOf("params").forGetter((MethodInfo<Params, Result> info) -> (Optional)info.params()),
                   ResultInfo.<Result>typedCodec().optionalFieldOf("result").forGetter((MethodInfo<Params, Result> info) -> info.result())
                )
-               .apply(i, (String description, Optional<ParamInfo<Params>> params, Optional<ResultInfo<Result>> result) -> new MethodInfo<>(description, params, result))
+               .apply(i, (Function3<String, Optional<ParamInfo<Params>>, Optional<ResultInfo<Result>>, MethodInfo<Params, Result>>)MethodInfo::create)
       );
    }
 

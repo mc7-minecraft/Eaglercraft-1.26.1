@@ -58,6 +58,7 @@ import net.minecraft.world.entity.ai.behavior.StopAttackingIfTargetInvalid;
 import net.minecraft.world.entity.ai.behavior.StopBeingAngryIfTargetDead;
 import net.minecraft.world.entity.ai.behavior.TriggerGate;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
+import net.minecraft.world.entity.ai.behavior.declarative.Trigger;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.util.LandRandomPos;

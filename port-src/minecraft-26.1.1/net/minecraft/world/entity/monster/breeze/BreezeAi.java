@@ -60,7 +60,7 @@ public class BreezeAi {
                )
             ),
             Pair.of(2, new BreezeAi.SlideToTargetSink(20, 40)),
-            Pair.of(3, new RunOne(ImmutableList.of(Pair.of(new DoNothing(20, 100), 1), Pair.of(RandomStroll.stroll(0.6F), 2))))
+            Pair.of(3, (BehaviorControl<? super Breeze>)new RunOne(ImmutableList.of(Pair.of(new DoNothing(20, 100), 1), Pair.of(RandomStroll.stroll(0.6F), 2))))
          )
       );
    }

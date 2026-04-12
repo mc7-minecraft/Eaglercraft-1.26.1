@@ -8,6 +8,7 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.behavior.AnimalPanic;
 import net.minecraft.world.entity.ai.behavior.BabyFollowAdult;
+import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.CountDownCooldownTicks;
 import net.minecraft.world.entity.ai.behavior.FollowTemptation;
 import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
@@ -52,7 +53,7 @@ public class HappyGhastAi {
             Pair.of(1, new FollowTemptation(mob -> 1.25F, mob -> 3.0, true)),
             Pair.of(2, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, mob -> 1.1F, MemoryModuleType.NEAREST_VISIBLE_PLAYER, true)),
             Pair.of(3, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, mob -> 1.1F, MemoryModuleType.NEAREST_VISIBLE_ADULT, true)),
-            Pair.of(4, new RunOne(ImmutableList.of(Pair.of(RandomStroll.fly(1.0F), 1), Pair.of(SetWalkTargetFromLookTarget.create(1.0F, 3), 1))))
+            Pair.of(4, (BehaviorControl<? super HappyGhast>)new RunOne(ImmutableList.of(Pair.of(RandomStroll.fly(1.0F), 1), Pair.of(SetWalkTargetFromLookTarget.create(1.0F, 3), 1))))
          )
       );
    }

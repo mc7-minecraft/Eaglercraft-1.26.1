@@ -10,6 +10,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.behavior.AnimalPanic;
+import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.CountDownCooldownTicks;
 import net.minecraft.world.entity.ai.behavior.FollowTemptation;
 import net.minecraft.world.entity.ai.behavior.GateBehavior;
@@ -50,7 +51,7 @@ public class TadpoleAi {
             Pair.of(1, new FollowTemptation(s -> 1.25F)),
             Pair.of(
                2,
-               new GateBehavior(
+               (BehaviorControl<? super Tadpole>)new GateBehavior(
                   ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
                   ImmutableSet.of(),
                   GateBehavior.OrderPolicy.ORDERED,

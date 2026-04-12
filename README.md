@@ -1,70 +1,54 @@
 # Eaglercraft 26.1.1
 
-This folder hosts the active in-repo conversion pipeline for turning Minecraft 26.1.1 (Optimised) into a browser build using a local TeaVM setup and the Eaglercraft runtime technique.
+This workspace contains the active source port of Minecraft 26.1.1 into an Eaglercraft-branded browser build. The goal is to keep everything local to this repository, recover and repair the Java sources in place, and produce the JavaScript and WASM browser entrypoints from the same tree.
 
-## Current Outputs
+The main port source lives under `port-src/minecraft-26.1.1/`. Runtime shims and browser-facing platform layers live under `runtime/`, while donor inputs and recovered reference material are kept in `reference/` and `archives/`.
 
-- eaglercraft_26-1-1_javascript.html
-- eaglercraft_26-1-1_wasm.html
+## What this repo is for
 
-## What is already wired
+- Recovering and fixing the 26.1.1 Java sources so they compile cleanly in this workspace
+- Keeping the browser port branded as Eaglercraft 26.1.1
+- Building the Java-side output used by the TeaVM and browser runtime pipeline
+- Syncing runtime bridge code between the base browser layer and the LWJGL3-oriented layer
 
-- Local runtime bridge files copied into this workspace
-- Browser bootstrap with dynamic canvas and resize handling
-- GPU adapter choosing WebGPU first, with WebGL2 fallback
-- Build manifest generation for JS and WASM targets
-- Java-side Eaglercraft runtime environment abstraction for browser mode
-- Vulkan backend routing through Eaglercraft bridge hooks
-- Browser-aware GLX and event pump path
-- Browser input/audio bridge stubs connected into runtime paths
-- Missing `com.mojang.blaze3d` Java sources recovered from `26.1.1 - Original` class files
-- Full non-inner class source recovery from `26.1.1 - Original` into `port-src/minecraft-26.1.1/`
-- Direct Eagler-style launch flow in both HTML entrypoints
-- WSS relay/server wiring aligned to Eaglercraft patterns
-- Local launcher HTML entrypoints wired to `build/javascript/classes.js` and `build/wasm/bootstrap.js`
-- Runtime sync scripts split between `runtime/eagler-base` and `runtime/eagler-lwjgl3`
+## Repository layout
 
-## Run the process
+- `port-src/minecraft-26.1.1/` - active source tree for the port
+- `runtime/eagler-base/` - shared browser runtime bridge files
+- `runtime/eagler-lwjgl3/` - LWJGL3-oriented bridge files
+- `scripts/` - build, sync, and recovery scripts
+- `reference/` - donor runtime references and comparison material
+- `archives/` - archived jars and other import inputs
+- `build/` - generated build output
+- `logs/` - build and recovery logs
+- `bin/main/` - prebuilt assets and manifest files used by the current workflow
 
-From this folder:
+## Build and validation
 
-- powershell -ExecutionPolicy Bypass -File scripts/build_eaglercraft.ps1
+From the repository root, the main compile check is:
 
-This starts the conversion scaffold process and writes logs into logs/.
+- `.\gradlew.bat compileJava --console=plain --no-daemon`
 
-To compile donor JS and WASM payloads and sync them into this workspace in one step:
+Common workflow scripts:
 
-- powershell -ExecutionPolicy Bypass -File scripts/compile_eaglercraft_client.ps1
+- `powershell -ExecutionPolicy Bypass -File scripts/build_eaglercraft.ps1`
+- `powershell -ExecutionPolicy Bypass -File scripts/compile_eaglercraft_client.ps1`
+- `powershell -ExecutionPolicy Bypass -File scripts/recover_sources_from_jar.ps1`
 
-## Remaining heavy lift
+## Current status
 
-The final fully working port requires a full Java-side compatibility layer for 26.1.1 internals and rendering calls so TeaVM can emit valid browser payloads.
+- Source recovery is already in place for the current port tree.
+- Compile cleanup is still ongoing in `port-src/minecraft-26.1.1/`.
+- Generated output is treated as build output, not as the place to fix source issues.
+- The browser launch files are `eaglercraft_26-1-1_javascript.html` and `eaglercraft_26-1-1_wasm.html`.
 
-Key workstreams:
+## Browser targets
 
-- Replace desktop-native GPU path calls with Eaglercraft platform abstractions
-- Bind audio engine to WebAudio nodes for streaming and positional audio
-- Bind keyboard/mouse/touch/gamepad controls to browser input APIs
-- Build and link JavaScript and WASM targets from converted Java sources
+- `eaglercraft_26-1-1_javascript.html`
+- `eaglercraft_26-1-1_wasm.html`
 
-## Current development state
+## Notes
 
-- The local Gradle and TeaVM project lives entirely inside this folder.
-- External `eaglercraftx-*` donor folders were removed from the workspace root and kept under `reference/` when needed.
-- Java compile cleanup is still in progress.
-- The launcher HTML files are the current browser entrypoints for JS and WASM builds.
-
-## Source Recovery Notes
-
-- Recovered decompiled source cache: `build/decompiled_blaze3d_all/`
-- Full recovered source cache: `build/decompiled_original_all/`
-- Imported missing classes into: `port-src/minecraft-26.1.1/com/mojang/blaze3d/`
-- Imported all missing classes into: `port-src/minecraft-26.1.1/`
-- Verification status: all non-inner classes from `26.1.1 - Original` now have matching `.java` files in the port source tree
-- Extra fallback script (from `.minecraft` jars): `scripts/recover_sources_from_jar.ps1`
-- Organized reference inputs live under `reference/`
-- Archive jars and zip inputs live under `archives/`
-
-## Naming
-
-All produced files and runtime naming use Eaglercraft branding.
+- The workspace is intentionally local-only.
+- The port keeps Eaglercraft branding throughout the produced files and runtime naming.
+- If you are continuing the port, start with `compileJava`, fix the next source-level compiler front, and keep changes inside `port-src/minecraft-26.1.1/` unless a runtime bridge also needs adjustment.

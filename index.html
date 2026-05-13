@@ -43,8 +43,8 @@
         if (s) window.eaglercraftXOpts.joinServer = s;
       }
 
-      var script = document.createElement("script");
-      script.src = "classes.js";
+      var script = document.createElement("script") 
+      <script type="text/javascript" src="classes.js"></script>
       script.onload = function() {
         document.getElementById("status").textContent = "Starting Eaglercraft JS payload...";
         if (typeof window.main === "function") {

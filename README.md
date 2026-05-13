@@ -1,4 +1,4 @@
-# Eaglercraft 26.1.1
+# Eaglercraft 1.26.1
 
 This workspace contains the active source port of Minecraft 26.1.1 into an Eaglercraft-branded browser build. The goal is to keep everything local to this repository, recover and repair the Java sources in place, and produce the JavaScript and WASM browser entrypoints from the same tree.
 

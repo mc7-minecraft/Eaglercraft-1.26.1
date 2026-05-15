@@ -1,53 +1,41 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Eaglercraft 1.26.1 </title>
-  <style>
-    html, body { margin: 0; height: 100%; background: #000; color: #f2f3f5; font-family: "Segoe UI", sans-serif; }
-    #eaglercraft_frame { width: 100vw; height: 100vh; position: relative; }
-    #status { position: absolute; left: 12px; top: 12px; background: rgba(0,0,0,0.6); padding: 8px 10px; border-radius: 6px; font-size: 13px; }
-  </style>
-</head>
-<body>
-  <div id="eaglercraft_frame">
-    <div id="status">Booting Eaglercraft JavaScript runtime...</div>
-  </div>
-  <script type="text/javascript" src="fix-webm-duration.js"></script>
-  <script type="text/javascript" src="classes1.js"></script>
-  <script>
-    "use strict";
-    window.addEventListener("load", function() {
-      var relayId = Math.floor(Math.random() * 3);
-      window.eaglercraftXOpts = {
-        demoMode: false,
-        container: "eaglercraft_frame",
-        assetsURI: "assets.epk",
-        localesURI: "build/javascript/lang/",
-        worldsDB: "eaglercraft26_worlds",
-        resourcePacksDB: "eaglercraft26_resourcepacks",
-        servers: [
-          { addr: "wss://relay.deev.is/", name: "Eaglercraft Relay" }
-          { addr: "wss://mc7-bedwars.eagler.host/", name: "mc7 bedwars" }
-        ],
-        relays: [
-          { addr: "wss://relay.deev.is/", comment: "relay #1", primary: relayId === 0 },
-          { addr: "wss://relay.lax1dude.net/", comment: "relay #2", primary: relayId === 1 },
-          { addr: "wss://relay.shhnowisnottheti.me/", comment: "relay #3", primary: relayId === 2 }
-        ]
-      };
-
-      var q = window.location.search;
-      if ((typeof q === "string") && q[0] === "?" && (typeof window.URLSearchParams !== "undefined")) {
-        q = new window.URLSearchParams(q);
-        var s = q.get("server");
-        if (s) window.eaglercraftXOpts.joinServer = s;
-      }
-
-
-      
-    });
-  </script>
-</body>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Play minecraft 1.21.1 in your browser" />
+		<meta name="keywords" content="eaglercraft, eaglercraftw, minecraft, 1.21.1, 1.21" />
+		<title>Eaglercraft 1.21.1</title>
+		<meta property="og:locale" content="en-US" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="Eaglercraft 1.16.5" />
+		<meta property="og:description" content="Play minecraft 1.16.5 in your browser" />
+		<meta property="og:image" content="favicon.png" />
+		<link type="image/png" rel="shortcut icon" href="favicon.png" />
+		<script type="text/javascript" src="fix-webm-duration.js"></script>
+		<script type="text/javascript" src="classes.js"></script>
+    <script type="text/javascript">
+			window.addEventListener("load", () => {
+				if(document.location.href.startsWith("file:")) {
+					alert("HTTP please, do not open this file locally, run a local HTTP server and load it via HTTP");
+				}else {
+					window.eaglercraftXOpts = {
+						container: "game_frame",
+						assetsURI: "assets.epk",
+						localesURI: "lang/",
+						worldsDB: "worlds/",
+						servers: [
+							{ addr: "wss://", name: "Server not found! Error Code 134: Server Error" },
+              { addr: "wss://learnmaths.ir", name: "AdderallMC" },
+							{ addr: "wss://arch.mc", name: "ArchMC" },
+							{ addr: "wss://play.craftclue.rocks", name: "CraftClue"}
+						]
+					};
+					main();
+				}
+			});
+		</script>
+	</head>
+	<body style="margin:0px;width:100vw;height:100vh;overflow:hidden;" id="game_frame">
+	</body>
 </html>
